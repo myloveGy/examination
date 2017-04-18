@@ -1,0 +1,203 @@
+p {
+    margin:0;
+}
+div fieldset {
+    margin: 10px 0;
+    border: 1px solid #b8babb;
+    position: relative;
+    text-align: center;
+}
+
+div fieldset legend {
+    margin-left: 25px;
+    font-size: 12px;
+    color: #ff0202;
+    text-align: left;
+    border: none;
+    padding:0 3px;
+    margin-bottom:0;
+    width:auto;
+}
+
+div fieldset.kaochang-main {
+    padding-bottom: 12px;
+}
+
+p a.see-img {
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+p#question-desc span {
+    padding: 0 5px;
+}
+
+p#question-desc span strong {
+    color: #1dacf9;
+    font-size: 18px;
+}
+
+p#question-desc span.dui {
+    color: #1dacf9;
+}
+
+p#question-desc span.cuo {
+    color: red;
+}
+
+.info-up {
+    min-height: 380px;
+}
+
+.info-up .infoup-left {
+    min-width: 185px;
+}
+
+.infoup-left .kaochang-info {
+    height: 50px;
+}
+
+.kaosheng-info div.info-img {
+    padding:20px;
+}
+
+.info-up .infoup-center {
+    min-height: 320px;
+    overflow: hidden;
+    color: #4c4c4c;
+}
+
+.infoup-center .timu-container .result-container {
+    width: 100%;
+    clear: both;
+}
+
+.infoup-center .timu-container .timu-content {
+    min-height: 270px;
+    overflow: auto;
+    text-align: left;
+}
+
+.kaosheng-info p.text-right {
+    margin-bottom: 15px;
+}
+
+.options-container button {
+    font-weight: bold;
+}
+
+.kaosheng-info p {
+    text-align: left;
+    font-size: 14px;
+    height: 24px;
+    width:150px;
+    margin:0 auto;
+}
+
+.kaosheng-info p.pull-right {
+    padding-right: 56px;
+}
+
+.kaochang-info span {
+    position: relative;
+    top: 4px;
+}
+
+.infoup-center .timu-container {
+    padding: 15px 20px;
+    min-height: 320px;
+    overflow: hidden;
+    color: #4c4c4c;
+}
+
+div.info-middle fieldset {
+    padding: 10px 0;
+    width: 100%;
+}
+
+div.fun-btns {
+    margin: 30px 0 0 0;
+}
+
+div.info-down fieldset {
+    padding: 20px;
+}
+
+.info-down .datika li:hover {
+    background: #dfdfdf;
+    border-color: #dfdfdf;
+}
+
+.info-down .datika li {
+    border: 1px solid #e6e6e6;
+    text-align: center;
+    cursor: pointer;
+    width: 39px;
+    height: 39px;
+    font-size: 18px;
+    color: #4c4c4c;
+    margin-top: 4px;
+    margin-left: 4px;
+    line-height: 40px;
+    float: left;
+}
+
+.info-down .datika li.current {
+    border-color: #dfdfdf;
+    background: #dfdfdf;
+}
+
+.info-down .datika li.dui {
+    background: #e0f3fe;
+    border-color: #1dacf9;
+    color: #1dacf9;
+}
+
+.info-down .datika li.cuo {
+    background: #fee7e7;
+    border-color: #f25e5e;
+    color: #f25e5e;
+}
+
+.info-middle .time-info span {
+    font-weight: bold;
+    font-size: 32px;
+}
+div.info-middle fieldset.time-info {
+    padding: 0;
+}
+
+.infoup-center .timu-container .timu-content p {
+    line-height: 1.65;
+    margin: 8px 0;
+    font-size: 18px;
+    padding-left: 30px;
+}
+
+.info-middle .tip-container .tip-content {
+    padding-top: 4px;
+    text-indent: 30px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.infoup-center .timu-container .timu-content .timu-p {
+    padding-left: 0;
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 12px;
+}
+
+div.performance {
+    margin:15px;
+    padding: 10px;
+}
+div.performance strong.yes {
+    color: #1dacf9;
+}
+div.performance strong.no, div.performance strong.fraction {
+    color: red;
+}

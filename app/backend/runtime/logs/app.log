@@ -1,0 +1,1141 @@
+2016-10-17 08:37:21 [127.0.0.1][1][78a38agbpub6f29vq4rhd2nng4][error][yii\web\HttpException:401] yii\web\UnauthorizedHttpException: 对不起，您还没获得显示导航栏目权限! in D:\html\examination\backend\controllers\SiteController.php:126
+Stack trace:
+#0 [internal function]: backend\controllers\SiteController->actionIndex()
+#1 D:\html\examination\vendor\yiisoft\yii2\base\InlineAction.php(55): call_user_func_array(Array, Array)
+#2 D:\html\examination\vendor\yiisoft\yii2\base\Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#3 D:\html\examination\vendor\yiisoft\yii2\base\Module.php(454): yii\base\Controller->runAction('', Array)
+#4 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('', Array)
+#5 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#6 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#7 {main}
+2016-10-17 08:37:20 [127.0.0.1][1][78a38agbpub6f29vq4rhd2nng4][info][application] $_COOKIE = [
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22133'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693440.965
+    'REQUEST_TIME' => 1476693440
+]
+2016-10-17 08:37:31 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:37:31 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22137'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693451.733
+    'REQUEST_TIME' => 1476693451
+]
+2016-10-17 08:37:32 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:37:32 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22137'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693452.027
+    'REQUEST_TIME' => 1476693452
+]
+2016-10-17 08:37:42 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:37:42 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/question/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22170'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693462.028
+    'REQUEST_TIME' => 1476693462
+]
+2016-10-17 08:38:06 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:38:06 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/special/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22196'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693486.13
+    'REQUEST_TIME' => 1476693486
+]
+2016-10-17 08:38:06 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:38:06 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/special/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22196'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693486.419
+    'REQUEST_TIME' => 1476693486
+]
+2016-10-17 08:38:14 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:38:14 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/subject/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22196'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693494.271
+    'REQUEST_TIME' => 1476693494
+]
+2016-10-17 08:38:19 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:38:19 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/chapter/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22196'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693499.401
+    'REQUEST_TIME' => 1476693499
+]
+2016-10-17 08:38:19 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:38:19 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/chapter/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22196'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693499.808
+    'REQUEST_TIME' => 1476693499
+]
+2016-10-17 08:38:23 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:38:23 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/question/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22196'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693503.808
+    'REQUEST_TIME' => 1476693503
+]
+2016-10-17 08:39:41 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:39:40 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22272'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693580.974
+    'REQUEST_TIME' => 1476693580
+]
+2016-10-17 08:39:41 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:39:41 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22272'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693581.266
+    'REQUEST_TIME' => 1476693581
+]
+2016-10-17 08:39:54 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:39:54 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22311'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693594.197
+    'REQUEST_TIME' => 1476693594
+]
+2016-10-17 08:40:09 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:40:09 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22431'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693609.735
+    'REQUEST_TIME' => 1476693609
+]
+2016-10-17 08:40:10 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/thumb_5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:40:10 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/view'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22443'
+    'REDIRECT_URL' => '/public/assets/avatars/thumb_5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/thumb_5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693610.286
+    'REQUEST_TIME' => 1476693610
+]
+2016-10-17 08:40:10 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/5800e78c5579e.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:40:10 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/view'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22405'
+    'REDIRECT_URL' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/5800e78c5579e.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693610.282
+    'REQUEST_TIME' => 1476693610
+]
+2016-10-17 08:40:44 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/58048e733e5f4.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:40:44 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_IF_MODIFIED_SINCE' => 'Mon, 17 Oct 2016 08:40:19 GMT'
+    'HTTP_IF_NONE_MATCH' => '\"cba-53f0b869ead85\"'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22498'
+    'REDIRECT_URL' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693644.792
+    'REQUEST_TIME' => 1476693644
+]
+2016-10-17 08:41:05 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/58048e733e5f4.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:41:05 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22536'
+    'REDIRECT_URL' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693665.692
+    'REQUEST_TIME' => 1476693665
+]
+2016-10-17 08:42:49 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/58048e733e5f4.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:42:48 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22666'
+    'REDIRECT_URL' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693768.949
+    'REQUEST_TIME' => 1476693768
+]
+2016-10-17 08:42:49 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "public/assets/avatars/58048e733e5f4.jpg". in D:\html\examination\vendor\yiisoft\yii2\base\Module.php:460
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\web\Application.php(87): yii\base\Module->runAction('public/assets/a...', Array)
+#1 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: 页面未找到。 in D:\html\examination\vendor\yiisoft\yii2\web\Application.php:99
+Stack trace:
+#0 D:\html\examination\vendor\yiisoft\yii2\base\Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 D:\html\examination\backend\web\index.php(18): yii\base\Application->run()
+#2 {main}
+2016-10-17 08:42:49 [127.0.0.1][-][-][info][application] $_COOKIE = [
+    'PHPSESSID' => 'f0rs5ba07cjmrsdup44em9agi5'
+    '_csrf' => 'a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"RKPuu53BMTYgXfycR8znLsh-sRTvExHj\";}'
+    '_identity' => 'eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca:2:{i:0;s:9:\"_identity\";i:1;s:46:\"[1,\"gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM\",2592000]\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'yii2.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://yii2.com/admin/index'
+    'HTTP_COOKIE' => 'PHPSESSID=f0rs5ba07cjmrsdup44em9agi5; _csrf=a7cdaef86aee8826b1a5569b8afa53fcbc5d4e18b7067b5eead1079f5e94ee78a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22RKPuu53BMTYgXfycR8znLsh-sRTvExHj%22%3B%7D; _identity=eefe2563d5fa8d85805615d73ecb38bfe9af7e9398ecf4db8ca35283a2e6fbfca%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM%22%2C2592000%5D%22%3B%7D'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\ProgramData\\Oracle\\Java\\javapath;D:\\software\\java\\bin;C:\\Program Files (x86)\\Common Files\\NetSarang;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\server\\MySQL\\bin;D:\\server\\Mongo\\bin;D:\\server\\php7;C:\\Program Files (x86)\\Windows Kits\\8.1\\Windows Performance Toolkit\\;C:\\Program Files\\Microsoft SQL Server\\110\\Tools\\Binn\\;C:\\Program Files (x86)\\Microsoft SDKs\\TypeScript\\1.0\\;D:\\go\\bin;D:\\server\\php5.5;C:\\ProgramData\\ComposerSetup\\bin;D:\\software\\Git\\cmd;D:\\software\\TortoiseGit\\bin;D:\\server\\php7;C:\\Program Files\\TortoiseSVN\\bin;D:\\server\\redis;'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.23 (Win64) PHP/7.0.11'
+    'SERVER_NAME' => 'yii2.com'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/html/examination/backend/web/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/html/examination/backend/web/index.php'
+    'REMOTE_PORT' => '22662'
+    'REDIRECT_URL' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/public/assets/avatars/58048e733e5f4.jpg'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1476693769.263
+    'REQUEST_TIME' => 1476693769
+]

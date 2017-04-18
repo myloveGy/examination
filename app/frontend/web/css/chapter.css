@@ -1,0 +1,32 @@
+.categroy-hd {
+    overflow: hidden;
+    height: 38px;
+    line-height: 38px;
+    font-size:18px;
+}
+.categroy-hd h3 {
+    margin:0;
+}
+.categroy-hd h3 a, .categroy-hd h3 {
+    color: inherit;
+    line-height: 38px;
+    font-weight: bold;
+    font-size:18px;
+}
+.lx-title {
+    color: #3c3c3c;
+    font-size: 20px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+}
+
+.categroy-bd ul li {
+    float: left;
+    display: inline;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 13px;
+    padding-right: 40px;
+    list-style-type: none;
+}
