@@ -12,7 +12,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
-use yii\base\Model;
+use app\models\Model;
 
 /**
  * User model

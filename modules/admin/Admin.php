@@ -22,6 +22,7 @@ class Admin extends \yii\base\Module
         parent::init();
     }
 
+
     public function beforeAction($action)
     {
         $isReturn = false;
@@ -32,7 +33,7 @@ class Admin extends \yii\base\Module
             } else {
                 // 验证用户是否已经登录
                 if (Yii::$app->admin->isGuest) {
-                    return Yii::$app->response->redirect(yii\helpers\Url::toRoute(['default/login']));
+                    $isReturn = Yii::$app->response->redirect(yii\helpers\Url::toRoute(['default/login']));
                 } else {
                     $isReturn = true;
                 }

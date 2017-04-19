@@ -1,14 +1,19 @@
 <?php
-
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use app\models\LoginForm;
-use app\models\ContactForm;
+use app\common\controllers\Controller;
+use app\common\helpers\Helper;
+use app\models\Special;
+use app\models\Subject;
+use app\models\User;
 
+/**
+ * Site controller
+ */
 class SiteController extends Controller
 {
     /**
@@ -19,8 +24,13 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'register', 'captcha'],
                 'rules' => [
+                    [
+                        'actions' => ['register', 'captcha'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
@@ -31,7 +41,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    //'logout' => ['post'],
                 ],
             ],
         ];
@@ -43,83 +53,138 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+//                'backColor' => 0x000000,    // 背景颜色
+                'maxLength' => 6,           // 最大显示个数
+                'minLength' => 6,           // 最少显示个数
+                'padding'   => 5,           // 间距
+                'height'    => 38,          // 高度
+                'width'     => 130,         // 宽度
+//                'foreColor' => 0xffffff,     // 字体颜色
+                'offset'    => 4,           // 设置字符偏移量 有效果
+//                'controller' => 'register',    // 拥有这个动作的controller
             ],
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
-        return $this->render('index');
-    }
-
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        return $this->render('login', [
-            'model' => $model,
+        // 查询科目一
+        $subject = Subject::findOne(['name' => '科目一']);
+        if (!$subject) $subject = Subject::findOne(1);
+        // 查询难题
+        $special = Special::findOne(['name' => '难题']);
+        return $this->render('index', [
+            'subject' => $subject,
+            'special' => $special,
         ]);
     }
 
     /**
-     * Logout action.
-     *
-     * @return string
+     * 用户重复登陆设置返回信息
+     * @return bool
+     */
+    protected function loginRepeat()
+    {
+        $this->arrJson = [
+            'errCode' => 0,
+            'errMsg'  => Yii::t('app', 'loginRepeat'),
+            'data'    => [
+                'username' => Yii::$app->user->identity->username,
+                'email'    => Yii::$app->user->identity->email,
+                'face'     => Yii::$app->user->identity->face,
+            ],
+        ];
+
+        return true;
+    }
+
+    /**
+     * login() 用户登录和注册成功返回
+     * @param string $message
+     * @return bool
+     */
+    protected function login($message = 'loginSuccess')
+    {
+        $this->arrJson = [
+            'errCode' => 0,
+            'errMsg'  => Yii::t('app', $message),
+            'data'    => [
+                'username' => Yii::$app->user->identity->username,
+                'email'    => Yii::$app->user->identity->email,
+                'face'     => Yii::$app->user->identity->face,
+            ],
+        ];
+
+        return true;
+    }
+
+    /**
+     * actionLogin() 用户登录
+     * @return mixed|string
+     */
+    public function actionLogin()
+    {
+        // 用户没有登录
+        if (Yii::$app->user->isGuest) {
+            $model = new LoginForm();
+            if ($model->load(['params' => Yii::$app->request->post()], 'params') && $model->login()) {
+                $this->login();
+            } else {
+                $this->arrJson['errCode'] = 1;
+                $this->arrJson['errMsg'] = $model->getErrorString();
+            }
+        } else {
+            $this->loginRepeat();
+        }
+
+        return $this->returnJson();
+    }
+
+    /**
+     * actionLogout用户退出
+     * @return \yii\web\Response
      */
     public function actionLogout()
     {
+        // 退出之前修改登录信息
+        $user = User::findOne(Yii::$app->user->id);
+        if ($user) {
+            $user->last_time = time();
+            $user->last_ip   = Helper::getIpAddress();
+            $user->save();
+        }
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
     /**
-     * Displays contact page.
-     *
-     * @return string
+     * actionRegister() 用户注册
+     * @return string|\yii\web\Response
      */
-    public function actionContact()
+    public function actionRegister()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
+        if (Yii::$app->user->isGuest) {
+            if (Yii::$app->request->isAjax) {
+                $model = new RegisterForm();
+                // 数据加载成功
+                if ($model->load(['params' => Yii::$app->request->post()], 'params')) {
+                    if ($user = $model->register()) {
+                        if (Yii::$app->getUser()->login($user)) {
+                            $this->login('registerSuccess');
+                        }
+                    } else {
+                        $this->arrJson['errCode'] = 2;
+                        $this->arrJson['errMsg']  = $model->getErrorString();
+                    }
+                }
+            }
+        } else {
+            $this->loginRepeat();
         }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
+        return $this->returnJson();
     }
 }

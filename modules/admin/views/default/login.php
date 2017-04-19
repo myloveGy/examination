@@ -11,12 +11,12 @@ use yii\bootstrap\ActiveForm;
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <title>Yii2 Admin 后台登录页面</title>
     <!-- bootstrap & fontawesome -->
-    <link rel="stylesheet" href="/public/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/public/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/resource/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/resource/css/font-awesome.min.css" />
     <!-- text fonts -->
-    <link rel="stylesheet" href="/public/assets/css/ace-fonts.css" />
+    <link rel="stylesheet" href="/resource/css/ace-fonts.css" />
     <!-- ace styles -->
-    <link rel="stylesheet" href="/public/assets/css/ace.min.css" id="main-ace-style" />
+    <link rel="stylesheet" href="/resource/css/ace.min.css" id="main-ace-style" />
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/public/css/ace-part2.min.css" />
     <![endif]-->
@@ -25,30 +25,30 @@ use yii\bootstrap\ActiveForm;
     <![endif]-->
     <!-- inline styles related to this page -->
     <!-- ace settings handler -->
-    <script src="/public/assets/js/ace-extra.min.js"></script>
+    <script src="/resource/js/ace-extra.min.js"></script>
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
     <!--[if lte IE 8]>
-    <script src="/public/assets/js/html5shiv.min.js"></script>
-    <script src="/public/assets/js/respond.min.js"></script>
+    <script src="/resource/js/html5shiv.min.js"></script>
+    <script src="/resource/js/respond.min.js"></script>
     <![endif]-->
 
     <!-- 公共的JS文件 -->
     <!--[if !IE]> -->
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='/public/assets/js/jquery.min.js'>"+"<"+"/script>");
+        window.jQuery || document.write("<script src='/resource/js/jquery.min.js'>"+"<"+"/script>");
     </script>
     <!-- <![endif]-->
     <!--[if IE]>
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='/public/assets/js/jquery1x.min.js'>"+"<"+"/script>");
+        window.jQuery || document.write("<script src='/resource/js/jquery1x.min.js'>"+"<"+"/script>");
     </script>
     <![endif]-->
     <script type="text/javascript">
-        if('ontouchstart' in document.documentElement) document.write("<script src='/public/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+        if('ontouchstart' in document.documentElement) document.write("<script src='/resource/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
     </script>
-    <script src="/public/assets/js/bootstrap.min.js"></script>
+    <script src="/resource/js/bootstrap.min.js"></script>
     <!--[if lte IE 8]>
-    <script src="/public/assets/js/excanvas.min.js"></script>
+    <script src="/resource/js/excanvas.min.js"></script>
     <![endif]-->
 </head>
 <body class="login-layout light-login">
