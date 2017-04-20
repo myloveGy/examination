@@ -5,9 +5,9 @@ namespace app\modules\admin\controllers;
 use yii;
 use yii\web\Controller;
 use yii\web\UnauthorizedHttpException;
-use yii\filters\AccessControl;
+use app\modules\admin\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\Json;
+use app\common\helpers\Helper;
 use app\modules\admin\models\Menu;
 use app\modules\admin\models\Admin;
 use app\modules\admin\models\AdminForm;
@@ -18,6 +18,45 @@ use app\modules\admin\models\AdminForm;
 class DefaultController extends Controller
 {
     public $layout = false;
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow'   => true,
+                    ],
+                    [
+                        'actions' => ['logout', 'index', 'system'],
+                        'allow'   => true,
+                        'roles'   => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'error' => ['class' => 'yii\web\ErrorAction',],
+        ];
+    }
 
     /**
      * actionIndex() 管理员登录欢迎页
@@ -45,8 +84,9 @@ class DefaultController extends Controller
      */
     public function actionSystem()
     {
+        $this->layout = 'main';
         // 用户信息
-        Yii::$app->view->params['user']  = Yii::$app->getUser()->identity;
+        Yii::$app->view->params['user']  = Yii::$app->admin->identity;
 
         // 系统信息
         $system = explode(' ', php_uname());
@@ -90,14 +130,14 @@ class DefaultController extends Controller
     public function actionLogout()
     {
         // 用户退出修改登录时间
-        $admin = Admin::findOne(Yii::$app->user->id);
+        $admin = Admin::findOne(Yii::$app->admin->id);
         if ($admin) {
             $admin->last_time = time();
             $admin->last_ip   = Helper::getIpAddress();
             $admin->save();
         }
 
-        Yii::$app->user->logout();
+        Yii::$app->admin->logout();
         return $this->goHome();
     }
 }
