@@ -16,6 +16,12 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'RG8j2YozSEWqgqQQhjnEjXkm1yCP77U1',
         ],
+
+        // 权限管理
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -29,7 +35,7 @@ $config = [
 
         'admin' => [
             'class' => '\yii\web\User',
-            'identityClass' => 'app\modules\models\User',
+            'identityClass' => 'app\modules\admin\models\Admin',
             'enableAutoLogin' => true,
             'loginUrl' => ['/admin/default/login'],
             'idParam' => '_adminId',
@@ -74,7 +80,7 @@ $config = [
                 // 去掉自己加载的Jquery
                 'yii\web\JqueryAsset' => [
                     'sourcePath' => null,
-                    'js' => ['/js/jquery.min.js'],
+                    'js' => [],
                 ],
             ],
         ],
