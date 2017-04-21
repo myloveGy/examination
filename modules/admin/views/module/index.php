@@ -5,9 +5,9 @@ $this->title = '模块生成';
 $this->params['breadcrumbs'][] = $this->title;
 
 // 注入需要的JS
-$this->registerJsFile('@web/public/assets/js/fuelux/fuelux.spinner.min.js', ['depends' => 'backend\assets\AppAsset']);
-$this->registerJsFile('@web/public/assets/js/fuelux/fuelux.wizard.min.js', ['depends' => 'backend\assets\AppAsset']);
-$this->registerJsFile('@web/public/assets/js/bootstrap-wysiwyg.min.js', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/resource/js/fuelux/fuelux.spinner.min.js', ['depends' => 'app\assets\AdminAsset']);
+$this->registerJsFile('@web/resource/js/fuelux/fuelux.wizard.min.js', ['depends' => 'app\assets\AdminAsset']);
+$this->registerJsFile('@web/resource/js/bootstrap-wysiwyg.min.js', ['depends' => 'app\assets\AdminAsset']);
 ?>
 
 <div class="widget-box widget-color-blue">

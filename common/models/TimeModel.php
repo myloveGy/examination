@@ -6,18 +6,16 @@
  * Time: 下午11:01
  */
 
-namespace app\modules\admin\models;
+namespace app\common\models;
 
 use yii\behaviors\TimestampBehavior;
-use app\common\behaviors\UpdateBehavior;
 
-class AdminModel extends \app\common\models\Model
+class TimeModel extends Model
 {
     public function behaviors()
     {
         return [
             TimestampBehavior::className(),
-            UpdateBehavior::className(),
         ];
     }
 }

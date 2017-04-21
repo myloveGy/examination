@@ -164,7 +164,7 @@ class RoleController extends Controller
         }
 
         // 判断自己是否有这个权限
-        $uid      = Yii::$app->user->id;                     // 用户ID
+        $uid      = Yii::$app->admin->id;                     // 用户ID
         $objAuth  = Yii::$app->getAuthManager();             // 权限对象
         $mixRoles = $objAuth->getAssignment($name, $uid);    // 获取用户是否有改权限
         if ( ! $mixRoles && $uid != 1) {
@@ -302,7 +302,7 @@ class RoleController extends Controller
      */
     protected function getPermissions()
     {
-        $uid    = Yii::$app->user->id;
+        $uid    = Yii::$app->admin->id;
         $models = $uid == 1 ? Auth::find()->where(['type' => Auth::TYPE_PERMISSION])->all() : Yii::$app->getAuthManager()->getPermissionsByUser($uid);
         $permissions = [];
         foreach($models as $model) $permissions[$model->name] = $model->name . ' (' . $model->description . ')';

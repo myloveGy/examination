@@ -7,12 +7,12 @@
 
 namespace app\modules\admin\controllers;
 
-use common\helpers\Helper;
-use common\models\Answer;
-use common\models\Chapter;
-use common\models\Question;
-use common\models\Special;
-use common\models\Subject;
+use app\common\helpers\Helper;
+use app\common\models\Answer;
+use app\common\models\Chapter;
+use app\common\models\Question;
+use app\common\models\Special;
+use app\common\models\Subject;
 use yii\helpers\Json;
 
 class QuestionController extends Controller

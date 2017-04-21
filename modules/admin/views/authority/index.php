@@ -11,6 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script type="text/javascript">
     var m = mt({
         title: "权限信息",
+        pk: "name",
         table: {
             "aoColumns":[
                 {"title": "权限名称", "data": "name", "sName": "name", "edit": {"type": "text", "required": true,"rangelength":"[2, 64]"}, "search": {"type": "text"}, "bSortable": false},

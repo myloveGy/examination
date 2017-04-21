@@ -7,7 +7,7 @@
 
 namespace app\modules\admin\controllers;
 
-use common\models\Chapter;
+use app\common\models\Chapter;
 
 class ChapterController extends Controller
 {

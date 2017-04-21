@@ -11,7 +11,7 @@ $this->params['breadcrumbs'] = [
     $this->title
 ];
 // 注册fuelux.trer.min.js
-$this->registerJsFile('@web/public/assets/js/fuelux/fuelux.tree.min.js');
+$this->registerJsFile('@web/resource/js/fuelux/fuelux.tree.min.js');
 ?>
 <?php $form = ActiveForm::begin(['enableClientValidation' => true]);?>
 <div class="col-xs-12 col-sm-3">
@@ -173,7 +173,6 @@ $this->registerJsFile('@web/public/assets/js/fuelux/fuelux.tree.min.js');
 
         // 导航数的显示
         $('#tree1').on('selected', function(e, data) {
-            console.log('sub-folder select: ', data);
             if (data['info'] && data['info'])
             {
                 for (var i in data['info'])
@@ -189,7 +188,5 @@ $this->registerJsFile('@web/public/assets/js/fuelux/fuelux.tree.min.js');
         });
     });
 
-    // 导航栏样式装换
-    handleMenuActive('\\/role\\/index');
 </script>
 <?php $this->endBlock(); ?>

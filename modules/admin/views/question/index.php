@@ -7,34 +7,10 @@ $this->title = '题库信息';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <!--前面导航信息-->
-<p>
-    <button class="btn btn-white btn-success btn-bold me-table-insert">
-        <i class="ace-icon fa fa-plus bigger-120 blue"></i>
-        添加
-    </button>
-    <button class="btn btn-white btn-danger btn-bold me-table-delete">
-        <i class="ace-icon fa fa-trash-o bigger-120 red"></i>
-        删除
-    </button>
-    <button class="btn btn-white btn-info btn-bold me-hide">
-        <i class="ace-icon fa  fa-external-link bigger-120 orange"></i>
-        隐藏
-    </button>
-    <button class="btn btn-white btn-pink btn-bold  me-table-reload">
-        <i class="ace-icon fa fa-refresh bigger-120 pink"></i>
-        刷新
-    </button>
-    <button class="btn btn-white btn-warning btn-bold me-table-export">
-        <i class="ace-icon glyphicon glyphicon-export bigger-120 orange2"></i>
-        导出Excel
-    </button>
-</p>
-<p>
-    <span class="text-danger"> 说明： 先添加问题, 然后添加对应问题的答案！最后在编辑中选择一个答案作为正确答案 </span>
-</p>
+<p id="me-table-buttons"></p>
+<p><span class="text-danger"> 说明： 先添加问题, 然后添加对应问题的答案！最后在编辑中选择一个答案作为正确答案 </span></p>
 <!--表格数据-->
-<table class="table table-striped table-bordered table-hover" id="showTable"></table>
-
+<table class="table table-striped table-bordered table-hover" id="show-table"></table>
 <div class="col-xs-12 hidden">
     <table id="detailTable" class="table table-striped table-bordered table-hover"></table>
 </div>
@@ -51,6 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ]));
     }
 
+    function showSpan(s, c, d) {
+        return '<span class="label label-sm ' + (c[d] ? c[d] : d ) + '">' + (s[d] ? s[d]: d) + '</span>'
+    }
+
     var aSubject = <?=$subject?>,
         sUpload = '<?=Url::toRoute(['question/upload', 'sField' => 'question_img'])?>',
         aSpecial = <?=$special?>,
@@ -58,47 +38,104 @@ $this->params['breadcrumbs'][] = $this->title;
         aStatus  = <?=$status?>,
         aColor   = <?=$color?>,
         aType    = <?=$type?>,
-        myTable = new MeTable({sTitle:"题库信息"},{
-        "aoColumns":[
-			oCheckBox,
-			{"title": "题目ID", "data": "id", "sName": "id", "class":"details-control", "edit": {"type": "hidden", "options": {}}, "bSortable": false, "createdCell":function(td, data, rowArr, row, col){
-                $(td).html(data + '<b class="arrow fa fa-angle-down pull-right"></b>');
-            }},
-			{"title": "题目问题", "data": "question_title", "sName": "question_title", "edit": {"type": "textarea", "options": {"required":true}}, "bSortable": false},
-			{"title": "题目说明", "data": "question_content", "sName": "question_content", "edit": {"type": "textarea", "options": {}}, "bSortable": false},
-			{"title": "题目图片", "data": "question_img", "sName": "question_img", "edit": {"type": "file", options:{"id":"myfile", "type":"ace_input"}}, "bSortable": false},
-			{"title": "答案类型", "data": "answer_type", "sName": "answer_type", "value": aType, "edit": {"type": "select", "options": {"required":true,"number":true}}, "bSortable": false},
-			{"title": "状态", "data": "status", "sName": "status", "value": aStatus, "edit": {"type": "radio", "default": 1, "options": {"required":true,"number":true}}, "bSortable": false, "createdCell": function(td, data) {
-			    $(td).html(showSpan(aStatus, aColor, data));
-            }},
-			{"title": "正确答案", "data": "answer_id", "sName": "answer_id", "bSortable": false, "createdCell": function(td, data) {
-			    $(td).html(data == 0 ? '<span class="label label-sm label-warning">还没有设置答案</span>' : data)
-            }, "value": {"0": "请选择"}, "edit": {"type": "select"}},
-			{"title": "创建时间", "data": "created_at", "sName": "created_at", "createdCell" : dateTimeString}, 
-			{"title": "修改时间", "data": "updated_at", "sName": "updated_at", "createdCell" : dateTimeString}, 
-			{"title": "所属科目", "data": "subject_id", "sName": "subject_id", "value": aSubject, "edit": {"type": "select", "default": 1, "options": {"required":true,"number":true}}, "bSortable": false},
-			{"title": "所属章节", "data": "chapter_id", "sName": "chapter_id", "value": aChapter, "edit": {"type": "select", "options": {"required":true,"number":true}}, "bSortable": false},
-			{"title": "所属专项分类", "data": "special_id", "sName": "special_id", "value": aSpecial, "edit": {"type": "select", "options": {"required":true,"number":true}}, "bSortable": false},
-			{"title": "错误人数", "data": "error_number", "sName": "error_number"},
-            {"data": null, "title":"操作", "bSortable":false, "width":"180px", "createdCell":setOperate}
-        ],
-
-        // 设置隐藏和排序信息
-        // "order":[[0, "desc"]],
-         "columnDefs":[{"targets":[4], "visible":false}]
-    }, {
-            "sBaseUrl": "/answer/",
-            "oTableOptions": {
-                "sAjaxSource": "<?=Url::toRoute(['answer/search'])?>",
-                "aoColumns":[
-                    {"title": "ID", "data": "id", "sName": "id", "edit":{"type":"hidden"}},
-                    {"title": "答案说明", "data": "name", "sName": "name", "edit":{"type":"text", "options":{"required": true, "rangelength": "[2, 1000]"}}},
-                    {"title": "对应问题", "data": "qid", "sName": "qid", "edit":{"type":"hidden"}},
-                    oOperateDetails
-                ],
-                "columnDefs":[{"targets":[2], "visible":false}]
+        myTable = meTables({
+            sTitle:"题库信息",
+            table: {
+                "aoColumns": [
+                    {
+                        "title": "题目ID",
+                        "data": "id",
+                        "sName": "id",
+                        "class": "details-control",
+                        "edit": {"type": "hidden"},
+                        "bSortable": false,
+                        "defaultOrder": "desc",
+                        "createdCell": function (td, data, rowArr, row, col) {
+                            $(td).html(data + '<b class="arrow fa fa-angle-down pull-right"></b>');
+                        }
+                    },
+                    {
+                        "title": "题目问题",
+                        "data": "question_title",
+                        "sName": "question_title",
+                        "edit": {"type": "textarea", "required": true},
+                        "bSortable": false
+                    },
+                    {
+                        "title": "题目说明",
+                        "data": "question_content",
+                        "sName": "question_content",
+                        "edit": {"type": "textarea"},
+                        "bSortable": false,
+                        "isHide": true
+                    },
+                    {
+                        "title": "题目图片",
+                        "data": "question_img",
+                        "sName": "question_img",
+                        "edit": {"type": "file", options: {"id": "myfile", "type": "ace_input"}},
+                        "bSortable": false
+                    },
+                    {
+                        "title": "答案类型",
+                        "data": "answer_type",
+                        "sName": "answer_type",
+                        "value": aType,
+                        "edit": {"type": "select", "required": true, "number": true},
+                        "bSortable": false
+                    },
+                    {
+                        "title": "状态",
+                        "data": "status",
+                        "sName": "status",
+                        "value": aStatus,
+                        "edit": {"type": "radio", "default": 1, "required": true, "number": true},
+                        "bSortable": false,
+                        "createdCell": function (td, data) {
+                            $(td).html(showSpan(aStatus, aColor, data));
+                        }
+                    },
+                    {
+                        "title": "正确答案",
+                        "data": "answer_id",
+                        "sName": "answer_id",
+                        "bSortable": false,
+                        "createdCell": function (td, data) {
+                            $(td).html(data == 0 ? '<span class="label label-sm label-warning">还没有设置答案</span>' : data)
+                        },
+                        "value": {"0": "请选择"},
+                        "edit": {"type": "select"}
+                    },
+                    {"title": "创建时间", "data": "created_at", "sName": "created_at", "createdCell": mt.dateTimeString},
+                    {"title": "修改时间", "data": "updated_at", "sName": "updated_at", "createdCell": mt.dateTimeString},
+                    {
+                        "title": "所属科目",
+                        "data": "subject_id",
+                        "sName": "subject_id",
+                        "value": aSubject,
+                        "edit": {"type": "select", "default": 1, "required": true, "number": true},
+                        "bSortable": false
+                    },
+                    {
+                        "title": "所属章节",
+                        "data": "chapter_id",
+                        "sName": "chapter_id",
+                        "value": aChapter,
+                        "edit": {"type": "select", "required": true, "number": true},
+                        "bSortable": false
+                    },
+                    {
+                        "title": "所属专项分类",
+                        "data": "special_id",
+                        "sName": "special_id",
+                        "value": aSpecial,
+                        "edit": {"type": "select", "required": true, "number": true},
+                        "bSortable": false
+                    },
+                    {"title": "错误人数", "data": "error_number", "sName": "error_number"}
+                ]
             }
-    });
+        });
 
     /**
      * 显示的前置和后置操作

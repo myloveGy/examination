@@ -7,7 +7,7 @@
 
 namespace app\modules\admin\controllers;
 
-use common\models\Subject;
+use app\common\models\Subject;
 
 class SubjectController extends Controller
 {

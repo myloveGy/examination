@@ -9,11 +9,12 @@
 // 引入命名空间
 namespace app\modules\admin\controllers;
 
-use backend\models\Auth;
+use app\modules\admin\models\Auth;
 
 class AuthorityController extends RoleController
 {
     public $type = Auth::TYPE_PERMISSION;
+    public $pk = 'name';
 
     /**
      * where() 查询参数配置

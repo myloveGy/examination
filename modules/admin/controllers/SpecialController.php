@@ -7,8 +7,8 @@
 
 namespace app\modules\admin\controllers;
 
-use common\helpers\Helper;
-use common\models\Special;
+use app\common\helpers\Helper;
+use app\common\models\Special;
 
 class SpecialController extends Controller
 {
