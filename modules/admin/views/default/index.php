@@ -91,11 +91,6 @@ MainAsset::register($this);
                                 <i class="ace-icon fa fa-desktop"></i>登录信息
                             </a>
                         </li>
-                        <li>
-                            <a class="window-iframe" data-id="my-info" title="个人信息" data-url="<?=Url::toRoute(['admin/view'])?>" href="<?=Url::toRoute(['admin/view'])?>">
-                                <i class="ace-icon fa fa-user"></i>个人信息
-                            </a>
-                        </li>
                         <li class="divider"></li>
                         <li>
                             <a href="<?=Url::toRoute(['default/logout'])?>" id="user-logout">

@@ -5,7 +5,7 @@
  * date: 2016-10-11 15:56:50
  */
 
-namespace backend\controllers;
+namespace app\modules\admin\controllers;
 
 use common\helpers\Helper;
 use common\models\Special;

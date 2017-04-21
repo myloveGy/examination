@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\models;
+namespace app\modules\admin\models;
 
 use Yii;
-use common\behaviors\TimestampBehavior;
+use app\common\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "auth_item".
@@ -21,7 +21,7 @@ use common\behaviors\TimestampBehavior;
  * @property AuthRule $ruleName
  * @property AuthItemChild[] $authItemChildren
  */
-class Auth extends \common\models\Model
+class Auth extends \app\models\Model
 {
     /**
      * Auth type
@@ -128,7 +128,7 @@ class Auth extends \common\models\Model
                 }
 
                 // 将角色添加给用户
-                $uid = Yii::$app->user->id;
+                $uid = Yii::$app->admin->id;
                 if ($uid != 1) $auth->assign($role, $uid);
                 return true;
             }

@@ -1,10 +1,9 @@
 <?php
 
-namespace backend\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
-use backend\models\Admin;
-use common\models\China;
+use app\modules\admin\models\AdminUser;
 
 /**
  * file: AdminController.php
@@ -22,7 +21,7 @@ class AdminController extends Controller
     public function where($params)
     {
         $where  = [];
-        $intUid = (int)Yii::$app->user->id;
+        $intUid = (int)Yii::$app->admin->id;
         if ($intUid != 1) {
             $where = [['or', ['id' => $intUid], ['created_id' => $intUid]]];
         }
@@ -43,48 +42,19 @@ class AdminController extends Controller
     {
         // 查询用户数据
         return $this->render('index', [
-            'roles'  => Admin::getArrayRole(),      // 用户角色
-            'status' => Admin::getArrayStatus(),    // 状态
-            'statusColor' => Admin::getStatusColor(), // 状态对应颜色
+            'roles'  => AdminUser::getArrayRole(),      // 用户角色
+            'status' => AdminUser::getArrayStatus(),    // 状态
+            'statusColor' => AdminUser::getStatusColor(), // 状态对应颜色
         ]);
     }
 
     /**
      * getModel() 获取model
-     * @return Admin
+     * @return AdminUser
      */
     public function getModel()
     {
-        return new Admin();
-    }
-
-    /**
-     * actionView() 查看个人信息
-     * @return string
-     */
-    public function actionView()
-    {
-        $address  = '选择县';
-        $user     = Yii::$app->view->params['user'];
-        $arrChina = [];
-        if ($user->address) {
-            $arrAddress = explode(',', $user->address);
-            if ($arrAddress) {
-                if (isset($arrAddress[2])) $address = $arrAddress[2];
-                // 查询省市信息
-                $arrChina = \common\models\China::find()->where(['name' => array_slice($arrAddress, 0, 2)])->orderBy(['pid' => SORT_ASC])->all();
-            }
-        }
-
-        // 获取用户日志信息
-        $arrLogs = $this->getInfo('update');
-
-        // 载入视图文件
-        return $this->render('view', [
-            'address' => $address,  // 县
-            'china'   => $arrChina, // 省市信息
-            'logs'    => $arrLogs,  // 日志信息
-        ]);
+        return new AdminUser();
     }
 
     /**
@@ -93,7 +63,7 @@ class AdminController extends Controller
      */
     public function getUploadPath()
     {
-        return './public/assets/avatars/';
+        return './public/uploads/avatars/';
     }
 
     /**
@@ -121,7 +91,7 @@ class AdminController extends Controller
             $image->resize(48, 48, \yii\image\drivers\Image::CROP)->save();
 
             // 管理员页面修改头像
-            $admin = Admin::findOne(Yii::$app->user->id);
+            $admin = AdminUser::findOne(Yii::$app->user->id);
             if ($admin && $strField === 'avatar') {
                 // 删除之前的图像信息
                 if ($admin->face && file_exists('.'.$admin->face)) {
@@ -136,28 +106,5 @@ class AdminController extends Controller
         }
 
         return true;
-    }
-
-    /**
-     * actionAddress() 获取地址信息
-     */
-    public function actionAddress()
-    {
-        $request = Yii::$app->request;
-        $array   = [];
-        if ($request->isGet) {
-            $strName = $request->get('query');          // 查询参数
-            $intPid  = (int)$request->get('iPid', 0);   // 父类ID
-            $where   = ['and', ['pid' => $intPid], ['<>', 'id', 0]];
-            if ( ! empty($strName)) array_push($where, ['like', 'name', $strName]);
-            $arrCountry = China::find()->select(['id', 'name'])->where($where)->all();
-            if ($arrCountry) {
-                foreach ($arrCountry as $value) {
-                    $array[] = ['id' => $value->id, 'text' => $value->name];
-                }
-            }
-        }
-
-        return $this->returnJson($array);
     }
 }

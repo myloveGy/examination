@@ -5,7 +5,7 @@
  * date: 2016-10-11 15:42:46
  */
 
-namespace backend\controllers;
+namespace app\modules\admin\controllers;
 
 use common\models\Subject;
 

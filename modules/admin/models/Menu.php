@@ -72,7 +72,7 @@ class Menu extends AdminModel
      */
     public function afterSave($insert, $changedAttributes)
     {
-        self::setNavigation(Yii::$app->user->id);
+        self::setNavigation(Yii::$app->admin->id);
         return true;
     }
 

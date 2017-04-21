@@ -143,12 +143,14 @@ $this->registerJsFile('@web/public/assets/js/jquery.nestable.min.js');
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
                             <?php foreach($model->_permissions as $key): ?>
+                                <?php if (isset($permissions[$key]) && $permissions[$key]) : ?>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="alert alert-success"  style="padding:5px; margin:3px;">
                                     <i class="ace-icon fa fa-check bigger-110 green"></i>
                                     <?= $permissions[$key]?>
                                 </div>
                             </div>
+                            <?php endif;?>
                             <?php endforeach; ?>
                         </div>
                     </div>

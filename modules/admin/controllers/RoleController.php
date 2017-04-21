@@ -6,11 +6,11 @@
  * Time: 下午4:54
  * To change this template use File | Settings | File Templates.
  */
-namespace backend\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
-use backend\models\Auth;
-use backend\models\Menu;
+use app\modules\admin\models\Auth;
+use app\modules\admin\models\Menu;
 use yii\web\HttpException;
 
 class RoleController extends Controller

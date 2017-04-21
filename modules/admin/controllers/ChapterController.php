@@ -5,7 +5,7 @@
  * date: 2016-10-11 15:47:39
  */
 
-namespace backend\controllers;
+namespace app\modules\admin\controllers;
 
 use common\models\Chapter;
 

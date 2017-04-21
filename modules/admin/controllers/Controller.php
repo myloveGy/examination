@@ -6,7 +6,7 @@ use Yii;
 
 use app\common\strategy\Substance;
 use app\modules\admin\models\Admin;
-use app\modules\admin\models\UploadForm;
+use app\common\models\UploadForm;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
@@ -267,11 +267,11 @@ class Controller extends \app\common\controllers\Controller
      */
     public function actionDeleteAll()
     {
-        $ids = Yii::$app->request->post($this->pk);
+        $ids = Yii::$app->request->post('ids');
         if ($ids) {
             $model = $this->getModel();
             $this->arrJson['errCode'] = 220; // 查询数据不存在
-            if ($model->deleteAll([explode(',', $ids)])) {
+            if ($model->deleteAll([$this->pk => explode(',', $ids)])) {
                 $this->handleJson($ids);
             }
         }

@@ -7,10 +7,11 @@
  */
 
 // 引入命名空间
-namespace backend\controllers;
+namespace app\modules\admin\controllers;
+
 use Yii;
-use backend\models\Menu;
-use backend\models\Auth;
+use app\modules\admin\models\Menu;
+use app\modules\admin\models\Auth;
 use yii\helpers\Url;
 
 // 引入命名空间

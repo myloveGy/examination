@@ -24,7 +24,7 @@ class Controller extends \yii\web\Controller
 
         // 没有错误信息使用code 确定错误信息
         if ( ! isset($array['errMsg']) || empty($array['errMsg'])) {
-            $errCode = Yii::t('error', 'errCode');
+            $errCode = Yii::t('app', 'errCode');
             $array['errMsg'] = $errCode[$array['errCode']];
         }
 

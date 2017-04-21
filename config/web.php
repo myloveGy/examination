@@ -88,14 +88,21 @@ $config = [
         // 多语言配置
         'i18n' => [
             'translations' => [
-                '*' => [
-                    'class'   => 'yii\i18n\PhpMessageSource',
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/modules/admin/messages',
                     'fileMap' => [
-                        'app'       => 'app.php',
-                        'app/error' => 'error.php',
+                        'app' => 'app.php',
+                        'error' => 'error.php',
                     ],
                 ],
             ],
+        ],
+
+        // 图片处理
+        'image' => [
+            'class'  => 'yii\image\ImageDriver',
+            'driver' => 'GD'
         ],
     ],
     'params' => $params,

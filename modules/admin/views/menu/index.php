@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
     // 添加之前之后处理
     mt.fn.extend({
         afterSave: function() {
-            window.location.reload();
+            parent.location.reload();
             return false;
         }
     });

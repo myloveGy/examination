@@ -1,8 +1,6 @@
 <?php
 
-namespace backend\models;
-
-use common\models\AdminModel;
+namespace app\modules\admin\models;
 
 /**
  * This is the model class for table "{{%arrange}}".
