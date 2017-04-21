@@ -5,10 +5,10 @@
  * date: 2016-10-11 18:55:56
  */
 
-namespace backend\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
-use common\models\Answer;
+use app\modules\admin\models\Answer;
 
 class AnswerController extends Controller
 {

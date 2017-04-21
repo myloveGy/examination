@@ -84,6 +84,19 @@ $config = [
                 ],
             ],
         ],
+
+        // 多语言配置
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class'   => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'app'       => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];

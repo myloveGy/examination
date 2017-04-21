@@ -1,6 +1,8 @@
 <?php
+use app\assets\MainAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
+MainAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -13,9 +15,6 @@ use yii\helpers\Url;
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <?= Html::csrfMetaTags() ?>
     <?php $this->head(); ?>
-    <link href="/resource/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resource/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/resource/css/ace-fonts.css" rel="stylesheet">
     <!-- ace styles -->
     <link rel="stylesheet" href="/resource/css/ace.min.css" id="main-ace-style" />
     <!--[if lte IE 9]>
@@ -242,8 +241,6 @@ use yii\helpers\Url;
 <script src="/resource/js/excanvas.min.js"></script>
 <![endif]-->
 <?php $this->endBody() ?>
-<script src="/resource/js/ace-elements.min.js"></script>
-<script src="/resource/js/ace.min.js"></script>
 <script src="/resource/js/common/iframe.js"></script>
 <script type="text/javascript">
     authHeight();

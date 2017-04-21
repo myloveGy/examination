@@ -1,5 +1,5 @@
 <?php
-
+use backend\assets\AppAsset;
 use yii\helpers\Url;
 
 // 定义标题和面包屑信息
@@ -13,6 +13,13 @@ $this->params['breadcrumbs'] = [
     $this->title
 ];
 
+AppAsset::loadTimeJavascript($this, 'datetime');
+$this->registerCssFile('@web/public/assets/css/fullcalendar.css', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/public/assets/js/jquery-ui.custom.min.js', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/public/assets/js/jquery.ui.touch-punch.min.js', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/public/assets/js/date-time/moment.min.js', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/public/assets/js/fuelux/fuelux.spinner.min.js', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/public/assets/js/fullcalendar.min.js', ['depends' => 'backend\assets\AppAsset']);
 ?>
 <div class="row">
     <div class="col-sm-9">
@@ -133,6 +140,7 @@ $this->params['breadcrumbs'] = [
         </div>
     </div>
 </div>
+<?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
     /**
      * formObject() 给表单对象赋值
@@ -251,7 +259,7 @@ $this->params['breadcrumbs'] = [
                     'end_at':       (new Date(date.format('YYYY-MM-DD HH:mm:ss'))).getTime() / 1000 + 86400,
                     'status':       1,
                     'time_status': $.trim($(this).attr('iTimeStatus')),
-                    'actionType':  isDel ? 'update' : 'insert'
+                    'actionType':  isDel ? 'update' : 'create'
                 });
                 $('#update-calendar').trigger('click');
             },
@@ -266,7 +274,7 @@ $this->params['breadcrumbs'] = [
                     'end_at':       end.format('YYYY-MM-DD HH:mm:ss'),       // 时间结束
                     'time_status':  1,                                       // 时间状态
                     'status'     :  1,                                       // 状态
-                    'actionType':  'insert'                                  // 操作类型
+                    'actionType':  'create'                                  // 操作类型
                 });
                 // 添加一个新的日程事件
                 modal.modal('show').find('h4').html('添加一个新的事件');
@@ -282,17 +290,28 @@ $this->params['breadcrumbs'] = [
 
         // 编辑日程事件
         $('#update-calendar').click(function(){
-            if ($('#editForm').validate(validatorError).form()) {
+            if ($('#editForm').validate({
+                    errorElement: 'div',
+                    errorClass: 'help-block',
+                    focusInvalid: false,
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                    },
+                    success: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+                        $(e).remove();
+                    }
+                }).form()) {
                 oLoading  = layer.load();
                 // 提交数据
                 $.ajax({
-                    url:        'update',
+                    url:        $('#editForm').find('input[name=actionType]').val(),
                     type:       'POST',
                     dataType:   'json',
                     data:       $('#editForm').serializeArray()
                 }).always(alwaysClose).done(function(json) {
-                    layer.msg(json.msg, {icon:json.status == 1 ? 6 : 5});
-                    if (json.status == 1) {
+                    layer.msg(json.errMsg, {icon:json.errCode == 0 ? 6 : 5});
+                    if (json.errCode == 0) {
                         // 开始修改数据
                         calenderCalEvent.id          = json.data.id;
                         calenderCalEvent.desc        = json.data.desc;
@@ -329,7 +348,7 @@ $this->params['breadcrumbs'] = [
             }, function(){
                 oLoading = layer.load();
                 $.ajax({
-                    url:        'update',
+                    url:        'delete',
                     type:       'POST',
                     dataType:   'json',
                     data:       {
@@ -337,8 +356,8 @@ $this->params['breadcrumbs'] = [
                         'actionType': 'delete'
                     }
                 }).always(alwaysClose).done(function(json) {
-                    layer.msg(json.msg, {icon:json.status == 1 ? 6 : 5});
-                    if (json.status == 1) {
+                    layer.msg(json.errMsg, {icon:json.errCode == 0 ? 6 : 5});
+                    if (json.errCode == 0) {
                         calendar.fullCalendar('removeEvents' , function(ev){
                             return (ev._id == calenderCalEvent._id);
                         });
@@ -351,3 +370,4 @@ $this->params['breadcrumbs'] = [
         });
     })
 </script>
+<?php $this->endBlock() ?>

@@ -1,9 +1,13 @@
 <?php
-use yii\helpers\Html;
 use yii\helpers\Url;
 // 定义标题和面包屑信息
 $this->title = '模块生成';
 $this->params['breadcrumbs'][] = $this->title;
+
+// 注入需要的JS
+$this->registerJsFile('@web/public/assets/js/fuelux/fuelux.spinner.min.js', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/public/assets/js/fuelux/fuelux.wizard.min.js', ['depends' => 'backend\assets\AppAsset']);
+$this->registerJsFile('@web/public/assets/js/bootstrap-wysiwyg.min.js', ['depends' => 'backend\assets\AppAsset']);
 ?>
 
 <div class="widget-box widget-color-blue">
@@ -196,39 +200,45 @@ $this->params['breadcrumbs'][] = $this->title;
         $('#fuelux-wizard')
             .ace_wizard()
             .on('change' , function(e, info){
-                if (info.direction === 'next')
-                {
+                if (info.direction === 'next') {
                     var f = $('#step' + info.step +' form');
-                    if (f.validate(validatorError).form()) {
-                        oLoading = layer.load();
-                        $.ajax({
-                            'async':        false,
-                            'url' :         f.attr('action'),
-                            'data' :        $('form').serialize(),
-                            'type' :        'POST',
-                            'dataType' :    'json'
+                    if (f.validate({
+                            errorElement: 'div',
+                            errorClass: 'help-block',
+                            focusInvalid: false,
+                            highlight: function (e) {
+                                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                            },
+                            success: function (e) {
+                                $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+                                $(e).remove();
+                            }
+                        }).form()) {
+
+                        mt.ajax({
+                            'async': false,
+                            'url': f.attr('action'),
+                            'data': $('form').serialize(),
+                            'type': 'POST',
+                            'dataType': 'json'
                         }).done(function(json){
                             layer.msg(json.errMsg, {icon:json.errCode == 0 ? 6 : 5});
-                            if (json.errCode == 0)
-                            {
+                            if (json.errCode == 0) {
                                 // 第一步提交
                                 if (info.step === 1) $('#my-content').html(json.data);
                                 // 第二步提交
-                                if (info.step === 2)
-                                {
+                                if (info.step === 2) {
                                     $('.code').html(json.data.html).parent().show();
                                     // HTML
                                     $('#input-html').val(json.data.file[0]);
-                                    if (json.data.file[1] == true)
-                                    {
+                                    if (json.data.file[1] == true) {
                                         file = json.data.file[0]
                                         $('#input-html').next().html(' ( * 文件已经存在,需要重新定义文件名 )');
                                     }
 
                                     // Controller
                                     $('#input-controller').val(json.data.controller[0]);
-                                    if (json.data.controller[1] == true)
-                                    {
+                                    if (json.data.controller[1] == true) {
                                         controller = json.data.controller[0]
                                         $('#input-controller').next().html(' ( * 文件已经存在,需要重新定义文件名 )');
                                     }
@@ -237,9 +247,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             } else {
                                 event.preventDefault()
                             }
-                        })
-                        .fail(ajaxFail)
-                        .always(alwaysClose);
+                        });
                     } else {
                         return false;
                     }
@@ -252,8 +260,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     // 自己验证
                     if ($('input[name=allow]:checked').val() == 1 || ($('#input-html').val() != file && $('#input-controller').val() != controller))
                     {
-                        oLoading = layer.load();
-                        $.ajax({
+                        mt.ajax({
                             url: "<?=Url::toRoute('module/produce')?>",
                             data: $('form').serialize(),
                             dataType: "json",
@@ -268,7 +275,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     window.location.reload();
                                 $('form').each(function(){this.reset()});
                             }
-                        }).fail(ajaxFail).always(alwaysClose)
+                        });
                     } else {
                         layer.msg('文件名存在, 不能执行覆盖操作...');
                     }
