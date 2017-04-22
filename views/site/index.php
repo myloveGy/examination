@@ -3,7 +3,8 @@
 use yii\helpers\Url;
 
 $this->title = '首页';
-$this->registerCssFile('@web/css/index.css');
+$this->registerCssFile('@web/css/index.css', ['depends' => ['app\assets\AppAsset']]);
+
 ?>
 <div class="page-header">
     <div class="header">
@@ -14,50 +15,18 @@ $this->registerCssFile('@web/css/index.css');
 
 <div class="block-mnks jkbd-con-item bt4">
     <div class="head_nav">
-        <h2>科目一练习及考试</h2>
+        <h2>选择车型</h2>
     </div>
+    <?php if (isset(Yii::$app->view->params['carTypes'])) : ?>
     <div class="content-wapper clc col-md-12">
+        <?php foreach (Yii::$app->view->params['carTypes'] as $value) : ?>
         <div class="col-md-3">
-            <a class="fl lianxi2-a li0 lianxi0 col-md-3"  href="<?=Url::toRoute(['question/index', 'subject' => 1, 'style' => 'sequence'])?>">
-                <span class="name">顺序练习</span>
+            <a class="fl lianxi2-a li0 lianxi0 col-md-3"  href="<?=Url::toRoute(['car/index', 'id' => $value->id])?>">
+                <img src="<?=$value->image?>" class="img-circle" alt="<?=$value->name?>" style="max-width: 200px; max-height:100px;" />
+                <span class="name"><?=$value->name;?></span>
             </a>
         </div>
-        <div class="col-md-3">
-            <a class="fl lianxi2-a li1 lianxi3 col-md-3"  href="<?=Url::toRoute(['question/index', 'subject' => 1, 'style' => 'random'])?>">
-                <span class="name">随机练习</span>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a class="fl lianxi2-a li2 lianxichapter col-md-3"  href="<?=Url::toRoute(['question/chapter', 'subject' => $subject->id,])?>">
-                <span class="name">章节练习</span>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a class="fl lianxi2-a li3 lianxistrengthen col-md-3"  href="<?=Url::toRoute(['question/special', 'subject' => $subject->id,])?>">
-                <span class="name">专项练习</span>
-            </a>
-        </div>
+        <?php endforeach; ?>
     </div>
-    <div class="content-wapper clc col-md-12">
-        <div class="col-md-3">
-            <a class="fl lianxi2-a li0 lianxi8 col-md-3"  href="<?=Url::toRoute(['question/index', 'subject' => $subject->id, 'type' => 'special', 'cid' => $special ? $special->id : 1])?>">
-                <span class="name">难题练习</span>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a class="fl lianxi2-a li1 lianxi5 col-md-3 <?=Yii::$app->user->isGuest ? "is-login login" : "" ?>"  href="<?=Url::toRoute(['user/collect', 'subject' => $subject->id])?>">
-                <span class="name">我的收藏</span>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a class="fl lianxi2-a li2 lianxi4 col-md-3"  href="<?=Url::toRoute(['question/warning', 'subject' => $subject->id])?>">
-                <span class="name">我的错题</span>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a class="fl lianxi2-a li3 lianxiexam col-md-3"  href="<?=Url::toRoute(['question/imitate', 'subject' => $subject->id])?>">
-                <span class="name">全真模拟</span>
-            </a>
-        </div>
-    </div>
+    <?php endif; ?>
 </div>

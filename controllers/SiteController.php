@@ -1,15 +1,16 @@
 <?php
 namespace app\controllers;
 
+use app\common\models\CarType;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\LoginForm;
-use app\common\controllers\Controller;
+use app\models\RegisterForm;
 use app\common\helpers\Helper;
-use app\models\Special;
-use app\models\Subject;
-use app\models\User;
+use app\common\models\Special;
+use app\common\models\Subject;
+use app\common\models\User;
 
 /**
  * Site controller
@@ -71,6 +72,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        // 查询车型信息
+        Yii::$app->view->params['carTypes'] = CarType::find()->where(['status' => 1])->orderBy(['sort' => SORT_ASC])->all();
+
         // 查询科目一
         $subject = Subject::findOne(['name' => '科目一']);
         if (!$subject) $subject = Subject::findOne(1);
@@ -106,11 +110,11 @@ class SiteController extends Controller
      * @param string $message
      * @return bool
      */
-    protected function login($message = 'loginSuccess')
+    protected function login($message = 'login')
     {
         $this->arrJson = [
             'errCode' => 0,
-            'errMsg'  => Yii::t('app', $message),
+            'errMsg' => $message == 'login' ? '登录成功' : '注册成功',
             'data'    => [
                 'username' => Yii::$app->user->identity->username,
                 'email'    => Yii::$app->user->identity->email,
@@ -153,7 +157,7 @@ class SiteController extends Controller
         $user = User::findOne(Yii::$app->user->id);
         if ($user) {
             $user->last_time = time();
-            $user->last_ip   = Helper::getIpAddress();
+            $user->last_ip = Helper::getIpAddress();
             $user->save();
         }
         Yii::$app->user->logout();

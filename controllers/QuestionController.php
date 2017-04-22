@@ -1,14 +1,13 @@
 <?php
-namespace frontend\controllers;
+namespace app\controllers;
 
-use common\models\Subject;
-use common\models\UserCollect;
+use app\common\models\Subject;
+use app\models\UserCollect;
 use Yii;
-use common\models\Answer;
-use common\models\Question;
-use common\models\Chapter;
-use common\models\Special;
-use common\controllers\Controller;
+use app\common\models\Answer;
+use app\common\models\Question;
+use app\common\models\Chapter;
+use app\common\models\Special;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -35,10 +34,19 @@ class QuestionController extends Controller
         // 查询科目
         $subject = Subject::findOne($intSid);
         if ($subject) {
-            $crumbs = [[
-                'label' => $subject->name,
-                'url' => Url::toRoute(['/', 'subject' => $subject->id]),
-            ]];
+
+            $cars = $subject->car;
+
+            $crumbs = [
+                [
+                    'label' => $cars->name,
+                    'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+                ],
+                [
+                    'label' => $subject->name,
+                    'url' => Url::toRoute(['/', 'subject' => $subject->id]),
+                ]
+            ];
 
             $where = [
                 'status' => Question::STATUS_KEY,
@@ -66,7 +74,7 @@ class QuestionController extends Controller
             Yii::$app->view->params['breadcrumbs'] = $crumbs;
 
             // 开始查询
-            $total    = Question::find()->where($where)->count();
+            $total = Question::find()->where($where)->count();
             $ids = Question::getAllIds($where);
             $question = Question::findOne($where); // 查询一条数据
             $errMsg = '问题不存在';
@@ -74,6 +82,7 @@ class QuestionController extends Controller
                 // 查询问题答案
                 $answer = Answer::findAll(['qid' => $question->id]);
                 return $this->render('index', [
+                    'cars' => $cars, // 车型信息
                     'subject' => $subject,
                     'allTotal' => (int)$allTotal,
                     'total' => (int)$total,
@@ -311,6 +320,7 @@ class QuestionController extends Controller
                 if ($question) {
                     $answers = Answer::findAll(['qid' => $question->id]);
                     return $this->render('imitate', [
+                        'cars' => $subject->car,
                         'question' => $question,
                         'answers' => $answers,
                         'allIds' => $ids
@@ -341,16 +351,18 @@ class QuestionController extends Controller
                     'subject_id' => $subject->id
                 ])->count(); // 全部题库
 
+                $cars = $subject->car;
+
                 Yii::$app->view->params['breadcrumbs'] = [
+                    [
+                        'label' => $cars->name,
+                        'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+                    ],
                     [
                         'label' => $subject->name,
                         'url' => Url::toRoute(['/', 'subject' => $subject->id]),
                     ],
-                    [
-                        'label' => '我的错题',
-                        'url' => Url::toRoute(['question/warning', 'subject' => $subject->id])
-                    ],
-                    '顺序练习',
+                    '我的错题',
                 ];
 
                 // 开始查询
@@ -359,6 +371,7 @@ class QuestionController extends Controller
                     // 查询问题答案
                     $answer = Answer::findAll(['qid' => $question->id]);
                     return $this->render('index', [
+                        'cars' => $cars,
                         'subject' => $subject,
                         'allTotal' => (int)$allTotal,
                         'total' => count($arrIds),

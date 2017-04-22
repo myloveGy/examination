@@ -24,7 +24,7 @@ class AppAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/jquery.min.js',
+//        'js/jquery.min.js',
         'js/bootstrap.min.js',
         'js/jquery-ui.min.js',
         'js/jquery.validate.min.js',

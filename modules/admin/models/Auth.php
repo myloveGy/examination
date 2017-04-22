@@ -21,7 +21,7 @@ use app\common\behaviors\TimestampBehavior;
  * @property AuthRule $ruleName
  * @property AuthItemChild[] $authItemChildren
  */
-class Auth extends \app\models\Model
+class Auth extends \app\common\models\Model
 {
     /**
      * Auth type

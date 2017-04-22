@@ -190,3 +190,7 @@ ol.breadcrumb a {
 .categroy-bd li a:hover {
     color: #1dacf9;
 }
+
+.page-header {
+    border-bottom: none;
+}

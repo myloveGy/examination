@@ -7,7 +7,9 @@
 
 namespace app\modules\admin\controllers;
 
+use app\common\models\CarType;
 use app\common\models\Subject;
+use yii\helpers\ArrayHelper;
 
 class SubjectController extends Controller
 {
@@ -22,6 +24,16 @@ class SubjectController extends Controller
             'id' => '=',
 			'name' => 'like',
         ];
+    }
+
+    public function actionIndex()
+    {
+        // 查询车型信息
+        $carType = CarType::findAll(['status' => 1]);
+        $carType = ArrayHelper::map($carType, 'id', 'name');
+        return $this->render('index', [
+            'arrCarType' => $carType
+        ]);
     }
 
     /**

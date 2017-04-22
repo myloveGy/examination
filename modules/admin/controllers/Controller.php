@@ -26,6 +26,7 @@ class Controller extends \app\common\controllers\Controller
     protected $sort = 'id';    // 默认排序字段
     protected $strategy = 'DataTables'; // 数据显示使用方式
     protected $pk = 'id';
+    protected $uploadPath = './public/';
 
     /**
      * beforeAction() 请求之前的数据验证
@@ -313,16 +314,6 @@ class Controller extends \app\common\controllers\Controller
     }
 
     /**
-     * getUploadPath() 获取上传文件目录(默认是相对路径 ./public/uploads)
-     * @access protected
-     * @return string 返回上传文件的目录地址(相对于index.php文件的目录)
-     */
-    protected function getUploadPath()
-    {
-        return './public/uploads/';
-    }
-
-    /**
      * afterUpload() 文件上传成功的处理信息
      * @access protected
      * @param  object $object     文件上传类
@@ -361,7 +352,7 @@ class Controller extends \app\common\controllers\Controller
                         $this->arrJson['errMsg'] = $model->getFirstError($strField);
                         if ($isTrue) {
                             // 创建目录
-                            $dirName = $this->getUploadPath();
+                            $dirName = rtrim($this->uploadPath, '/').'/'.$this->id.'/';
                             if ( ! file_exists($dirName)) mkdir($dirName, 0777, true);
                             $this->arrJson['errCode'] = 202;
                             $this->arrJson['data'] = $dirName;

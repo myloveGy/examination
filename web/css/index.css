@@ -3,9 +3,6 @@ div.header {
     padding: 26px 35px;
 }
 
-.page-header {
-    border-bottom: none;
-}
 div.header h1 {
     color: #333;
     font-size: 20px;

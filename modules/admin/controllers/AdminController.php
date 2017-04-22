@@ -58,15 +58,6 @@ class AdminController extends Controller
     }
 
     /**
-     * getUploadPath() 获取上传文件路径
-     * @return string
-     */
-    public function getUploadPath()
-    {
-        return './public/uploads/avatars/';
-    }
-
-    /**
      * afterUpload() 上传文件之后的处理
      * @param object $objFile
      * @param string $strFilePath

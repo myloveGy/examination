@@ -1,5 +1,5 @@
 <?php
-namespace backend\models;
+namespace app\common\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $created_id
  * @property string $password write-only password
  */
-class User extends \common\models\User
+class User extends \app\models\User
 {
     public $password;
     public $repassword;
@@ -97,7 +97,7 @@ class User extends \common\models\User
     public function scenarios()
     {
         return [
-            'default'     => ['username', 'email', 'password', 'repassword', 'status'],
+            'default'     => ['username', 'email', 'password', 'repassword', 'status', 'face'],
             'user-create' => ['username', 'email', 'password', 'repassword', 'status', 'face'],
             'user-update' => ['username', 'email', 'password', 'repassword', 'status', 'face']
         ];

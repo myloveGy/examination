@@ -1,9 +1,9 @@
 <?php
-namespace frontend\models;
+namespace app\models;
 
-use common\helpers\Helper;
-use common\models\Model;
-use common\models\User;
+use app\common\helpers\Helper;
+use app\common\models\Model;
+use app\models\User;
 
 class RegisterForm extends Model
 {
@@ -12,6 +12,14 @@ class RegisterForm extends Model
     public $password;
     public $rePassword; // 重复密码
     public $verifyCode; // 验证码这个变量是必须建的，因为要储存验证码的值` /** * @return array the validation rules. */
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%user}}';
+    }
 
 
     /**
@@ -28,6 +36,7 @@ class RegisterForm extends Model
             ['rePassword', 'compare', 'compareAttribute' => 'password', 'operator' => '=='],
             ['verifyCode', 'captcha'],
             ['email', 'validateEmail'],
+            ['username', 'unique', 'message' => '该用户名已被注册'],
         ];
     }
 
@@ -41,7 +50,7 @@ class RegisterForm extends Model
         // 没有错误验证邮箱
         if ( ! $this->hasErrors()) {
             if (User::findOne(['email' => $this->email])) {
-                $this->addError($attribute, \Yii::t('error', 'emailExists'));
+                $this->addError($attribute, '该邮箱已经注册');
             }
         }
     }
@@ -56,10 +65,10 @@ class RegisterForm extends Model
         $mixReturn = null;
         if ($this->validate()) {
             $user = new User();
-            $user->username  = $this->username;
-            $user->email     = $this->email;
+            $user->username = $this->username;
+            $user->email = $this->email;
             $user->last_time = time();
-            $user->last_ip   = Helper::getIpAddress();
+            $user->last_ip = Helper::getIpAddress();
             $user->setPassword($this->password);
             $user->generateAuthKey();
             if ($user->save()) $mixReturn = $user;

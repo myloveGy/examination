@@ -22,7 +22,7 @@ use yii\web\IdentityInterface;
  * @property integer $last_ip
  * @property string $password write-only password
  */
-class User extends Model implements IdentityInterface
+class User extends \app\common\models\Model implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;

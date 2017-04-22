@@ -5,21 +5,21 @@
  * Time: 12:00
  */
 
-namespace frontend\controllers;
+namespace app\controllers;
 
 use Yii;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use common\models\Question;
-use common\models\Subject;
-use common\models\UserCollect;
-use common\models\Answer;
+use app\common\models\Question;
+use app\common\models\Subject;
+use app\models\UserCollect;
+use app\common\models\Answer;
 
 /**
  * Class UserController
  * @package frontend\controllers
  */
-class UserController extends \common\controllers\UserController
+class UserController extends \app\common\controllers\UserController
 {
     /**
      * actionCollect 用户收藏的问题

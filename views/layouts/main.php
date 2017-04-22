@@ -32,19 +32,26 @@ AppAsset::register($this);
             </button>
             <a class="navbar-brand" href="/"> 考试系统 </a>
             <ul class="nav navbar-nav">
+                <li <?=Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index' ? 'class="active"' : ''?>><a href="/">首页</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择车型 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <?php if (isset($this->params['carTypes'])): ?>
+                            <?php foreach ($this->params['carTypes'] as $value) : ?>
+                            <li><a href="<?=Url::toRoute(['car/index', 'id' => $value->id])?>"><?=$value->name?></a></li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
                 </li>
+                <?php if (isset($this->params['menu']) && $this->params['menu']): ?>
+                    <li class="active">
+                        <a href="<?=$this->params['menu']['link']?>"><?=$this->params['menu']['title']?></a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li class="active"><a href="/">首页</a></li>
                 <li><a href="javascript:;" class="login no-login <?=Yii::$app->user->isGuest ? '' : 'hide'?>">登录</a></li>
                 <li><a href="javascript:;" class="register no-login <?=Yii::$app->user->isGuest ? '' : 'hide'?>">注册</a></li>
                 <li class="dropdown user-login <?=Yii::$app->user->isGuest ? 'hide' : ''?>">
@@ -164,6 +171,19 @@ AppAsset::register($this);
         </form>
     </div>
 </div>
+<!--[if !IE]> -->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/resource/js/jquery.min.js'>"+"<"+"/script>");
+</script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='/resource/js/jquery1x.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if('ontouchstart' in document.documentElement) document.write("<script src='/resource/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
 <?php $this->endBody() ?>
 <?=$this->blocks['javascript']?>
 </body>

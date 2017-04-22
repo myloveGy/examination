@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace app\models;
 
 use Yii;
 use yii\helpers\Json;
@@ -12,7 +12,7 @@ use yii\helpers\Json;
  * @property integer $subject_id
  * @property string  $qids
  */
-class UserCollect extends \common\models\Model
+class UserCollect extends \app\common\models\Model
 {
     /**
      * @inheritdoc

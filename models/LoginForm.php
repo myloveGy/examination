@@ -6,7 +6,7 @@ use Yii;
 /**
  * Login form
  */
-class LoginForm extends Model
+class LoginForm extends \app\common\models\Model
 {
     public $username;
     public $password;

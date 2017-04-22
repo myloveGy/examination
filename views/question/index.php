@@ -1,10 +1,14 @@
 <?php
 
 use yii\helpers\Url;
-use \common\models\Question;
+use app\common\models\Question;
 
 $this->title = '顺序练习';
-$this->registerCssFile('@web/css/question.css');
+$this->params['menu'] = [
+    'title' => $cars->name,
+    'link' => Url::toRoute(['car/index', 'id' => $cars->id])
+];
+$this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAsset']]);
 ?>
 <?=$this->render('_crumbs')?>
 <div class="jkbd-page-lianxi inner jkbd-width wid-auto cl lianxi-type-sequence">
@@ -113,14 +117,14 @@ $this->registerCssFile('@web/css/question.css');
                 errMsg = '你的选择错误';
         }
 
-        if (errMsg) {
-            return layer.msg(errMsg, {icon:2})
+        if (errMsg || !allIds[0]) {
+            return layer.msg(errMsg ? errMsg : '没有题目了咯', {icon:2})
         }
 
 //        console.info(allIds);
 //        console.info(doIds);
-
         $('#info').addClass('hide');
+
         var ol = layer.load();
         $.ajax({
             url: '<?=Url::toRoute(['question/get-question'])?>',
