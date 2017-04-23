@@ -143,22 +143,19 @@ HTML;
 <head>
     <meta charset="UTF-8">
     <title>Yii2 Admin 管理系统安装</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-
     <!--移动优先-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--引入公共CSS文件-->
-    <link rel="stylesheet" href="./backend/web/public/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./web/resource/css/bootstrap.min.css" />
 
     <!--引入公共js文件-->
-    <script type="text/javascript" src="./backend/web/public/assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="./backend/web/public/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./backend/web/public/assets/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="./backend/web/public/assets/js/validate.message.js"></script>
-    <script type="text/javascript" src="./backend/web/public/assets/js/layer/layer.js"></script>
+    <script type="text/javascript" src="./web/resource/js/jquery.min.js"></script>
+    <script type="text/javascript" src="./web/resource/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./web/resource/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="./web/resource/js/validate.message.js"></script>
+    <script type="text/javascript" src="./web/resource/js/layer/layer.js"></script>
     <style type="text/css">
         div.main {margin-top:70px;}.error {color:red}
     </style>
@@ -212,10 +209,9 @@ HTML;
             </div>
             <div class="modal-body">
                 <div>
-                    <p> 后台项目位于./backend </p>
                     <p> 超级管理员账号：<strong class="text-success">super</strong> </p>
                     <p> 超级管理员密码：<strong class="text-danger">admin123</strong> </p>
-                    <p> SQL文件位于：<span class="text-info">./yii2.sql</span></p>
+                    <p> SQL文件位于：<span class="text-info">./examination.sql</span></p>
                 </div>
             </div>
             <div class="modal-footer">

@@ -275,6 +275,7 @@
 
                 // 详情选择
                 $(this.options.sTable + ' tbody').on('click', this.options.childTables.sClickSelect, function(){
+
                     var tr = $(this).closest('tr'),row = self.table.row(tr);
                     // 处理已经打开的
                     tr.siblings(tr).each(function(){
@@ -287,11 +288,14 @@
                     if (row.child.isShown()) {
                         row.child.hide();
                         tr.removeClass('shown');
+
+                        console.info(1);
                     } else {
                         self.data.childParams = row.data();
                         self.data.childObject = row;
                         self.childTable.draw();
                         tr.addClass('shown');
+                        console.info(2);
                     }
                 });
             }
@@ -691,14 +695,15 @@
             if (this.options.bChildTables) {
                 form  = '<form id="' + this.options.childTables.sFormId.replace("#", "") + '" class="form-horizontal" action="' + this.getUrl("update") + '" name="myDetailForm" method="post" enctype="multipart/form-data"><fieldset>';
                 views = '<table class="table table-bordered table-striped table-detail">';
+
                 // 处理生成表单
                 this.options.childTables.table.aoColumns.forEach(function(k, v) {
-                    views += meTables.createViewTr(k.title, 'child-' + k.data, v, self.options.childTables.detailTable);// 查看详情信息
+                    views += meTables.detailTableCreate(k.title, 'child-' + k.data, v, self.options.childTables.detailTable);// 查看详情信息
                     if (k.edit != undefined) form += meTables.formCreate(k, self.options.childTables.editFormParams);		// 编辑表单信息
                 });
 
                 // 添加详情输入框
-                this.data.sUpdateModel += meTables.medalCreate({
+                this.data.sUpdateModel += meTables.modalCreate({
                         "params": {"id": self.options.childTables.sModal.replace("#", "")},
                         "html":	  form,
                         "bClass": "me-table-child-save"},

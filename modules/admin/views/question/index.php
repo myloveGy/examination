@@ -12,20 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--表格数据-->
 <table class="table table-striped table-bordered table-hover" id="show-table"></table>
 <div class="col-xs-12 hidden">
-    <table id="detailTable" class="table table-striped table-bordered table-hover"></table>
+    <table id="child-table" class="table table-striped table-bordered table-hover"></table>
 </div>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
-    // 设置表单信息
-    function setOperate(td, data, rowArr, row, col)
-    {
-        $(td).html(createButtons([
-            {"data":row, "title":"查看", "className":"btn-success", "cClass":"me-table-view",  "icon":"fa-search-plus",  "sClass":"blue"},
-            {"data":row, "title":"编辑", "className":"btn-info", "cClass":"me-table-edit", "icon":"fa-pencil-square-o",  "sClass":"green"},
-            {"data":row, "title":"添加答案", "className":"btn-warning", "cClass":"me-table-insert-detail", "icon":"fa-plus",  "sClass":"yellow", "text": "添加答案"},
-            {"data":row, "title":"删除", "className":"btn-danger", "cClass":"me-table-del", "icon":"fa-trash-o",  "sClass":"red"}
-        ]));
-    }
 
     function showSpan(s, c, d) {
         return '<span class="label label-sm ' + (c[d] ? c[d] : d ) + '">' + (s[d] ? s[d]: d) + '</span>'
@@ -40,13 +30,28 @@ $this->params['breadcrumbs'][] = $this->title;
         aType    = <?=$type?>,
         myTable = meTables({
             sTitle:"题库信息",
+            operations: {
+                width: "200px",
+                buttons: {
+                    "other": {
+                        "title": "添加答案",
+                        "button-title": "添加答案",
+                        "className": "btn-warning",
+                        "cClass":"role-edit",
+                        "icon":"fa-pencil-square-o",
+                        "sClass":"yellow"
+                    }
+                }
+            },
+
+            // 主表格
             table: {
                 "aoColumns": [
                     {
                         "title": "题目ID",
                         "data": "id",
                         "sName": "id",
-                        "class": "details-control",
+                        "class": "child-control",
                         "edit": {"type": "hidden"},
                         "bSortable": false,
                         "defaultOrder": "desc",
@@ -74,7 +79,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         "data": "question_img",
                         "sName": "question_img",
                         "edit": {"type": "file", options: {"id": "myfile", "type": "ace_input"}},
-                        "bSortable": false
+                        "bSortable": false,
+                        "isHide": true,
+                        "createdCell": function (td, data) {
+                            var html = data ? "<img src=" + data + " style=\"width: 60px;margin-right: 10px;\" />" +
+                                "<a href=\"javascript:;\" class=\"btn btn-xs btn-info btn-image\" data-img=" + data + ">查看大图</a>" : "";
+                            $(td).html(html);
+                        }
                     },
                     {
                         "title": "答案类型",
@@ -82,7 +93,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         "sName": "answer_type",
                         "value": aType,
                         "edit": {"type": "select", "required": true, "number": true},
-                        "bSortable": false
+                        "search": {"type": "select"},
+                        "bSortable": false,
+                        "createdCell": function (td, data) {
+                            $(td).html(aType[data] ? aType[data] : data);
+                        }
                     },
                     {
                         "title": "状态",
@@ -91,6 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         "value": aStatus,
                         "edit": {"type": "radio", "default": 1, "required": true, "number": true},
                         "bSortable": false,
+                        "search": {"type": "select"},
                         "createdCell": function (td, data) {
                             $(td).html(showSpan(aStatus, aColor, data));
                         }
@@ -134,6 +150,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     {"title": "错误人数", "data": "error_number", "sName": "error_number"}
                 ]
+            },
+
+            // 子表格
+            bChildTables: true,
+            childTables: {
+                url: {
+                    "search": "/admin/answer/search",
+                    "create": "/admin/answer/create",
+                    "update": "/admin/answer/update",
+                    "delete": "/admin/answer/delete"
+                },
+                table: {
+                    aoColumns: [
+                        {title: "ID", "data": "id", "sName": "id", "edit": {"type": "hidden"}},
+                        {title: "答案", "data": "name", "sName": "name",
+                            "edit": {"type": "text", "required": true, "rangelength": "[2, 1000]"}
+                        },
+                        mt.fn.options.childTables.operations
+                    ]
+                }
             }
         });
 
@@ -200,12 +236,19 @@ $this->params['breadcrumbs'][] = $this->title;
      $(function(){
          myTable.init();
 
-         // 文件上传
-         aceFileInput('#ace_myfile', sUpload, false, {"before_remove":function(){
-             if ($("#myfile").val()){ $.post(sUpload, {"face":$("#myfile").val()})}
-             $("#myfile").val('');
-             return true;
-         }});
+         // 查询大图
+         $(document).on("click", ".btn-image", function(){
+             var img = "<img src=" + $(this).attr("data-img") + ">";
+             layer.open({
+                 type: 1,
+                 title: false,
+                 closeBtn: 0,
+                 area: '516px',
+                 skin: 'layui-layer-nobg', //没有背景色
+                 shadeClose: true,
+                 content: img
+             });
+         });
      });
 </script>
 <?php $this->endBlock(); ?>

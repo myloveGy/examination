@@ -220,3 +220,21 @@ a {
  .block-mnks .content-wapper a:hover {
     background-color: #eee
 }
+
+.block-mnks .content-wapper a.car-item {
+    height: auto;
+    background: #fff;
+    border: 1px solid  #e6e6e6;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+.car-image {
+    height: 135px;
+    overflow: hidden;
+}
+
+.car-a {
+    padding: 10px;
+    text-align: center;
+}

@@ -8,7 +8,7 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\models\Answer;
+use app\common\models\Answer;
 
 class AnswerController extends Controller
 {

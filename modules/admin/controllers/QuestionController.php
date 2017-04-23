@@ -24,7 +24,10 @@ class QuestionController extends Controller
      */
     public function where($params)
     {
-        return [];
+        return [
+            'status' => '=',
+            'answer_type' => '='
+        ];
     }
 
     /**
@@ -52,9 +55,9 @@ class QuestionController extends Controller
      * actionChild() 查询子类信息
      * @param $id
      */
-    public function actionChild($id)
+    public function actionChild()
     {
-        $answer = Answer::findAll(['qid' => $id]);
+        $answer = Answer::findAll(['qid' => \Yii::$app->request->post('id', 1)]);
         $this->arrJson['errCode'] = 223;
         if ($answer) $this->handleJson($answer);
         return $this->returnJson();

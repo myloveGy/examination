@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     {"title": "图标", "data": "image", "sName": "image", "bSortable": false,
                         "edit": {"type": "file", "rangelength": "[2, 255]",
-                            "options": {"id": "image", "name": "UploadForm[image]", "input-type": "ace_file", "input-name": "image"}
+                            "options": {"id": "icon-image", "name": "UploadForm[image]", "input-type": "ace_file", "input-name": "image"}
                         }
                     },
                     {"title": "排序", "data": "sort", "sName": "sort", "edit": {"type": "text", "required": true, "number": true}},
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         $(function(){
             m.init();
-            $image = $("#image")
+            $image = $("#icon-image")
         });
     </script>
 <?php $this->endBlock(); ?>
