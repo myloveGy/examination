@@ -267,11 +267,11 @@
                 // 初始化详情表格
                 this.childTable = $(this.options.childTables.sTable).DataTable(this.options.childTables.table);
                 // 新增、查看、编辑、删除
-                $('.me-table-child-create').click(function(evt){evt.preventDefault();self.create(true);});
-                $('.me-table-child-save').click(function(evt){evt.preventDefault();self.save(null, true);});
+                $(document).on("click", ".me-table-child-create", function(evt){evt.preventDefault();self.create(true, $(this));});
+                $(document).on("click", ".me-table-child-save", function(evt){evt.preventDefault();self.save(null, true);});
                 $(document).on('click', '.me-table-child-detail', function(evt){evt.preventDefault();self.detail($(this).attr('table-data'), true)});
-                $(document).on('click', '.me-table-child-update', function(evt){evt.preventDefault();self.update($(this).attr('table-data'), true)});
-                $(document).on('click', '.me-table-child-delete', function(evt){evt.preventDefault();self.delete($(this).attr('table-data'), true)});
+                $(document).on('click', '.me-table-child-update', function(evt){evt.preventDefault();self.update($(this).attr('table-data'), true, $(this))});
+                $(document).on('click', '.me-table-child-delete', function(evt){evt.preventDefault();self.delete($(this).attr('table-data'), true, $(this))});
 
                 // 详情选择
                 $(this.options.sTable + ' tbody').on('click', this.options.childTables.sClickSelect, function(){
@@ -376,15 +376,15 @@
         },
 
         // 数据新增
-        create: function(child){
+        create: function(child, clickObject){
             this.action = "create";
-            this.initForm(null, child);
+            this.initForm(null, child, clickObject);
         },
 
         // 数据修改
-        update: function (row, child) {
+        update: function (row, child, clickObject) {
             this.action = "update";
-            this.initForm(child ? this.childTable.data()[row] : this.table.data()[row], child);
+            this.initForm(child ? this.childTable.data()[row] : this.table.data()[row], child, clickObject);
         },
 
         // 修改
@@ -400,7 +400,7 @@
         },
 
         // 数据删除
-        delete: function(row, child) {
+        delete: function(row, child, clickObject) {
             var self = this;
             this.action = "delete";
             // 询问框
@@ -411,7 +411,7 @@
                 icon: 0
                 // 确认删除
             }, function(){
-                self.save(child ? self.childTable.data()[row] : self.table.data()[row], child);
+                self.save(child ? self.childTable.data()[row] : self.table.data()[row], child, clickObject);
                 // 取消删除
             }, function(){
                 layer.msg(self.getLanguage("cancelOperation"), {time:800});
@@ -732,10 +732,10 @@
         },
 
         // 初始化表单信息
-        initForm: function(data, child) {
+        initForm: function(data, child, clickObject) {
             layer.close(this.options.oLoading);
             // 显示之前的处理
-            if (typeof this.beforeShowChild == 'function' && ! this.beforeShowChild(data, child)) return false;
+            if (typeof this.beforeShow == 'function' && !this.beforeShow(data, child, clickObject)) return false;
 
             // 确定操作的表单和模型
             var f = this.options.sFormId, m = this.options.sModal, t = this.options.title;
@@ -751,7 +751,7 @@
             meTables.initForm(f, data);
 
             // 显示之后的处理
-            if (typeof this.afterShow == 'function' && ! this.afterShow(data, child)) return false;
+            if (typeof this.afterShow == 'function' && !this.afterShow(data, child, clickObject)) return false;
 
             $(m).modal({backdrop: "static"});   // 弹出信息
         },
@@ -1251,7 +1251,7 @@
                         <div class="modal-body">' + oModal['html'] + '</fieldset></form></div> \
                         <div class="modal-footer"> \
                             <button type="button" class="btn btn-default" data-dismiss="modal">' + meTables.fn.getLanguage("sBtnCancel") + '</button> \
-                            <button type="button" class="btn btn-primary btn-image ' + (oModal['bClass'] ? oModal['bClass'] : '') + '" ' + (oModal["button-id"] ? 'id="' + oModal["button-id"] + '"' : "") + '>' + meTables.fn.getLanguage("sBtnSubmit") + '</button> \
+                            <button type="button" class="btn btn-primary ' + (oModal['bClass'] ? oModal['bClass'] : '') + '" ' + (oModal["button-id"] ? 'id="' + oModal["button-id"] + '"' : "") + '>' + meTables.fn.getLanguage("sBtnSubmit") + '</button> \
                         </div> \
                     </div> \
                 </div> \

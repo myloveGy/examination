@@ -86,15 +86,92 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
     var allIds = <?=$allIds?>,                   // 全部问题
-        answerYes = '<?=$question->answer_id?>', // 正确答案ID
-        iQuestionId = <?=$question->id?>,        // 问题ID
-        iDoFinish = 0,                           // 做了多少题目
-        isDo = false,                            // 这题是否已经做了
-        iDoYesNum = 0,                           // 做对了多少题
-        iDoNoNum = 0,                            // 做错了多少题目
-        sStyle = '<?=$style?>',                  // 风格
         sAnswerType = 'no',                      // 答案类型
-        doIds = [];
+        objComplete = {},   // 已经完成的题目
+
+        // 问题对象信息
+        objQuestion = <?=\yii\helpers\Json::encode($question)?>,
+
+        // 页面公共信息
+        objBase = {
+            doNumber: 0,    // 做了多少题目
+            yesNumber: 0,   // 做对多少题目
+            noNumber: 0,     // 做错多少题目
+            correctRote: 100, // 正确率
+
+            // 当前问题信息
+            currentQuestion: {
+                complete: false, // 是否做完,
+                correct: [],    // 正确答案信息,
+                answers: []     // 回答信息
+            },
+
+            // 完成题目自增
+            doIncr: function() {
+                this.doNumber ++;
+                $("#do-finish").html(this.doNumber);
+            },
+
+            // 正确自己增加
+            yesIncr: function() {
+                this.doIncr();
+                this.yesNumber ++;
+                $("#do-yes").html(this.yesNumber);
+            },
+
+            // 错误增加
+            noIncr: function() {
+                this.doIncr();
+                this.noNumber ++;
+                $("#do-no").html(this.noNumber);
+            },
+
+            // 计算正确率
+            handleCorrectRate: function() {
+                this.correctRote = this.doNumber > 0 ? this.yesNumber / this.doNumber : 0;
+                $('#do-accuracy').html(this.correctRote.toFixed(2) + '%');
+            },
+
+            // 获取问题信息
+            getAnswer: function(o) {
+                if (!o) o = objQuestion;
+                return o ? (o.answer_type == 3 ? $.parseJSON(o.answer_id): o.answer_id) : null;
+            },
+
+            // 初始化多选问题信息
+            initCorrect: function(o) {
+
+                this.currentQuestion.correct = [];
+
+                if (!o) o = objQuestion;
+                // 初始化多选问题信息
+                if (o.answer_type == 3) {
+                    this.currentQuestion.correct = objBase.getAnswer(o);
+                }
+            },
+
+            // 判断多选是否正确
+            isCorrect: function(value) {
+                return $.inArray(value, this.currentQuestion.correct) !== -1;
+            },
+
+            // 添加回答信息
+            insertAnswer: function(value) {
+                if ($.inArray(value, this.currentQuestion.answers)) {
+                    this.currentQuestion.answers.push(value);
+                }
+            },
+
+            // 判断相等
+            equalCorrect: function() {
+                return this.currentQuestion.correct.length == this.currentQuestion.answers.length;
+            }
+        };
+
+        objBase.initCorrect();
+
+
+
 
     function getQuestion(type) {
         var errMsg = '';
@@ -121,10 +198,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
             return layer.msg(errMsg ? errMsg : '没有题目了咯', {icon:2})
         }
 
-//        console.info(allIds);
-//        console.info(doIds);
         $('#info').addClass('hide');
-
         var ol = layer.load();
         $.ajax({
             url: '<?=Url::toRoute(['question/get-question'])?>',
@@ -140,18 +214,27 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 
                 // 处理显示问题
                 if (json.data.question) {
+                    // 更新问题信息
+                    objQuestion = json.data.question;
+
                     var question = json.data.question, html = '';
                     sAnswerType  = 'no';
                     isCollect = false;
                     isDo = false;
                     answerYes = question.answer_id;
                     iQuestionId = question.id;
+                    objYes = [];
+                    iQuestionType = question.answer_type;
+                    if (iQuestionType == 3) objAnswer = $.parseJSON(answerYes);
+
+
                     $('#o-number').html(doIds.length + 1);
                     $('.do-answer').addClass('hide');
                     $('#question-title').html(question.question_title);
                     $('#question-content').html(question.question_content);
                     $('#do-number').html(question.error_number);
                     json.data.hasCollect ? $('#user-collect').addClass('on') : $('#user-collect').removeClass('on');
+
                     var errorRate = question.do_number ? question.error_number/question.do_number * 100 : 0;
                     $('#do-error-rate').html(errorRate.toFixed(2) + '%');
 
@@ -185,45 +268,100 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
     $(window).ready(function(){
         // 选择答案
         $(document).on('click', '#answers p', function() {
-            if (isDo) return false;
-            isDo = true;
-            // 判断对错
-            if ($(this).attr('answer') == answerYes) {
-                // 正确
-                $(this).addClass('dui');
-                sAnswerType = 'yes';
-                iDoYesNum ++;
-                $('#do-yes').html(iDoYesNum);
-                $("#do-yes-answer").removeClass('hide');
-            } else {
-                // 错误
-                $(this).addClass('xuan');
-                var doYes = $('#answers p[answer=' + answerYes + ']').addClass('dui');
-                $('#do-no-answer').removeClass('hide').find('#answer-yes').html(doYes.text());
-                iDoNoNum ++;
-                $('#do-no').html(iDoNoNum);
-            }
 
-            // 请求记录信息
-            $.ajax({
-                url: '<?=Url::toRoute(['question/record'])?>',
-                data: {
-                    qid: iQuestionId,
-                    sType: sAnswerType
-                },
-                type: 'POST',
-                dataType: 'json'
-            }).always(function(){
-                iDoFinish ++;
-                $('#do-finish').html(iDoFinish);
-                var doAccuracy = iDoYesNum / iDoFinish * 100;
-                $('#do-accuracy').html(doAccuracy.toFixed(2) + '%');
-            }).done(function(json){
-                if (json.errCode == 0 && $('#isAutoNext').is(':checked') && sAnswerType == 'yes') {
-                    // 自动下一题
-                    getQuestion('next');
+            // 转字符串
+            var key = String(objQuestion.id), // 标识KEY
+                selfAnswer = parseInt($(this).attr("answer")); // 问题答案
+
+            // 判断该题目是否已经做过
+            if (objComplete[key]) {
+                // 做过
+                return false;
+            } else {
+
+                // 已经点击过
+                if ($(this).hasClass("do-complete")) {
+                    return false;
                 }
-            });
+
+                // 标识已经点击
+                $(this).addClass("do-complete");
+
+                // 多选
+                if (objQuestion.answer_type == 3) {
+                    // 选择正确没有问题
+                    if (objBase.isCorrect(selfAnswer)) {
+
+                        $(this).addClass("dui");
+
+                        // 添加选择正确的答案到答案信息中
+                        objBase.insertAnswer(selfAnswer);
+
+                        // 判断是否回答正确
+                        if (!objBase.equalCorrect()) {
+                            return false;
+                        }
+
+                        // 全部正确
+                        objBase.yesIncr();
+                        sAnswerType = 'yes';
+                        $("#do-yes-answer").removeClass('hide');
+                    } else {
+                        // 选择错误，该题目已经做错
+                        $(this).addClass("xuan");
+
+                        // 正确答案显示出来
+                        var yesHtml = "";
+                        objAnswer.forEach(function(v, k) {
+                            yesHtml += $("#answers p[answer=" + v + "]").addClass("dui").text()  + " ";
+                        });
+
+                        // 显示正确答案和错题目累加
+                        $('#do-no-answer').removeClass('hide').find('#answer-yes').html(yesHtml);
+                        objBase.noIncr();
+                    }
+                } else {
+                    // 判断对错
+                    if ($(this).attr('answer') == answerYes) {
+                        // 正确
+                        $(this).addClass('dui');
+                        sAnswerType = 'yes';
+                        objBase.yesIncr();
+                        $("#do-yes-answer").removeClass('hide');
+                    } else {
+                        // 错误
+                        $(this).addClass('xuan');
+                        var doYes = $('#answers p[answer=' + answerYes + ']').addClass('dui');
+                        $('#do-no-answer').removeClass('hide').find('#answer-yes').html(doYes.text());
+                        objBase.noIncr();
+                    }
+                }
+
+                // 标识已做
+                objComplete[key] = {
+                    question: objQuestion, // 问题信息,
+                    complete: sAnswerType // 完成情况
+                };
+
+                // 计算正确率
+                objBase.handleCorrectRate();
+
+                // 请求记录信息
+                $.ajax({
+                    url: '<?=Url::toRoute(['question/record'])?>',
+                    data: {
+                        qid: objComplete[key]["question"]["id"],
+                        sType: objComplete[key]["complete"]
+                    },
+                    type: 'POST',
+                    dataType: 'json'
+                }).done(function(json) {
+                    // 选择正确自动下一题目、响应正常、回答正确
+                    if (json.errCode == 0 && $('#isAutoNext').is(':checked') && objComplete[key]["complete"] == 'yes') {
+                        getQuestion('next');
+                    }
+                });
+            }
         });
 
         // 上一题 下一题

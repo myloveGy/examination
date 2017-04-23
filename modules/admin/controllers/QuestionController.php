@@ -57,7 +57,7 @@ class QuestionController extends Controller
      */
     public function actionChild()
     {
-        $answer = Answer::findAll(['qid' => \Yii::$app->request->post('id', 1)]);
+        $answer = Answer::findAll(['qid' => \Yii::$app->request->get('id', 1)]);
         $this->arrJson['errCode'] = 223;
         if ($answer) $this->handleJson($answer);
         return $this->returnJson();
@@ -70,18 +70,5 @@ class QuestionController extends Controller
     public function getModel()
     {
         return new Question();
-    }
-
-    /**
-     * afterUpload() 上传文件之后的处理
-     * @param object $objFile
-     * @param string $strFilePath
-     * @param string $strField
-     * @return bool
-     */
-    public function afterUpload($objFile, &$strFilePath, $strField)
-    {
-        Helper::copy($strFilePath);
-        return true;
     }
 }
