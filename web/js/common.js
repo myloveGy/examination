@@ -13,7 +13,8 @@ function imageBoost(selector) {
             shade: 0.3,
             cancel: function(index){layer.close(index);},
             content: '<img src="'+src+'" style="margin:20px" />',
-            btn: ['确定']
+            btn: ['确定'],
+            shadeClose: true
         });
     })
 }
@@ -21,8 +22,15 @@ function imageBoost(selector) {
 var aType = {
     "1": "单选题,请选择你认为正确的答案!",
     "2": "判断题,请判断对错!",
-    "3": "选择题,请选择你认为正确的答案!",
+    "3": "多选题,请选择你认为正确的答案!",
     "4": "填空题，请填写答案"
+};
+
+var aTypeColor = {
+    "1": "bg-info",
+    "2": "bg-warning",
+    "3": "bg-primary",
+    "4": "bg-danger"
 };
 
 // 获取答案类型
@@ -30,9 +38,6 @@ function getAnswerTypeDesc(iType) {
     return aType[iType] ? aType[iType] : aType["3"];
 }
 
-// 设置高度
-var iWHeight = $(window).height() - 187, iCHeight = $('#content').height();
-if (iWHeight > iCHeight) $('#content').css('min-height', iWHeight + 'px');
 var loginShow, registerShow, oLoading;
 
 // 弹出窗口
@@ -78,6 +83,15 @@ function userLogin(user) {
 }
 
 $(window).ready(function(){
+    // 设置高度
+    var iWHeight = $(window).height() - 187, c = $("#content"), iCHeight = c.height();
+
+    if (iWHeight < iCHeight) {
+        iWHeight = iCHeight;
+    }
+
+    c.css('min-height', iWHeight + 'px');
+
     // 弹出登录窗口
     $('.login').click(function(evt){
         evt.preventDefault();

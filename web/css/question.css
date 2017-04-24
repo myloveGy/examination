@@ -111,3 +111,11 @@ b.tips span {
     border-color: #1dacf9;
     color: #1dacf9;
 }
+
+p.me-answer-type span {
+    padding: 6px;
+}
+
+div.span4 {
+    margin: 5px;
+}

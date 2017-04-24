@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use \yii\helpers\Json;
 use app\common\models\Question;
 
 $this->title = '顺序练习';
@@ -13,7 +14,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 <?=$this->render('_crumbs')?>
 <div class="jkbd-page-lianxi inner jkbd-width wid-auto cl lianxi-type-sequence">
     <div class="lianxi-container news-left">
-        <div data-item="shiti-container" class="shiti-container " style="">
+        <div data-item="shiti-container" class="shiti-container">
             <div class="shiti-item cl">
                 <div class="clearfix">
                     <p class="shiti-content pull-left">
@@ -21,18 +22,30 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                     </p>
                     <span id="user-collect" class="btn btn-default pull-right user-login favor-tag <?=$hasCollect ? 'on' : ''?><?=Yii::$app->user->isGuest ? 'hide' : ''?>">收藏</span>
                 </div>
+                <div class="col-md-12">
 
-                <div>
                     <?php if ($answer) : ?>
-                        <div class="shiti-wapper  pull-left">
-                            <div  class="options-container" id="answers">
-                                <?php foreach ($answer as $value) : ?>
-                                    <p answer="<?=$value->id?>"><i></i><span><?=$value->name?></span></p>
-                                <?php endforeach; ?>
-                            </div>
+                    <div class="shiti-wapper  pull-left col-md-8 <?php if ($question->answer_type == 4) : ?>hide<?php endif; ?>" id="question-answer">
+                        <div  class="options-container" id="answers">
+                            <?php foreach ($answer as $value) : ?>
+                                <p answer="<?=$value->id?>"><i></i><span><?=$value->name?></span></p>
+                            <?php endforeach; ?>
                         </div>
+                    </div>
                     <?php endif; ?>
-                    <div id="show-img" class="pull-right <?=$question->question_img ? '' : 'hide'?>">
+                    <div class="shiti-wapper question-text col-md-8 pull-left <?php if ($question->answer_type != 4) : ?>hide<?php endif; ?>" id="question-text">
+                        <form id="question-form">
+                            <textarea id="question-answer-text" name="question-answer" class="form-control" required="true" rangelength="[2, 1000]" rows="3" placeholder="请填写答案"></textarea>
+                            <div class="span4"></div>
+                            <button type="submit" class="btn btn-default">提交答案</button>
+                            <div class="span4 text-answer hide" id="text-answer-div">
+                                <p>正确答案信息： </p>
+                                <p id="text-answer"></p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="show-img" class="pull-right col-md-4 <?=$question->question_img ? '' : 'hide'?>">
                         <img src="<?=$question->question_img?>" width="300px"/>
                         <p class="text-center">
                             <a href="javascript:;" class="see-img">点击放大</a>
@@ -48,8 +61,8 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                 正确答案：<strong id="answer-yes" class="text-success">A</strong>
             </p>
             <p id="do-yes-answer" class="dadui do-answer text-success hide"> <strong>回答正确</strong> </p>
-            <p class="weizuo" id="answer-type">
-                <?= Question::getAnswerTypeDesc($question->answer_type) ?>
+            <p class="me-answer-type" >
+                <span class="" id="answer-type"><?= Question::getAnswerTypeDesc($question->answer_type) ?></span>
             </p>
             <p>
                 错误率 <strong id="do-error-rate"><?=$question->do_number != 0 ? (round($question->error_number / $question->do_number * 100, 2 ) . '%') : '0%'?></strong> 　
@@ -86,24 +99,103 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
     var allIds = <?=$allIds?>,                   // 全部问题
-        sAnswerType = 'no',                      // 答案类型
-        objComplete = {},   // 已经完成的题目
-
-        // 问题对象信息
-        objQuestion = <?=\yii\helpers\Json::encode($question)?>,
 
         // 页面公共信息
         objBase = {
+            pk: "0",
             doNumber: 0,    // 做了多少题目
             yesNumber: 0,   // 做对多少题目
             noNumber: 0,     // 做错多少题目
             correctRote: 100, // 正确率
+            error: "", // 错误信息
+            loading: null, // layer.load() 加载对象
+            progress: 1,    // 进度
+            request: {},    // 请求信息
+
+            // 完成题目信息
+            complete: {},
+
+            // 题目信息
+            question: <?=Json::encode($question)?>,
+
+            // 问题信息
+            answer: <?=Json::encode($answer)?>,
+            answerHtml: "",
 
             // 当前问题信息
             currentQuestion: {
-                complete: false, // 是否做完,
+                index: 0,       // 当前题目位置
+                complete: 'no', // 完成情况,
                 correct: [],    // 正确答案信息,
-                answers: []     // 回答信息
+                answers: [],     // 回答信息，
+                hasCollect: false, // 是否已经收藏
+                errorRate: 0,       // 问题的错误率
+                doComplete: false // 是否已经做完
+            },
+
+            initData: function(question, answer) {
+                this.question = question;
+                this.answer = answer;
+                this.initCorrect();
+            },
+
+            renderAnswer: function(o) {
+                if (!o) o = this.answer;
+                this.answerHtml = "";
+
+                if (o) {
+                    for(var i in o) {
+                        this.answerHtml += '<p answer="'+ o[i]["id"] +'"><i></i><span>'+ o[i]["name"] +'</span></p>';
+                    }
+                }
+
+                // 执行渲染页面
+                $('#answer-type').html(getAnswerTypeDesc(this.question.answer_type)).removeClass("default bg-danger bg-info bg-primary bg-warning").addClass(aTypeColor[this.question.answer_type]);
+                $('#answers').html(this.answerHtml);
+            },
+
+            renderOther: function() {
+                // 更新进度
+                $('#o-number').html(objBase.currentQuestion.index + 1);
+            },
+
+            // 渲染问题信息
+            renderQuestion: function(){
+                // 渲染其他信息
+                this.renderOther();
+
+                if (this.question.answer_type == 4) {
+                    $("#question-answer").addClass("hide");
+                    $("#question-text").removeClass("hide");
+                } else {
+                    // 隐藏填空题目信息
+                    objBase.initAnswerText();
+                    $("#question-answer").removeClass("hide");
+                    $("#question-text").addClass("hide");
+                }
+
+                // 处理显示
+                $('.do-answer').addClass('hide');
+                $('#question-title').html(this.question.question_title);
+                $('#question-content').html(this.question.question_content);
+                $('#do-number').html(this.question.error_number);
+
+                // 收藏是否显示
+                this.currentQuestion.hasCollect ? $('#user-collect').addClass('on') : $('#user-collect').removeClass('on');
+
+                // 计算该题目的错误率
+                this.currentQuestion.errorRate = this.question.do_number ? this.question.error_number / this.question.do_number * 100 : 0;
+                $('#do-error-rate').html(this.currentQuestion.errorRate.toFixed(2) + '%');
+
+                // 判断是否有图片
+                if (this.question.question_img) {
+                    $('#show-img').removeClass('hide').find('img').attr('src', this.question.question_img);
+                } else {
+                    $('#show-img').addClass('hide');
+                }
+
+                // 渲染答案信息
+                this.renderAnswer();
             },
 
             // 完成题目自增
@@ -128,22 +220,44 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 
             // 计算正确率
             handleCorrectRate: function() {
-                this.correctRote = this.doNumber > 0 ? this.yesNumber / this.doNumber : 0;
+                this.correctRote = this.doNumber > 0 ? this.yesNumber / this.doNumber * 100 : 0;
                 $('#do-accuracy').html(this.correctRote.toFixed(2) + '%');
             },
 
             // 获取问题信息
             getAnswer: function(o) {
-                if (!o) o = objQuestion;
+                if (!o) o = this.question;
                 return o ? (o.answer_type == 3 ? $.parseJSON(o.answer_id): o.answer_id) : null;
             },
 
+            // 设置问题信息
+            setAnswerText: function() {
+                // 显示正确答案信息
+                $("#text-answer-div").removeClass("hide");
+                var html = "";
+                this.answer.forEach(function(v, k){
+                    if (v.id == objBase.question.answer_id) {
+                        html += v.name;
+                    }
+                });
+
+                $("#text-answer").html(html);
+            },
+
+            // 初始化填空题目
+            initAnswerText: function() {
+                $("#question-answer-text").val("");
+                $("#text-answer-div").addClass("hide");
+                $("#text-answer").html("");
+            },
+
             // 初始化多选问题信息
-            initCorrect: function(o) {
-
+            initCorrect: function(o, collect) {
                 this.currentQuestion.correct = [];
-
-                if (!o) o = objQuestion;
+                this.currentQuestion.complete = 'no';
+                this.currentQuestion.answers = [];
+                this.currentQuestion.hasCollect = collect;
+                if (!o) o = this.question;
                 // 初始化多选问题信息
                 if (o.answer_type == 3) {
                     this.currentQuestion.correct = objBase.getAnswer(o);
@@ -165,116 +279,94 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
             // 判断相等
             equalCorrect: function() {
                 return this.currentQuestion.correct.length == this.currentQuestion.answers.length;
+            },
+
+            // 初始化第一个请求问题信息
+            initRequest: function(question, answer, collect) {
+                if (!question) question = this.question;
+                if (!answer) answer = this.answer;
+                if (collect == undefined) collect = this.currentQuestion.hasCollect;
+                this.request[question.id] = {
+                    question: question,
+                    answer: answer,
+                    hasCollect: collect
+                };
             }
         };
 
         objBase.initCorrect();
+        objBase.initRequest();
 
-
-
-
+    // 获取题目信息
     function getQuestion(type) {
-        var errMsg = '';
         switch (type) {
             case 'next':
-                if (allIds[0]) {
-                    doIds.push(allIds.shift());
-                } else {
-                    errMsg = '没有下一题了';
-                }
+                objBase.error = '没有下一题了';
+                objBase.currentQuestion.index ++;
                 break;
             case 'prev':
-                if (doIds.length > 0) {
-                    allIds.unshift(doIds.pop());
-                } else {
-                    errMsg = '没有上一题了';
-                }
+                objBase.error = '没有上一题了';
+                objBase.currentQuestion.index --;
                 break;
             default:
-                errMsg = '你的选择错误';
+                objBase.error = '你的选择错误';
         }
 
-        if (errMsg || !allIds[0]) {
-            return layer.msg(errMsg ? errMsg : '没有题目了咯', {icon:2})
+        // 判断题目是否存在(index) 是否越界
+        if (objBase.currentQuestion.index < 0 || objBase.currentQuestion.index > allIds.length || !allIds[objBase.currentQuestion.index]) {
+            return layer.msg(objBase.error ? objBase.error : '没有题目了咯', {icon:2})
         }
 
+        // 处理查看详情
         $('#info').addClass('hide');
-        var ol = layer.load();
-        $.ajax({
-            url: '<?=Url::toRoute(['question/get-question'])?>',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                qid: allIds[0]
-            }
-        }).always(function(){
-            layer.close(ol);
-        }).done(function(json){
-            if (json.errCode == 0) {
+        $('#see-info').html('查看详情');
 
-                // 处理显示问题
-                if (json.data.question) {
-                    // 更新问题信息
-                    objQuestion = json.data.question;
+        objBase.pk = String(allIds[objBase.currentQuestion.index]);
 
-                    var question = json.data.question, html = '';
-                    sAnswerType  = 'no';
-                    isCollect = false;
-                    isDo = false;
-                    answerYes = question.answer_id;
-                    iQuestionId = question.id;
-                    objYes = [];
-                    iQuestionType = question.answer_type;
-                    if (iQuestionType == 3) objAnswer = $.parseJSON(answerYes);
-
-
-                    $('#o-number').html(doIds.length + 1);
-                    $('.do-answer').addClass('hide');
-                    $('#question-title').html(question.question_title);
-                    $('#question-content').html(question.question_content);
-                    $('#do-number').html(question.error_number);
-                    json.data.hasCollect ? $('#user-collect').addClass('on') : $('#user-collect').removeClass('on');
-
-                    var errorRate = question.do_number ? question.error_number/question.do_number * 100 : 0;
-                    $('#do-error-rate').html(errorRate.toFixed(2) + '%');
-
-                    // 详情处理
-                    $('#see-info').html('查看详情');
-                    $('#info').addClass('hide');
-
-                    // 判断是否有图片
-                    if (question.question_img) {
-                        $('#show-img').removeClass('hide').find('img').attr('src', question.question_img);
-                    } else {
-                        $('#show-img').addClass('hide');
-                    }
-                    $('#answer-type').html(getAnswerTypeDesc(question.answer_type));
-                    if (json.data.answers) {
-                        for(var i in json.data.answers) {
-                            html += '<p answer="'+ json.data.answers[i]["id"] +'"><i></i><span>'+ json.data.answers[i]["name"] +'</span></p>';
-                        }
-                    }
-
-                    $('#answers').html(html);
+        // 判断该题目是否已经请求过
+        if (objBase.request[objBase.pk]) {
+            // 更新问题信息, 重新配置当前问题信息
+            objBase.initData(objBase.request[objBase.pk].question, objBase.request[objBase.pk].answer, objBase.request[objBase.pk].hasCollect);
+            objBase.renderQuestion();
+        } else {
+            objBase.loading = layer.load();
+            $.ajax({
+                url: '<?=Url::toRoute(['question/get-question'])?>',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    qid: allIds[objBase.currentQuestion.index]
                 }
-            } else {
-                layer.msg(json.errMsg, {icon: 2});
-            }
-        }).fail(function(error) {
-            layer.msg('服务器繁忙, 请稍候再试...');
-        });
+            }).always(function(){
+                layer.close(objBase.loading);
+            }).done(function(json){
+                if (json.errCode == 0) {
+
+                    // 处理显示问题
+                    if (json.data.question) {
+                        // 更新问题信息, 重新配置当前问题信息
+                        objBase.initData(json.data.question, json.data.answers, json.data.hasCollect);
+                        objBase.initRequest();
+                        objBase.renderQuestion();
+                    }
+                } else {
+                    layer.msg(json.errMsg, {icon: 2});
+                }
+            }).fail(function(error) {
+                layer.msg('服务器繁忙, 请稍候再试...');
+            });
+        }
     }
 
     $(window).ready(function(){
         // 选择答案
         $(document).on('click', '#answers p', function() {
-
             // 转字符串
-            var key = String(objQuestion.id), // 标识KEY
+            var key = String(objBase.question.id), // 标识KEY
                 selfAnswer = parseInt($(this).attr("answer")); // 问题答案
 
             // 判断该题目是否已经做过
-            if (objComplete[key]) {
+            if (objBase.question.answer_type == 4 || objBase.complete[key]) {
                 // 做过
                 return false;
             } else {
@@ -288,7 +380,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                 $(this).addClass("do-complete");
 
                 // 多选
-                if (objQuestion.answer_type == 3) {
+                if (objBase.question.answer_type == 3) {
                     // 选择正确没有问题
                     if (objBase.isCorrect(selfAnswer)) {
 
@@ -304,7 +396,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 
                         // 全部正确
                         objBase.yesIncr();
-                        sAnswerType = 'yes';
+                        objBase.currentQuestion.complete = 'yes';
                         $("#do-yes-answer").removeClass('hide');
                     } else {
                         // 选择错误，该题目已经做错
@@ -312,35 +404,39 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 
                         // 正确答案显示出来
                         var yesHtml = "";
-                        objAnswer.forEach(function(v, k) {
+                        objBase.currentQuestion.correct.forEach(function(v, k) {
                             yesHtml += $("#answers p[answer=" + v + "]").addClass("dui").text()  + " ";
                         });
 
                         // 显示正确答案和错题目累加
                         $('#do-no-answer').removeClass('hide').find('#answer-yes').html(yesHtml);
                         objBase.noIncr();
+                        objBase.currentQuestion.complete = 'no';
                     }
                 } else {
                     // 判断对错
-                    if ($(this).attr('answer') == answerYes) {
+                    if ($(this).attr('answer') == objBase.question.answer_id) {
                         // 正确
                         $(this).addClass('dui');
-                        sAnswerType = 'yes';
                         objBase.yesIncr();
+                        objBase.currentQuestion.complete = 'yes';
                         $("#do-yes-answer").removeClass('hide');
                     } else {
                         // 错误
                         $(this).addClass('xuan');
-                        var doYes = $('#answers p[answer=' + answerYes + ']').addClass('dui');
+                        var doYes = $('#answers p[answer=' + objBase.question.answer_id + ']').addClass('dui');
                         $('#do-no-answer').removeClass('hide').find('#answer-yes').html(doYes.text());
                         objBase.noIncr();
+                        objBase.currentQuestion.complete = 'no';
                     }
                 }
 
-                // 标识已做
-                objComplete[key] = {
-                    question: objQuestion, // 问题信息,
-                    complete: sAnswerType // 完成情况
+                // 保存已经做完问题信息
+                objBase.complete[key] = {
+                    index: objBase.question.id,
+                    userAnswer: objBase.currentQuestion, // 用户回答信息
+                    userText: null, // 只有在是填空题时候添加
+                    complete: objBase.currentQuestion.complete // 完成情况
                 };
 
                 // 计算正确率
@@ -350,14 +446,14 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                 $.ajax({
                     url: '<?=Url::toRoute(['question/record'])?>',
                     data: {
-                        qid: objComplete[key]["question"]["id"],
-                        sType: objComplete[key]["complete"]
+                        qid: objBase.complete[key]["index"],
+                        sType: objBase.complete[key]["complete"]
                     },
                     type: 'POST',
                     dataType: 'json'
                 }).done(function(json) {
                     // 选择正确自动下一题目、响应正常、回答正确
-                    if (json.errCode == 0 && $('#isAutoNext').is(':checked') && objComplete[key]["complete"] == 'yes') {
+                    if (json.errCode == 0 && $('#isAutoNext').is(':checked') && objBase.complete[key]["complete"] == 'yes') {
                         getQuestion('next');
                     }
                 });
@@ -372,11 +468,11 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
         // 收藏问题
         $('#user-collect').click(function(){
             var self = $(this), hasCollect = self.hasClass('on');
-            if (iQuestionId > 0) {
+            if (objBase.question.id > 0) {
                 $.ajax({
                     url: '<?=Url::toRoute(['user/create-collect'])?>',
                     data: {
-                        qid: iQuestionId,
+                        qid: objBase.question.id,
                         type: hasCollect ? 'remove' : 'create',
                         subject: '<?=$subject->id?>',
                     },
@@ -399,7 +495,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 
         // 查询详情
         $('#see-info').click(function(){
-            if (isDo) {
+            if (objBase.complete[objBase.question.id]) {
                 if ($("#info").hasClass('hide')) {
                     $(this).html('收起详情');
                     $('#info').removeClass('hide');
@@ -414,6 +510,33 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 
         // 查看图片
         imageBoost('a.see-img');
+    });
+
+    // 表单提交
+    $("#question-form").submit(function(evt) {
+        evt.preventDefault();
+
+        // 验证通过
+        if ($(this).validate().form()) {
+            var key = String(objBase.question.id); // 标识KEY
+            if (objBase.question.answer_type != 4 || objBase.complete[key]) {
+                return false;
+            } else {
+                // 获取正确答案信息
+                objBase.setAnswerText();
+
+                // 默认认为做正确
+                objBase.yesIncr();
+
+                // 保存已经做完问题信息
+                objBase.complete[key] = {
+                    index: objBase.question.id,
+                    userAnswer: objBase.currentQuestion, // 用户回答信息
+                    userText: $("#question-answer-text").val(), // 只有在是填空题时候添加
+                    complete: objBase.currentQuestion.complete // 完成情况
+                };
+            }
+        }
     });
 
     /**
