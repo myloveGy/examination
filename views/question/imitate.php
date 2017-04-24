@@ -270,14 +270,7 @@ $this->registerCssFile('@web/css/imitate.css');
                 }
             },
 
-            // 渲染问题
-            renderQuestion: function() {
-
-                // 处理标题
-                $('#question-title').html(this.question.question_title);
-                // 处理类型
-                $("#answer-type").html(getAnswerTypeDesc(this.question.answer_type));
-
+            initAnswerText: function() {
                 // 判断题目类型
                 if (this.question.answer_type == 4) {
                     $("#answers").add("#right-answer").addClass("hide");
@@ -286,6 +279,17 @@ $this->registerCssFile('@web/css/imitate.css');
                     $("#answers").add("#right-answer").removeClass("hide");
                     $("#answer-text").addClass("hide");
                 }
+            },
+
+            // 渲染问题
+            renderQuestion: function() {
+
+                // 处理标题
+                $('#question-title').html(this.question.question_title);
+                // 处理类型
+                $("#answer-type").html(getAnswerTypeDesc(this.question.answer_type));
+
+                this.initAnswerText();
 
                 // 存在图片
                 if (this.question.question_img) {
