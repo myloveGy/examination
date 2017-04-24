@@ -73,10 +73,10 @@ $this->registerCssFile('@web/css/imitate.css');
                             <p id="question-desc" class="hide">
                                 <span class="al is-dui dui"> 回答正确! </span>
                                 <span class="al is-cuo cuo"> 回答错误! </span>
-                                <span class="al2 is-cuo">您的答案：</span>
-                                <span class="al3 is-cuo"><strong id="do-no"></strong></span>
-                                <span class="al2">正确答案：</span>
-                                <span class="al3"><strong id="do-yes"></strong></span>
+<!--                                <span class="al2 is-cuo">您的答案：</span>-->
+<!--                                <span class="al3 is-cuo"><strong id="do-no"></strong></span>-->
+                                <span class="al2 dui-answer">正确答案：</span>
+                                <span class="al3 dui-answer"><strong id="do-yes"></strong></span>
                                 <span class="al4"><a href="javascript:;" id="why">为什么？</a></span>
                             </p>
                         </div>
@@ -140,6 +140,7 @@ $this->registerCssFile('@web/css/imitate.css');
             second: 59, // 秒数
             first: true,
             fraction: 0, // 分数
+
             question: null,
             answer: null,
             current: {
@@ -151,7 +152,9 @@ $this->registerCssFile('@web/css/imitate.css');
             loading: null,
             complete: {}, // 完成题目
             doNumber: 0, // 已经完成的题目
+            yesRote: 0, // 正确率
             yesNumber: 0, // 做对题目
+            noRote: 0, // 错误率
             noNumber: 0, // 做错题目
             request: {},
             answerLetter: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"],
@@ -172,21 +175,17 @@ $this->registerCssFile('@web/css/imitate.css');
             addComplete: function(pk, complete, answer) {
                 if (!this.complete[pk]) {
 
-                    this.doNumber ++;
-
                     this.complete[pk] = {
                         index: pk,
                         complete: complete,
                         answer: answer
                     };
 
+                    this.doNumber ++;
+
                     // 计算得分和做对做错题目数
                     switch (complete) {
                         case "yes":
-                            this.fraction += 1;
-                            this.yesNumber ++;
-                            break;
-                        case "all":
                             this.fraction += 1;
                             this.yesNumber ++;
                             break;
@@ -196,11 +195,10 @@ $this->registerCssFile('@web/css/imitate.css');
                             break;
                         default:
                             this.noNumber ++;
-                            return false;
                     }
 
                     // 添加该题目Class
-                    $('#select-question li[data-id=' + meBase.question.id + ']').addClass(complete == "no" ? "cuo": "dui");
+                    $('#select-question li[data-id=' + this.question.id + ']').addClass(complete == "no" ? "cuo": "dui");
                 }
             },
 
@@ -228,7 +226,6 @@ $this->registerCssFile('@web/css/imitate.css');
                 this.current.complete = false;
                 if (this.question.answer_type == 3) {
                     this.current.correct = $.parseJSON(this.question.answer_id);
-                    console.info(this.current)
                 }
             },
 
@@ -261,7 +258,7 @@ $this->registerCssFile('@web/css/imitate.css');
 
             renderQuestionDesc: function(type, func) {
                 var $q = $("#question-desc").removeClass("hide");
-                if (type == "yes") {
+                if (type == "yes" || type == "missing") {
                     $q.find("span.is-dui").show();
                     $q.find("span.is-cuo").hide();
                 } else {
@@ -273,9 +270,14 @@ $this->registerCssFile('@web/css/imitate.css');
             initAnswerText: function() {
                 // 判断题目类型
                 if (this.question.answer_type == 4) {
+                    $("#question-desc").find(".dui-answer").hide();
+                    $("#submit-answer").get(0).reset();
                     $("#answers").add("#right-answer").addClass("hide");
                     $("#answer-text").removeClass("hide");
+                    $("#text-answer-div").addClass("hide");
+                    $("#text-answer").html("");
                 } else {
+                    $("#question-desc").find(".dui-answer").show();
                     $("#answers").add("#right-answer").removeClass("hide");
                     $("#answer-text").addClass("hide");
                 }
@@ -312,6 +314,7 @@ $this->registerCssFile('@web/css/imitate.css');
                 }
 
                 // 判断是否已经存在
+                $("#do-yes").html("");
                 if (this.complete[this.question.id]) {
                     this.renderQuestionDesc(this.complete[this.question.id]["complete"]);
                     if (this.question.answer_type == 3) {
@@ -321,9 +324,32 @@ $this->registerCssFile('@web/css/imitate.css');
                         });
                         $("#do-yes").html(this.html);
                     } else {
-                        $("#do-yes").html($("#select-answers").find("button[data-answer=" + this.complete[this.question.id]["answer_id"] + "]").html());
+                        $("#do-yes").html($("#select-answers").find("button[data-answer=" + this.question.answer_id + "]").html());
                     }
 
+                    // 确定选择
+                    switch (this.question.answer_type) {
+                        case 3: // 多选
+                            if (typeof this.complete[this.pk].answer == "object") {
+                                this.complete[this.pk].answer.forEach(function(v, k) {
+                                    $("#select-answers").find("button[data-answer=" + v + "]").addClass("btn-success");
+                                });
+                            } else {
+                                $("#select-answers").find("button[data-answer=" + this.complete[this.pk].answer + "]").addClass("btn-danger");
+                            }
+                            break;
+
+                        case 4: // 填空
+                                this.setAnswerText();
+                                $("#question-answer-text").val(this.complete[this.pk].answer);
+                            break;
+
+                        default:
+                            $("#select-answers")
+                                .find("button[data-answer=" + this.complete[this.pk].answer + "]")
+                                .addClass(this.complete[this.pk]["complete"] == "no" ? "btn-danger" : "btn-success");
+
+                    }
                 } else {
                     $("#question-desc").addClass("hide");
                 }
@@ -337,10 +363,14 @@ $this->registerCssFile('@web/css/imitate.css');
                 // 判断是否已经处理过
                 switch (type) {
                     case "next":
-                        meBase.index ++;
+                        if (meBase.index < this.allQuestions.length) {
+                            meBase.index ++;
+                        }
                         break;
                     case "prev":
-                        meBase.index --;
+                        if (meBase.index > 0) {
+                            meBase.index --;
+                        }
                         break;
                     case "select":
                         meBase.index = iIndex;
@@ -361,94 +391,78 @@ $this->registerCssFile('@web/css/imitate.css');
                 } else {
                     this.getQuestion(this.pk);
                 }
+            },
+
+            // 开始定时
+            startInter: function() {
+                this.inter = setInterval(function(){
+                    if (meBase.first) {
+                        $('#minute').html('44');
+                        meBase.first = false;
+                    }
+
+                    if (meBase.second == 0) {
+                        meBase.second = 59;
+                        $('#second').html('00');
+                        meBase.minute --;
+                        if (meBase.minute <= 0) {
+                            $('#minute').html('00');
+                            examinationPerformance();
+                        } else {
+                            $('#minute').html((meBase.minute < 10 ? '0' : '') + meBase.minute);
+                        }
+                    } else {
+                        $('#second').html((meBase.second < 10 ? '0' : '') + meBase.second);
+                        meBase.second --;
+                    }
+                }, 1000);
             }
         };
 
         meBase.initQuestion(<?=Json::encode($question)?>, <?=Json::encode($answers)?>);
         meBase.insertRequest();
 
-    // 获取对象个数
-    function count(obj, key, val) {
-        var iTotal = 0;
-        for (var i in obj) {
-            if (key) {
-                if (obj[i][key] == val) {
-                    iTotal ++;
-                }
-            } else {
-                iTotal ++;
-            }
-        }
-
-        return iTotal;
-    }
-
-    // 开始设置时间
-    function startInter() {
-        return setInterval(function(){
-            if (meBase.first) {
-                $('#minute').html('44');
-                meBase.first = false;
-            }
-
-            if (meBase.second == 0) {
-                meBase.second = 59;
-                $('#second').html('00');
-                meBase.minute --;
-                if (meBase.minute <= 0) {
-                    $('#minute').html('00');
-                    examinationPerformance();
-                } else {
-                    $('#minute').html((meBase.minute < 10 ? '0' : '') + meBase.minute);
-                }
-            } else {
-                $('#second').html((meBase.second < 10 ? '0' : '') + meBase.second);
-                meBase.second --;
-            }
-        }, 1000);
-    }
-
     function examinationPerformance() {
-        clearInterval(sInter);
-        var
-            dui = count(doQuestions, 'do', 'yes'),
-            duiRote = Math.round(dui / 100 * 100, 2),
-            cuoRote = 100 - duiRote;
-        var p = '<div class="performance">\
-        <p> 考试题数：100题 </p>\
+        clearInterval(meBase.inter);
+        meBase.yesRote = Math.round(meBase.yesNumber / meBase.allQuestions.length * 100, 2);
+        meBase.noRote = Math.round(meBase.noNumber / meBase.allQuestions.length * 100, 2);
+
+        meBase.html = '<div class="performance">\
+        <p> 考试题数：' + meBase.allQuestions.length + '题 </p>\
         <p>\
-            <span>做对 <strong class="yes"> ' + dui + ' </strong> 题</span>\
-            <span>占比 ' + duiRote.toFixed(2) + ' %</span>\
+            <span>做对 <strong class="yes"> ' + meBase.yesNumber + ' </strong> 题</span>\
+            <span>占比 ' + meBase.yesRote.toFixed(2) + ' %</span>\
         </p>\
         <p>\
-            <span>做错 <strong class="no"> ' + (100 - dui) + ' </strong> 题</span>\
-            <span>占比 ' + cuoRote.toFixed(2) + ' %</span>\
+            <span>做错 <strong class="no"> ' + (meBase.noNumber) + ' </strong> 题</span>\
+            <span>占比 ' + meBase.noRote.toFixed(2) + ' %</span>\
         </p>\
+        <p> 有 <strong>' + (meBase.allQuestions.length - meBase.doNumber) + '</strong> 题没有做 </p>\
         <p>\
-        分数： <strong class="fraction">' + dui+ '</strong>\
+        分数： <strong class="fraction">' + meBase.fraction + '</strong>\
         </p>\
         </div>';
         layer.open({
             title : '模拟成绩',
-            content: p,
-            btn: ['重新开始', '取消'],
+            content: meBase.html,
+            btn: ['重新开始', '继续做题'],
 
             yes: function() {
                 window.location.reload();
             },
 
             btn2: function() {
-                startInter();
+                meBase.startInter();
             }
         });
     }
 
     $(window).ready(function(){
         // 加载完成
-//        layer.alert('按交管部门通知，科目一考试系统全面更新。全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为90分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
-//            // 定时时间
-//            sInter = startInter();
-//        }});
+        layer.alert('按交管部门通知，科目一考试系统全面更新。全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为90分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
+            // 定时时间
+            meBase.startInter();
+        }});
 
         // 上一题和下一题
         $("#prev").add("#next").click(function(){
@@ -467,6 +481,7 @@ $this->registerCssFile('@web/css/imitate.css');
             if (meBase.complete[meBase.pk]) {
                 return false;
             } else {
+                $("#question-desc").find(".dui-answer").hide();
                 // 显示正确答案
                 meBase.setAnswerText();
                 meBase.renderQuestionDesc("yes");
@@ -490,6 +505,7 @@ $this->registerCssFile('@web/css/imitate.css');
                         if ($.inArray(iAnswerId, meBase.current.answer) === -1) meBase.current.answer.push(iAnswerId);
                         if (meBase.current.correct.length != meBase.current.answer.length) return false;
                         type = "yes";
+                        iAnswerId = meBase.current.answer;
 
                     } else {
                         type = "no";
@@ -526,10 +542,9 @@ $this->registerCssFile('@web/css/imitate.css');
 
         // 提交试卷
         $('#examination-submit').click(function(){
-            var doNum = count(doQuestions);
-            if (doNum < 100) {
+            if (meBase.doNumber < meBase.allQuestions.length) {
                 // 询问框
-                layer.confirm('您还有' + (100 - doNum )+ '道题目没做, 确实需要交卷吗?', {
+                layer.confirm('您还有' + (meBase.allQuestions.length - meBase.doNumber)+ '道题目没做, 确实需要交卷吗?', {
                     title: '温馨提醒',
                     btn: ['确定','取消'],
                     shift: 4,
