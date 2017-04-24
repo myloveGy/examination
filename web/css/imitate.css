@@ -201,3 +201,7 @@ div.performance strong.yes {
 div.performance strong.no, div.performance strong.fraction {
     color: red;
 }
+
+div.span4 {
+    margin: 5px;
+}

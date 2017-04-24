@@ -2,11 +2,9 @@
 
 use yii\helpers\Json;
 use yii\helpers\Url;
-use common\models\Question;
-
+use app\common\models\Question;
 $this->title = '全真模拟';
 $this->registerCssFile('@web/css/imitate.css');
-$array = range('A', 'z');
 ?>
 <?=$this->render('_crumbs')?>
 <div class="info-up clearfix row">
@@ -39,14 +37,28 @@ $array = range('A', 'z');
                     <div class="timu-content">
                         <div class="pull-left col-md-6">
                             <div class="timu-x">
-                                <p class="timu-p"><span id="do-number">1</span>/<span>100</span>. <span id="question-title"><?=$question->question_title?></span></p>
+                                <p class="timu-p">
+                                    <span id="do-number">1</span>/<span>100</span>.
+                                    <span id="question-title"><?=$question->question_title?></span>
+                                </p>
                             </div>
-                            <div id="answers">
+                            <div id="answers" class="<?=$question->answer_type == 4 ? 'hide' : ''?>">
                                 <?php if ($answers) : ?>
                                 <?php foreach ($answers as $value) : ?>
                                 <p data-id="<?=$value->id?>"><?=$value->name?></p>
                                 <?php endforeach;?>
                                 <?php endif; ?>
+                            </div>
+                            <div id="answer-text" class="<?=$question->answer_type == 4 ? '' : 'hide'?>">
+                                <form id="submit-answer">
+                                    <textarea id="question-answer-text" name="question-answer" class="form-control" required="true" rangelength="[2, 1000]" rows="3" placeholder="请填写答案"></textarea>
+                                    <div class="span4"></div>
+                                    <button type="submit" class="btn btn-default">提交答案</button>
+                                </form>
+                                <div class="span4 text-answer hide" id="text-answer-div">
+                                    <p>正确答案信息： </p>
+                                    <p id="text-answer" class="text-success"></p>
+                                </div>
                             </div>
                         </div>
                         <div id="show-img" class="pull-right col-md-6 text-right <?=$question->question_img ? '' : 'hide'?>">
@@ -68,7 +80,7 @@ $array = range('A', 'z');
                                 <span class="al4"><a href="javascript:;" id="why">为什么？</a></span>
                             </p>
                         </div>
-                        <div class="options-container col-md-6 text-left">
+                        <div class="options-container col-md-6 text-left <?=$question->answer_type == 4 ? 'hide' : ''?>" id="right-answer">
                             <label>请选择：</label>
                             <span id="select-answers">
                                 <?php if ($answers) : ?>
@@ -119,21 +131,237 @@ $array = range('A', 'z');
 </div>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
-    var minute = 44,
-        second = 59,
-        sInter = null,
-        allIds = <?=Json::encode($allIds)?>,
-        doQuestions = {},
-        iQuestionId = <?=$question->id?>,
-        iAnswerId = <?=$question->answer_id?>,
-        oFirstQuestion = <?=Json::encode($question->toArray())?>,
-        aAnswersSelect = <?=Json::encode($array)?>,
-        oFirstAnswers = <?=Json::encode($answers)?>,
-        iKey = 0,
-        first = true;
+        var meBase = {
+            inter: null, // 开启定时
+            allQuestions: <?=Json::encode($allIds)?>, // 所有问题信息
+            pk: "<?=$question->id?>", // 主键ID
+            index: 0, // 回答问题位置
+            minute: 44, // 分钟
+            second: 59, // 秒数
+            first: true,
+            fraction: 0, // 分数
+            question: null,
+            answer: null,
+            current: {
+                complete: false, // 是否已经做
+                correct: [],
+                answer: []
+            },
+            html: "",
+            loading: null,
+            complete: {}, // 完成题目
+            doNumber: 0, // 已经完成的题目
+            yesNumber: 0, // 做对题目
+            noNumber: 0, // 做错题目
+            request: {},
+            answerLetter: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"],
 
-        // 第一个问题已经处理
-        oFirstQuestion["answers"] = oFirstAnswers;
+            // 添加数据到请求数据里面
+            insertRequest: function(question, answer) {
+                if (!question) question = this.question;
+                if (!answer) answer = this.answer;
+                if (!this.request[question.id]) {
+                    this.request[question.id] = {
+                        question: question,
+                        answer: answer
+                    };
+                }
+            },
+
+            // 添加完成问题信息
+            addComplete: function(pk, complete, answer) {
+                if (!this.complete[pk]) {
+
+                    this.doNumber ++;
+
+                    this.complete[pk] = {
+                        index: pk,
+                        complete: complete,
+                        answer: answer
+                    };
+
+                    // 计算得分和做对做错题目数
+                    switch (complete) {
+                        case "yes":
+                            this.fraction += 1;
+                            this.yesNumber ++;
+                            break;
+                        case "all":
+                            this.fraction += 1;
+                            this.yesNumber ++;
+                            break;
+                        case "missing":
+                            this.fraction += 0.5;
+                            this.yesNumber ++;
+                            break;
+                        default:
+                            this.noNumber ++;
+                            return false;
+                    }
+
+                    // 添加该题目Class
+                    $('#select-question li[data-id=' + meBase.question.id + ']').addClass(complete == "no" ? "cuo": "dui");
+                }
+            },
+
+            // 填空题显示正确答案
+            setAnswerText: function() {
+                // 显示正确答案信息
+                $("#text-answer-div").removeClass("hide");
+                var html = "";
+                this.answer.forEach(function(v, k){
+                    if (v.id == meBase.question.answer_id) {
+                        html += v.name;
+                    }
+                });
+
+                $("#text-answer").html(html);
+            },
+
+            // 初始化问题信息
+            initQuestion: function (question, answer) {
+                this.question = question;
+                this.answer = answer;
+                this.pk = this.question.id;
+                this.current.answer = [];
+                this.current.correct = [];
+                this.current.complete = false;
+                if (this.question.answer_type == 3) {
+                    this.current.correct = $.parseJSON(this.question.answer_id);
+                    console.info(this.current)
+                }
+            },
+
+            // 获取问题信息
+            getQuestion: function(id, func) {
+                this.loading = layer.load();
+                $.ajax({
+                    url: "<?=Url::toRoute(['question/get-question'])?>",
+                    type: "POST",
+                    dataType: "json",
+                    data: {qid: id}
+                }).always(function(){
+                    layer.close(meBase.loading);
+                }).done(function(json){
+                    if (json.errCode == 0) {
+                        // 处理显示问题
+                        if (json.data.question) {
+                            meBase.initQuestion(json.data.question, json.data.answers);
+                            meBase.insertRequest(); // 添加请求数据到请求对象中
+                            meBase.renderQuestion();
+                            if (func) func(json.data);
+                        }
+                    } else {
+                        layer.msg(json.errMsg, {icon: 2});
+                    }
+                }).fail(function() {
+                    layer.msg('服务器繁忙, 请稍候再试...');
+                });
+            },
+
+            renderQuestionDesc: function(type, func) {
+                var $q = $("#question-desc").removeClass("hide");
+                if (type == "yes") {
+                    $q.find("span.is-dui").show();
+                    $q.find("span.is-cuo").hide();
+                } else {
+                    $q.find("span.is-dui").hide();
+                    $q.find("span.is-cuo").show();
+                }
+            },
+
+            // 渲染问题
+            renderQuestion: function() {
+
+                // 处理标题
+                $('#question-title').html(this.question.question_title);
+                // 处理类型
+                $("#answer-type").html(getAnswerTypeDesc(this.question.answer_type));
+
+                // 判断题目类型
+                if (this.question.answer_type == 4) {
+                    $("#answers").add("#right-answer").addClass("hide");
+                    $("#answer-text").removeClass("hide");
+                } else {
+                    $("#answers").add("#right-answer").removeClass("hide");
+                    $("#answer-text").addClass("hide");
+                }
+
+                // 存在图片
+                if (this.question.question_img) {
+                    $('#show-img').removeClass('hide').find('img').attr('src', this.question.question_img);
+                } else {
+                    $('#show-img').addClass('hide');
+                }
+
+                // 处理问题信息
+                if (this.answer) {
+                    this.html = "";
+                    var selector = '';
+                    for (var i in this.answer) {
+                        this.html += '<p data-id="' + this.answer[i]["id"] + '">' + this.answer[i]["name"] + '</p> ';
+                        selector += '<button type="button" class="btn btn-default" data-answer="' + this.answer[i]["id"] + '"> ' + (this.answerLetter[i] ? this.answerLetter[i] : this.answer[i]["name"]) + ' </button> ';
+                    }
+
+                    $('#answers').html(this.html);
+                    $('#select-answers').html(selector);
+                }
+
+                // 判断是否已经存在
+                if (this.complete[this.question.id]) {
+                    this.renderQuestionDesc(this.complete[this.question.id]["complete"]);
+                    if (this.question.answer_type == 3) {
+                        this.html = "";
+                        this.current.correct.forEach(function(v, k) {
+                            meBase.html += $("#select-answers").find("button[data-answer=" + v + "]").html();
+                        });
+                        $("#do-yes").html(this.html);
+                    } else {
+                        $("#do-yes").html($("#select-answers").find("button[data-answer=" + this.complete[this.question.id]["answer_id"] + "]").html());
+                    }
+
+                } else {
+                    $("#question-desc").addClass("hide");
+                }
+
+                $("#select-question").find("li:eq(" + this.index + ")").addClass("current").siblings("li").removeClass("current");
+                $('#do-number').html(this.index + 1);
+            },
+
+            // 处理问题
+            handleQuestion: function(type, iIndex) {
+                // 判断是否已经处理过
+                switch (type) {
+                    case "next":
+                        meBase.index ++;
+                        break;
+                    case "prev":
+                        meBase.index --;
+                        break;
+                    case "select":
+                        meBase.index = iIndex;
+                        break;
+                }
+
+                // 数组越界
+                if (this.index < 0 || this.index > this.allQuestions.length) {
+                    return layer.msg('没有题目了');
+                }
+
+                // 获取主键
+                this.pk = this.allQuestions[this.index];
+
+                if (this.request[this.pk]) {
+                    this.initQuestion(this.request[this.pk]["question"], this.request[this.pk]["answer"]);
+                    this.renderQuestion();
+                } else {
+                    this.getQuestion(this.pk);
+                }
+            }
+        };
+
+        meBase.initQuestion(<?=Json::encode($question)?>, <?=Json::encode($answers)?>);
+        meBase.insertRequest();
 
     // 获取对象个数
     function count(obj, key, val) {
@@ -154,119 +382,26 @@ $array = range('A', 'z');
     // 开始设置时间
     function startInter() {
         return setInterval(function(){
-            if (first) {
+            if (meBase.first) {
                 $('#minute').html('44');
-                first = false;
+                meBase.first = false;
             }
-            if (second == 0) {
-                second = 59;
+
+            if (meBase.second == 0) {
+                meBase.second = 59;
                 $('#second').html('00');
-                minute --;
-                if (minute <= 0) {
+                meBase.minute --;
+                if (meBase.minute <= 0) {
                     $('#minute').html('00');
                     examinationPerformance();
                 } else {
-                    $('#minute').html((minute < 10 ? '0' : '') + minute);
+                    $('#minute').html((meBase.minute < 10 ? '0' : '') + meBase.minute);
                 }
             } else {
-                $('#second').html((second < 10 ? '0' : '') + second);
-                second --;
+                $('#second').html((meBase.second < 10 ? '0' : '') + meBase.second);
+                meBase.second --;
             }
         }, 1000);
-    }
-
-    // 重新渲染问题信息
-    function renderQuestion(question, answer) {
-        $('#question-title').html(question.question_title);
-        $("#answer-type").html(getAnswerTypeDesc(question.answer_type));
-        if (question.question_img) {
-            $('#show-img').removeClass('hide').find('img').attr('src', question.question_img);
-        } else {
-            $('#show-img').addClass('hide');
-        }
-
-        if (answer) {
-            var html = '', selector = '';
-            for (var i in answer) {
-                html += '<p data-id="'+answer[i]["id"]+'">' + answer[i]["name"] + '</p> ';
-                selector += '<button type="button" class="btn btn-default" data-answer="' + answer[i]["id"] + '"> ' + (aAnswersSelect[i] ? aAnswersSelect[i] : answer[i]["name"]) + ' </button> ';
-            }
-
-            $('#answers').html(html);
-            $('#select-answers').html(selector);
-        }
-
-        // 判断是否已经存在
-        if (doQuestions[question.id]) {
-            var $q = $("#question-desc").removeClass("hide");
-            if (doQuestions[question.id]["do"] == "yes") {
-                $q.find("span.is-dui").show();
-                $q.find("span.is-cuo").hide();
-            } else {
-                $("#do-no").html($("#select-answers").find("button[data-answer=" + doQuestions[question.id]["select_answer"] + "]").html());
-                $q.find("span.is-dui").hide();
-                $q.find("span.is-cuo").show();
-            }
-
-            $("#do-yes").html($("#select-answers").find("button[data-answer=" + doQuestions[question.id]["answer_id"] + "]").html());
-        } else {
-            $("#question-desc").addClass("hide");
-        }
-
-        // 重新赋值
-        iQuestionId = question.id;
-        iAnswerId = question.answer_id;
-        oFirstQuestion = question;
-        oFirstQuestion["answers"] = answer;
-        $("#select-question").find("li:eq(" + iKey + ")").addClass("current").siblings("li").removeClass("current");
-        $('#do-number').html(iKey + 1);
-    }
-
-    function getQuestion(type, iIndex) {
-        // 判断是否已经处理过
-        switch (type) {
-            case "next":
-                iKey ++;
-                break;
-            case "prev":
-                iKey --;
-                break;
-            case "select":
-                iKey = iIndex;
-                break;
-        }
-
-        // 越界
-        if (iKey < 0 || iKey > 99) {
-            return layer.msg('没有题目了');
-        }
-
-        var iQid = allIds[iKey];
-        if (doQuestions[iQid]) {
-            renderQuestion(doQuestions[iQid], doQuestions[iQid]["answers"]);
-        } else {
-            var ol = layer.load();
-            $.ajax({
-                url: '<?=Url::toRoute(['question/get-question'])?>',
-                type: 'POST',
-                dataType: 'json',
-                data: {qid: iQid}
-            }).always(function(){
-                layer.close(ol);
-            }).done(function(json){
-                if (json.errCode == 0) {
-                    // 处理显示问题
-                    if (json.data.question) {
-                        renderQuestion(json.data.question, json.data.answers);
-                    }
-                } else {
-                    layer.msg(json.errMsg, {icon: 2});
-                }
-            }).fail(function(error) {
-                console.info(error);
-                layer.msg('服务器繁忙, 请稍候再试...');
-            });
-        }
     }
 
     function examinationPerformance() {
@@ -293,10 +428,12 @@ $array = range('A', 'z');
             title : '模拟成绩',
             content: p,
             btn: ['重新开始', '取消'],
-            yes: function(index, ly) {
+
+            yes: function() {
                 window.location.reload();
             },
-            btn2: function(index, ly) {
+
+            btn2: function() {
                 startInter();
             }
         });
@@ -304,47 +441,80 @@ $array = range('A', 'z');
 
     $(window).ready(function(){
         // 加载完成
-        layer.alert('按交管部门通知，科目一考试系统全面更新。全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为90分。', {title: '温馨提示', end: function(){
-            // 定时时间
-            sInter = startInter();
-        }});
+//        layer.alert('按交管部门通知，科目一考试系统全面更新。全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为90分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
+//            // 定时时间
+//            sInter = startInter();
+//        }});
 
         // 上一题和下一题
         $("#prev").add("#next").click(function(){
-            return getQuestion($(this).attr('id'));
+            if (meBase.current.complete && meBase.question.answer_type == 3) {
+                // 添加做完题目
+                meBase.addComplete(meBase.pk, "missing", meBase.current.answer);
+            }
+            return meBase.handleQuestion($(this).attr('id'));
+        });
+
+        // 提交答案
+        $("#submit-answer").submit(function(evt){
+            meBase.current.complete = true;
+            evt.preventDefault();
+            // 改题目已经做完
+            if (meBase.complete[meBase.pk]) {
+                return false;
+            } else {
+                // 显示正确答案
+                meBase.setAnswerText();
+                meBase.renderQuestionDesc("yes");
+                // 添加回答完问题
+                meBase.addComplete(meBase.pk, "yes", $("#question-answer-text").val());
+                $('#select-question li[data-id=' + meBase.question.id + ']').addClass("dui");
+            }
         });
 
         // 选择答案
         $(document).on('click', 'span#select-answers button', function() {
-            if (doQuestions[iQuestionId]) {
+            if (meBase.complete[meBase.pk]) {
                 return false;
             } else {
-                var iAId = $(this).attr('data-answer'), sClass = '';
-                if (iAId == iAnswerId) {
-                    oFirstQuestion["do"] = 'yes';
-                    sClass = 'dui';
-                } else {
-                    oFirstQuestion["do"] = 'no';
-                    sClass = 'cuo';
-                }
+                meBase.current.complete = true; // 标识改题目已做
+                var type = "no", iAnswerId = parseInt($(this).attr("data-answer"));
+                if (meBase.question.answer_type == 3) {
+                    if ($.inArray(iAnswerId, meBase.current.correct) !== -1) {
+                        $(this).addClass("btn-success");
+                        // 添加到正确选择中
+                        if ($.inArray(iAnswerId, meBase.current.answer) === -1) meBase.current.answer.push(iAnswerId);
+                        if (meBase.current.correct.length != meBase.current.answer.length) return false;
+                        type = "yes";
 
-                // 你的选择
-                oFirstQuestion["select_answer"] = iAId;
+                    } else {
+                        type = "no";
+                        $(this).addClass("btn-danger");
+                    }
+                } else {
+                    if (meBase.question.answer_id == iAnswerId) {
+                        type = 'yes';
+                        $(this).addClass("btn-success");
+                    } else {
+                        type = "no";
+                        $(this).addClass("btn-danger");
+                    }
+                }
 
                 // 添加做完题目
-                if ( ! doQuestions[oFirstQuestion.id]) {
-                    doQuestions[oFirstQuestion.id] = oFirstQuestion;
-                }
-
-                // 题目对错
-                $('#select-question li[data-id=' + iQuestionId + ']').addClass(sClass);
-                getQuestion('next');
+                meBase.addComplete(meBase.pk, type, iAnswerId);
+                meBase.handleQuestion('next');
             }
         });
 
         // 自动选择
         $("#select-question li").click(function(){
-            getQuestion('select', $(this).index("#select-question li"));
+            if (meBase.current.complete && meBase.question.answer_type == 3) {
+                // 添加做完题目
+                meBase.addComplete(meBase.pk, "missing", meBase.current.answer);
+            }
+
+            meBase.handleQuestion('select', $(this).index("#select-question li"));
         });
 
         // 查看大图
@@ -372,9 +542,9 @@ $array = range('A', 'z');
 
         // 查询原因
         $("#why").click(function(){
-            if (allIds[iKey]) {
-                if (doQuestions[allIds[iKey]]) {
-                    layer.alert(doQuestions[allIds[iKey]]["question_content"], {
+            if (meBase.question) {
+                if (meBase.complete[meBase.question.id]) {
+                    layer.alert(meBase.request[meBase.question.id]["question"]["question_content"], {
                         title: '题目解析'
                     })
                 } else {

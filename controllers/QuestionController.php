@@ -311,11 +311,11 @@ class QuestionController extends Controller
             $where = ['subject_id' => $subject->id];
             $total = Question::find()->where($where)->count();
             $params = ['limit' => 300];
-            $params['offset'] = mt_rand(0, max(0, $total- $params['limit']));
-            $ids = Question::getAllIds($where, $params);
+            $params['offset'] = mt_rand(0, max(0, $total - $params['limit']));
+            $ids = Question::getAllIds($where, ['limit' => 100]);
             if ($ids) {
-                shuffle($ids);
-                $ids = array_slice($ids, 0, $params['limit'] / 3);
+//                shuffle($ids);
+//                $ids = array_slice($ids, 0, $params['limit'] / 3);
                 $question = Question::findOne($ids[0]);
                 if ($question) {
                     $answers = Answer::findAll(['qid' => $question->id]);
