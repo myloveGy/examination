@@ -6,17 +6,26 @@ $this->title = '章节选择';
 $this->registerCssFile('@web/css/chapter.css');
 $this->params['breadcrumbs'] = [
     [
-        'label' => '科目一',
-        'url'   => '/',
+        'label' => $cars->name,
+        'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+    ],
+    [
+        'label' => $subject->name,
+        'url' => Url::toRoute(['car/subject', 'id' => $subject->id])
     ],
     $this->title
 
 ];
 
+$this->params['menu'] = [
+    'title' => $cars->name,
+    'link' => Url::toRoute(['car/index', 'id' => $cars->id])
+];
+
 ?>
 <?=$this->render('_crumbs')?>
 <div class="lx-main jkbd-width wid-auto">
-    <h1 class="lx-title text-center">小车科目一 专项练习</h1>
+    <h1 class="lx-title text-center"><?=$cars->name?> - <?=$subject->name?> 专项练习</h1>
     <p class="text-center">按照专项类型分类</p>
     <div class="mt-15"></div>
     <?php if ($special) : ?>
@@ -32,7 +41,7 @@ $this->params['breadcrumbs'] = [
                     <ul>
                         <?php foreach ($value['child'] as $val) : ?>
                         <li>
-                            <a class="pull-left go-to" num="<?=isset($counts[$val['id']]) ? $counts[$val['id']] : 0?>" href="<?=Url::toRoute(['question/index', 'type' => 'special', 'cid' => $val['id'], 'style' => 'sequence'])?>" > <?=$val['name']?> </a>
+                            <a class="pull-left go-to" num="<?=isset($counts[$val['id']]) ? $counts[$val['id']] : 0?>" href="<?=Url::toRoute(['question/index', 'type' => 'special', 'subject' => $subject->id, 'cid' => $val['id'], 'style' => 'sequence'])?>" > <?=$val['name']?> </a>
                             <span class="pull-left">（<?=isset($counts[$val['id']]) ? $counts[$val['id']] : 0?>题）</span>
                         </li>
                         <?php endforeach; ?>

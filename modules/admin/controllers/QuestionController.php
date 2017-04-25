@@ -37,12 +37,11 @@ class QuestionController extends Controller
     public function actionIndex()
     {
         // 获取数据
-        $subject = Subject::find()->all();
         $special = Special::find()->where(['!=', 'pid', 0])->orderBy('sort')->all();
         $chapter = Chapter::find()->orderBy('sort')->all();
 
         return $this->render('index', [
-            'subject' => Json::encode(Helper::map($subject, 'id', 'name')), // 科目
+            'subject' => Json::encode(Subject::getSubject()), // 科目
             'special' => Json::encode(Helper::map($special, 'id', 'name')), // 专项
             'chapter' => Json::encode(Helper::map($chapter, 'id', 'name')), // 章节
             'status'  => Json::encode(Question::getStatusDesc()),           // 状态

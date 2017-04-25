@@ -34,9 +34,7 @@ class QuestionController extends Controller
         // 查询科目
         $subject = Subject::findOne($intSid);
         if ($subject) {
-
             $cars = $subject->car;
-
             $crumbs = [
                 [
                     'label' => $cars->name,
@@ -44,7 +42,7 @@ class QuestionController extends Controller
                 ],
                 [
                     'label' => $subject->name,
-                    'url' => Url::toRoute(['/', 'subject' => $subject->id]),
+                    'url' => Url::toRoute(['car/subject', 'id' => $subject->id]),
                 ]
             ];
 
@@ -106,19 +104,27 @@ class QuestionController extends Controller
      */
     public function actionChapter()
     {
-        $chapter = Chapter::find()->orderBy('sort')->asArray()->all();
-        $counts  = [];
-        if ($chapter) {
-            $chapterIds = [];
-            foreach ($chapter as $value) $chapterIds[] = (int)$value['id'];
-            $counts = Yii::$app->db->createCommand('SELECT COUNT(*) AS `length`, `chapter_id` FROM `ks_question` WHERE `chapter_id` IN ('.implode(',', $chapterIds).') GROUP BY `chapter_id`')->queryAll();
-            if ($counts) $counts = ArrayHelper::map($counts, 'chapter_id', 'length');
+        // 查询科目信息
+        $subject = Subject::findOne(Yii::$app->request->get('subject', 1));
+        if ($subject) {
+            $cars = $subject->car;
+            $chapter = $subject->chapters;
+            if ($chapter) {
+                $chapterIds = [];
+                foreach ($chapter as $value) $chapterIds[] = (int)$value['id'];
+                $counts = Yii::$app->db->createCommand('SELECT COUNT(*) AS `length`, `chapter_id` FROM `ks_question` WHERE `chapter_id` IN ('.implode(',', $chapterIds).') GROUP BY `chapter_id`')->queryAll();
+                if ($counts) $counts = ArrayHelper::map($counts, 'chapter_id', 'length');
+                return $this->render('chapter', [
+                    'cars' => $cars,       // 车型信息
+                    'subject' => $subject, // 科目信息
+                    'chapter' => $chapter, // 章节
+                    'counts'  => $counts,  // 章节对应题目数
+                ]);
+            }
+
         }
 
-        return $this->render('chapter', [
-            'chapter' => $chapter, // 章节
-            'counts'  => $counts,  // 章节对应题目数
-        ]);
+        return $this->redirect(['/']);
     }
 
     /**
@@ -127,45 +133,53 @@ class QuestionController extends Controller
      */
     public function actionSpecial()
     {
-        $special = Special::find()->asArray()->all();
-        $all = $ids = $counts = [];
-        if ($special) {
-            foreach ($special as $value) {
-                $intKid = $value['pid'] == 0 ? $value['id'] : $value['pid'];
-                if ($value['pid'] == 0) {
-                    if (isset($all[$intKid])) {
-                        $all[$intKid] = array_merge($all[$intKid], $value);
+        // 查询科目信息
+        $subject = Subject::findOne(Yii::$app->request->get('subject', 1));
+        if ($subject) {
+            $special = Special::find()->asArray()->all();
+            $all = $ids = $counts = [];
+            if ($special) {
+                foreach ($special as $value) {
+                    $intKid = $value['pid'] == 0 ? $value['id'] : $value['pid'];
+                    if ($value['pid'] == 0) {
+                        if (isset($all[$intKid])) {
+                            $all[$intKid] = array_merge($all[$intKid], $value);
+                        } else {
+                            $all[$intKid] = array_merge($value, ['child' => []]);
+                        }
                     } else {
-                        $all[$intKid] = array_merge($value, ['child' => []]);
-                    }
-                } else {
-                    $ids[] = (int)$value['id'];
-                    if (isset($all[$intKid])) {
-                        $all[$intKid]['child'][$value['sort'].'-'.$value['id']] = $value;
-                    } else {
-                        $all[$intKid] = [
-                            'child' => [$value['sort'].'-'.$value['id'] => $value],
-                        ];
+                        $ids[] = (int)$value['id'];
+                        if (isset($all[$intKid])) {
+                            $all[$intKid]['child'][$value['sort'].'-'.$value['id']] = $value;
+                        } else {
+                            $all[$intKid] = [
+                                'child' => [$value['sort'].'-'.$value['id'] => $value],
+                            ];
+                        }
                     }
                 }
+
+                // 查询
+                $counts = Yii::$app->db->createCommand('SELECT COUNT(*) AS `length`, `special_id` FROM `ks_question` WHERE `special_id` IN ('.implode(',', $ids).') AND `subject_id` = '.$subject->id.'  GROUP BY `special_id`')->queryAll();
+                if ($counts) $counts = ArrayHelper::map($counts, 'special_id', 'length');
+                $files = [];
+                foreach ($all as $k => &$v) {
+                    $files[$k] = $v['sort'];
+                    ksort($v['child']);
+                }
+
+                array_multisort($files, SORT_ASC, $all);
             }
 
-            // 查询
-            $counts = Yii::$app->db->createCommand('SELECT COUNT(*) AS `length`, `special_id` FROM `ks_question` WHERE `special_id` IN ('.implode(',', $ids).') GROUP BY `special_id`')->queryAll();
-            if ($counts) $counts = ArrayHelper::map($counts, 'special_id', 'length');
-            $files = [];
-            foreach ($all as $k => &$v) {
-                $files[$k] = $v['sort'];
-                ksort($v['child']);
-            }
-
-            array_multisort($files, SORT_ASC, $all);
+            return $this->render('special', [
+                'subject' => $subject,
+                'cars' => $subject->car,
+                'special' => $all,
+                'counts'  => $counts,
+            ]);
         }
 
-        return $this->render('special', [
-            'special' => $all,
-            'counts'  => $counts,
-        ]);
+        return $this->redirect(['/']);
     }
 
     /**
@@ -312,10 +326,10 @@ class QuestionController extends Controller
             $total = Question::find()->where($where)->count();
             $params = ['limit' => 300];
             $params['offset'] = mt_rand(0, max(0, $total - $params['limit']));
-            $ids = Question::getAllIds($where, ['limit' => 100]);
+            $ids = Question::getAllIds($where, $params);
             if ($ids) {
-//                shuffle($ids);
-//                $ids = array_slice($ids, 0, $params['limit'] / 3);
+                shuffle($ids);
+                $ids = array_slice($ids, 0, $params['limit'] / 3);
                 $question = Question::findOne($ids[0]);
                 if ($question) {
                     $answers = Answer::findAll(['qid' => $question->id]);

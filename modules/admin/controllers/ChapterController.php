@@ -7,7 +7,9 @@
 
 namespace app\modules\admin\controllers;
 
+use app\common\models\CarType;
 use app\common\models\Chapter;
+use app\common\models\Subject;
 
 class ChapterController extends Controller
 {
@@ -21,8 +23,18 @@ class ChapterController extends Controller
         return [
             'id' => '=',
 			'name' => 'like',
+            'subject_id' => '='
         ];
     }
+
+    public function actionIndex()
+    {
+        $subject = Subject::getSubject();
+        return $this->render('index', [
+            'subject' => $subject,
+        ]);
+    }
+
 
     /**
      * getModel() 返回model

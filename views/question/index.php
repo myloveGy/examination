@@ -70,7 +70,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
             </p>
         </div>
         <div class="static-container">
-            <b class="tips"> 科目一题库共 <span class="text-success"><?=$allTotal?></span> 题，已完成 <span id="do-finish" class="text-info">0</span> 题 </b>
+            <b class="tips"> <?=$subject->name?> 题库共 <span class="text-success"><?=$allTotal?></span> 题，已完成 <span id="do-finish" class="text-info">0</span> 题 </b>
         </div>
         <div class="shiti-buttons clearfix mt-15">
             <button id="prev" type="button" class="btn btn-info pull-left ml-15">上一题</button>
