@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 我的数据库
-Source Server Version : 50627
+Source Server Version : 50624
 Source Host           : localhost:3306
 Source Database       : examination
 
 Target Server Type    : MYSQL
-Target Server Version : 50627
+Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2017-04-24 08:00:51
+Date: 2017-04-25 11:21:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,7 +57,7 @@ CREATE TABLE `ks_answer` (
   `qid` int(11) unsigned NOT NULL COMMENT '问题ID',
   `name` text NOT NULL COMMENT '答案说明',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4086 DEFAULT CHARSET=utf8 COMMENT='答案信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=4087 DEFAULT CHARSET=utf8 COMMENT='答案信息表';
 
 -- ----------------------------
 -- Records of ks_answer
@@ -4141,6 +4141,7 @@ INSERT INTO `ks_answer` VALUES ('4082', '1319', 'B.34');
 INSERT INTO `ks_answer` VALUES ('4083', '1319', 'C: 测试');
 INSERT INTO `ks_answer` VALUES ('4084', '1319', 'D:ces');
 INSERT INTO `ks_answer` VALUES ('4085', '1320', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwww');
+INSERT INTO `ks_answer` VALUES ('4086', '3', '测试');
 
 -- ----------------------------
 -- Table structure for ks_auth_assignment
@@ -4475,16 +4476,17 @@ CREATE TABLE `ks_chapter` (
   `sort` smallint(6) NOT NULL DEFAULT '100' COMMENT '排序',
   `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '添加时间',
   `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `subject_id` int(11) NOT NULL DEFAULT '0' COMMENT '所属科目',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='章节分类信息表';
 
 -- ----------------------------
 -- Records of ks_chapter
 -- ----------------------------
-INSERT INTO `ks_chapter` VALUES ('1', '第一章 道路交通安全法律、法规和规章', '1', '1476172331', '1476172331');
-INSERT INTO `ks_chapter` VALUES ('2', '第二章 交通信号', '2', '1476172350', '1476172350');
-INSERT INTO `ks_chapter` VALUES ('3', '第三章 安全行车、文明驾驶基础知识', '3', '1476172371', '1476172371');
-INSERT INTO `ks_chapter` VALUES ('4', '第四章 机动车驾驶操作相关基础知识', '4', '1476172399', '1476172429');
+INSERT INTO `ks_chapter` VALUES ('1', '第一章 道路交通安全法律、法规和规章', '1', '1476172331', '1493087023', '1');
+INSERT INTO `ks_chapter` VALUES ('2', '第二章 交通信号', '2', '1476172350', '1493087099', '1');
+INSERT INTO `ks_chapter` VALUES ('3', '第三章 安全行车、文明驾驶基础知识', '3', '1476172371', '1493087105', '2');
+INSERT INTO `ks_chapter` VALUES ('4', '第四章 机动车驾驶操作相关基础知识', '4', '1476172399', '1493087111', '2');
 
 -- ----------------------------
 -- Table structure for ks_menu
@@ -4542,15 +4544,15 @@ CREATE TABLE `ks_question` (
   `error_number` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '错误人数',
   `do_number` int(11) NOT NULL DEFAULT '0' COMMENT '做了该题目人数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1321 DEFAULT CHARSET=utf8 COMMENT='题库信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=1318 DEFAULT CHARSET=utf8 COMMENT='题库信息表';
 
 -- ----------------------------
 -- Records of ks_question
 -- ----------------------------
-INSERT INTO `ks_question` VALUES ('1', '驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？', '“违反道路交通安全法”，违反法律法规即为违法行为。官方已无违章/违规的说法。', '', '3', '1', '[1,2]', '1476513037', '1492961490', '1', '1', '3', '11', '34');
-INSERT INTO `ks_question` VALUES ('2', '机动车驾驶人违法驾驶造成重大交通事故构成犯罪的，依法追究什么责任？', '《道路交通安全法》第一百零一条：违反道路交通安全法律、法规的规定，发生重大交通事故，构成犯罪的，依法追究刑事责任，并由公安机关交通管理部门吊销机动车驾驶证。', '', '3', '1', '[5,6,7]', '1476513038', '1492961499', '1', '1', '3', '8', '18');
-INSERT INTO `ks_question` VALUES ('3', '机动车驾驶人造成事故后逃逸构成犯罪的，吊销驾驶证且多长时间不得重新取得驾驶证？', '《道路交通安全法》第一百零一条：造成交通事故后逃逸的，由公安机关交通管理部门吊销机动车驾驶证，且终生不得重新取得机动车驾驶证。', null, '1', '1', '9', '1476513039', '1492853949', '1', '1', '3', '3', '12');
-INSERT INTO `ks_question` VALUES ('4', '驾驶机动车违反道路交通安全法律法规发生交通事故属于交通违章行为。', '“违反道路交通安全法”，违反法律法规即为违法行为。现在官方已无违章/违规的说法。', null, '2', '1', '14', '1476513040', '1492867958', '1', '1', '10', '4', '14');
+INSERT INTO `ks_question` VALUES ('1', '我都测试题目 填空题', '我都测试题目 -- 填空题', '/public/question/58fd8e2f4df2f.jpg', '4', '1', '1', '1476695683', '1493089438', '1', '0', '0', '2', '2');
+INSERT INTO `ks_question` VALUES ('2', '测试填空题目 多选题目', '测试填空题目 --- 多选题', '', '3', '1', '[5,6]', '1492929561', '1493030225', '1', '1', '10', '0', '1');
+INSERT INTO `ks_question` VALUES ('3', '我的测试题目 单选题目', '我的测试题目 --- 单选题目', '/public/question/58fd8df3621bb.jpg', '1', '1', '10', '1493011968', '1493030246', '1', '0', '0', '2', '2');
+INSERT INTO `ks_question` VALUES ('4', '驾驶机动车违反道路交通安全法律法规发生交通事故属于交通违章行为。', '“违反道路交通安全法”，违反法律法规即为违法行为。现在官方已无违章/违规的说法。', null, '2', '1', '14', '1476513040', '1493016866', '1', '1', '10', '5', '19');
 INSERT INTO `ks_question` VALUES ('5', '驾驶机动车在道路上违反道路通行规定应当接受相应的处罚。', '常识题，违反规定，就得接受相应的处罚。', null, '2', '1', '15', '1476513042', '1492854027', '1', '1', '3', '0', '6');
 INSERT INTO `ks_question` VALUES ('6', '对未取得驾驶证驾驶机动车的，追究其法律责任。', '《道路交通安全法》第九十九条：未取得机动车驾驶证、机动车驾驶证被吊销或者机动车驾驶证被暂扣期间驾驶机动车的，由公安机关交通管理部门处二百元以上二千元以下罚款，可以并处十五日以下拘留。', null, '2', '1', '17', '1476513043', '1492854036', '1', '1', '3', '1', '6');
 INSERT INTO `ks_question` VALUES ('7', '对违法驾驶发生重大交通事故且构成犯罪的，不追究其刑事责任。', '《道路交通安全法》第一百零一条：违反道路交通安全法律、法规的规定，发生重大交通事故，构成犯罪的，依法追究刑事责任，并由公安机关交通管理部门吊销机动车驾驶证。', null, '2', '1', '20', '1476513045', '1492854043', '1', '1', '3', '0', '4');
@@ -5856,8 +5858,9 @@ INSERT INTO `ks_question` VALUES ('1311', '行车中水温报警灯亮，下列�
 INSERT INTO `ks_question` VALUES ('1312', '以下哪个指示灯亮时，提醒驾驶人安全带插头未插入锁扣？', '图1表示安全带插头未插入锁扣；图2是水温指示灯；图3是ABS指示灯；图4是燃油指示灯。', '/public/uploads/tiku/res/1163100.jpg', '1', '1', '4070', '1476515013', '1476586687', '1', '1', '4', '0', '0');
 INSERT INTO `ks_question` VALUES ('1313', '车辆因故障等原因需被牵引时，以下说法正确的是什么？', '打开报警灯是必须的，而且被牵引的机动车除驾驶人外不得载人，不得拖带挂车。', '/public/uploads/tiku/res/1163200.jpg', '1', '1', '4075', '1476515015', '1476586688', '1', '1', '4', '0', '0');
 INSERT INTO `ks_question` VALUES ('1314', '车辆发生意外，要及时打开哪个灯?', '图1是示宽指示灯；图2是雾灯指示灯；图3是远光指示灯；图4是危险报警闪光灯按钮，发生意外时应该打开危险报警闪光灯。', '/public/uploads/tiku/res/1163300.jpg', '1', '1', '4077', '1476515016', '1476586688', '1', '1', '4', '0', '0');
-INSERT INTO `ks_question` VALUES ('1319', '我都测试题目', '我都测试题目', '/public/question/58fc40a38149c.png', '3', '1', '[4082,4083]', '1476695683', '1492933150', '1', '0', '0', '0', '0');
-INSERT INTO `ks_question` VALUES ('1320', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', '', '4', '1', '4085', '1492929561', '1492929691', '2', '1', '10', '0', '0');
+INSERT INTO `ks_question` VALUES ('1315', '机动车驾驶人违法驾驶造成重大交通事故构成犯罪的，依法追究什么责任？', '《道路交通安全法》第一百零一条：违反道路交通安全法律、法规的规定，发生重大交通事故，构成犯罪的，依法追究刑事责任，并由公安机关交通管理部门吊销机动车驾驶证。', '', '3', '1', '[5,6,7]', '1476513038', '1493007115', '1', '1', '3', '9', '26');
+INSERT INTO `ks_question` VALUES ('1316', '机动车驾驶人造成事故后逃逸构成犯罪的，吊销驾驶证且多长时间不得重新取得驾驶证？', '《道路交通安全法》第一百零一条：造成交通事故后逃逸的，由公安机关交通管理部门吊销机动车驾驶证，且终生不得重新取得机动车驾驶证。', null, '1', '1', '9', '1476513039', '1493007117', '1', '1', '3', '3', '17');
+INSERT INTO `ks_question` VALUES ('1317', '驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？', '“违反道路交通安全法”，违反法律法规即为违法行为。官方已无违章/违规的说法。', '', '3', '1', '[1,2]', '1476513037', '1493007111', '1', '1', '3', '13', '52');
 
 -- ----------------------------
 -- Table structure for ks_special
@@ -5865,6 +5868,7 @@ INSERT INTO `ks_question` VALUES ('1320', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 DROP TABLE IF EXISTS `ks_special`;
 CREATE TABLE `ks_special` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `subject_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属科目',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父类ID',
   `name` varchar(255) NOT NULL COMMENT '专项分类名称',
   `sort` smallint(4) NOT NULL DEFAULT '100' COMMENT '排序',
@@ -5876,16 +5880,16 @@ CREATE TABLE `ks_special` (
 -- ----------------------------
 -- Records of ks_special
 -- ----------------------------
-INSERT INTO `ks_special` VALUES ('1', '0', '按知识点类型', '2', '1476173388', '1476174821');
-INSERT INTO `ks_special` VALUES ('2', '0', '按内容类型', '1', '1476174815', '1476174815');
-INSERT INTO `ks_special` VALUES ('3', '2', '文字题', '1', '1476174894', '1476179981');
-INSERT INTO `ks_special` VALUES ('4', '2', '图片题', '2', '1476174917', '1476174917');
-INSERT INTO `ks_special` VALUES ('5', '1', '时间题', '1', '1476174958', '1476175078');
-INSERT INTO `ks_special` VALUES ('6', '1', '速度题', '2', '1476174996', '1476175072');
-INSERT INTO `ks_special` VALUES ('7', '1', '距离题', '3', '1476175066', '1476175253');
-INSERT INTO `ks_special` VALUES ('8', '0', '按答案类型', '3', '1476175277', '1476175277');
-INSERT INTO `ks_special` VALUES ('9', '8', '正确题', '100', '1476175293', '1476175293');
-INSERT INTO `ks_special` VALUES ('10', '2', '难题', '100', '1476519608', '1476519608');
+INSERT INTO `ks_special` VALUES ('1', '0', '0', '按知识点类型', '2', '1476173388', '1476174821');
+INSERT INTO `ks_special` VALUES ('2', '0', '0', '按内容类型', '1', '1476174815', '1476174815');
+INSERT INTO `ks_special` VALUES ('3', '0', '2', '文字题', '1', '1476174894', '1476179981');
+INSERT INTO `ks_special` VALUES ('4', '0', '2', '图片题', '2', '1476174917', '1476174917');
+INSERT INTO `ks_special` VALUES ('5', '0', '1', '时间题', '1', '1476174958', '1476175078');
+INSERT INTO `ks_special` VALUES ('6', '0', '1', '速度题', '2', '1476174996', '1476175072');
+INSERT INTO `ks_special` VALUES ('7', '0', '1', '距离题', '3', '1476175066', '1476175253');
+INSERT INTO `ks_special` VALUES ('8', '0', '0', '按答案类型', '3', '1476175277', '1476175277');
+INSERT INTO `ks_special` VALUES ('9', '0', '8', '正确题', '100', '1476175293', '1476175293');
+INSERT INTO `ks_special` VALUES ('10', '0', '2', '难题', '100', '1476519608', '1476519608');
 
 -- ----------------------------
 -- Table structure for ks_subject
@@ -5929,14 +5933,13 @@ CREATE TABLE `ks_user` (
   UNIQUE KEY `email` (`email`) USING BTREE,
   UNIQUE KEY `username` (`username`),
   KEY `created_at` (`created_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of ks_user
 -- ----------------------------
 INSERT INTO `ks_user` VALUES ('1', 'loveme', '821901008@qq.com', '/public/user/58fb642b13cfa.jpg', '10', 'll3AyfUr4eQc1NFA11ySymQAxTAqrtm_', '$2y$13$11FYya1X0DH3DY5hkQ4XJOVUZn9tQv10Y9PleJMR4qFdmZaFWdVRW', 'FEiOk34tr5BcljPcEy085aM15b8R2054_1492860239', '1476149273', '1492870190', '1492863996', '127.0.0.1');
 INSERT INTO `ks_user` VALUES ('2', 'liujinxing', '1136261505@qq.com', null, '10', 'G_iaPW7oLqmWl2APHKVW-zuzoymCAtZl', '$2y$13$/fIAL/YM8FwEc2jtqhECS.j0XGdLcbt8732rogmaeqbPaxypQIv0u', '4Z8IVfRR6JCXuBZWKeY7ceSe1QwTsGwm_1492868800', '1476156423', '1492869875', null, null);
-INSERT INTO `ks_user` VALUES ('4', 'liujinxingq', '1136261506@qq.com', '', '10', 'O5nPhF-8bUA_CiaGrRN9xAALQC2pEqNy', '$2y$13$O0S8SeiO53woyVQe/U7ovu.ilU2/sHgmNTSp6r9sCsivGjsmCnRC6', null, '1492864993', '1492869516', '1492864992', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for ks_user_collect
