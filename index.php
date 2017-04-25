@@ -97,31 +97,16 @@ if (! empty($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_
                             $strConfig = <<<HTML
 <?php
 return [
-    'components' => [
-        'db' => [
-            'class'       => 'yii\db\Connection',
-            'dsn'         => 'mysql:host=localhost;dbname={$database}',
-            'username'    => '{$username}',
-            'password'    => '{$password}',
-            'charset'     => 'utf8',
-            'tablePrefix' => '{$prefix}',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
-        ],
-    ],
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host={$host};dbname={$database}',
+    'username' => '{$username}',
+    'password' => '{$password}',
+    'charset' => 'utf8',
+    'tablePrefix' => '{$prefix}',
 ];
 HTML;
                             // 修改配置文件内容
-                            file_put_contents('./common/config/main-local.php', $strConfig);
-
-                            // 修改文件名
-                            // rename('./index.php', './install.log');
+                            file_put_contents('./config/db.php', $strConfig);
 
                             // 信息返回
                             $arrError = [
