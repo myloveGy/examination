@@ -24,7 +24,7 @@ class CarController extends Controller
 
         if ($cars) {
             // 查询科目
-            $subject = Subject::findAll(['status' => $cars->id]);
+            $subject = Subject::findAll(['status' => 1, 'car_id' => $cars->id]);
             $special = Special::findOne(['name' => '难题']);
             return $this->render('index', [
                 'special' => $special,

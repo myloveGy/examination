@@ -95,16 +95,14 @@ class AdminUser extends Admin
             [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30],
             // Unique
             [['username', 'email'], 'unique'],
-            [['home_url', 'facebook'], 'string', 'min' => 2, 'max' => 50],
-            ['home_url', 'url'],
-            ['birthday', 'string', 'min' => 2, 'max' => 20],
+
             // Username
             ['username', 'match', 'pattern' => '/^[a-zA-Z0-9_-]+$/'],
             ['username', 'string', 'min' => 3, 'max' => 30],
             // E-mail
             [['email', 'face'], 'string', 'max' => 100],
             ['email', 'email'],
-            [['age', 'sex'], 'integer'],
+
             // Repassword
             ['repassword', 'compare', 'compareAttribute' => 'password'],
             //['status', 'default', 'value' => self::STATUS_ACTIVE],

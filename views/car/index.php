@@ -7,7 +7,7 @@ $this->params['menu'] = [
     'title' => $car->name,
     'link' => Url::toRoute(['index', 'id' => $car->id])
 ];
-$this->registerCssFile('@web/css/index.css');
+$this->registerCssFile('@web/css/index.css', ['depends' => ['app\assets\AppAsset']]);
 ?>
 <div class="page-header">
     <div class="header">
@@ -16,55 +16,23 @@ $this->registerCssFile('@web/css/index.css');
     </div>
 </div>
 <?php if ($subject) : ?>
-    <?php foreach ($subject as $value): ?>
     <div class="block-mnks jkbd-con-item bt4 clearfix">
         <div class="head_nav">
-            <h2><?=$value->name?>练习及考试</h2>
+            <h2> 考试科目信息 </h2>
         </div>
         <div class="content-wapper clc col-md-12">
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li0 lianxi0 col-md-3"  href="<?=Url::toRoute(['question/index', 'subject' => $value->id, 'style' => 'sequence'])?>">
-                    <span class="name">顺序练习</span>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li1 lianxi3 col-md-3"  href="<?=Url::toRoute(['question/index', 'subject' => $value->id, 'style' => 'random'])?>">
-                    <span class="name">随机练习</span>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li2 lianxichapter col-md-3"  href="<?=Url::toRoute(['question/chapter', 'subject' => $value->id])?>">
-                    <span class="name">章节练习</span>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li3 lianxistrengthen col-md-3"  href="<?=Url::toRoute(['question/special', 'subject' => $value->id])?>">
-                    <span class="name">专项练习</span>
-                </a>
-            </div>
-        </div>
-        <div class="content-wapper clc col-md-12">
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li0 lianxi8 col-md-3"  href="<?=Url::toRoute(['question/index', 'subject' => $value->id, 'type' => 'special', 'cid' => $special ? $special->id : 1])?>">
-                    <span class="name">难题练习</span>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li1 lianxi5 col-md-3 <?=Yii::$app->user->isGuest ? "is-login login" : "" ?>"  href="<?=Url::toRoute(['user/collect', 'subject' => $value->id])?>">
-                    <span class="name">我的收藏</span>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li2 lianxi4 col-md-3"  href="<?=Url::toRoute(['question/warning', 'subject' => $value->id])?>">
-                    <span class="name">我的错题</span>
-                </a>
-            </div>
-            <div class="col-md-3">
-                <a class="fl lianxi2-a li3 lianxiexam col-md-3"  href="<?=Url::toRoute(['question/imitate', 'subject' => $value->id])?>">
-                    <span class="name">全真模拟</span>
-                </a>
-            </div>
+            <?php foreach ($subject as $value): ?>
+                <div class="col-md-4">
+                    <a class="fl lianxi2-a li0 car-item"  href="<?=Url::toRoute(['car/subject', 'id' => $value->id])?>">
+                        <div class="text-center car-image">
+                            <img src="<?=$value->image?>" class="img-circle" alt="<?=$value->name?>" />
+                        </div>
+                        <div class="car-a">
+                            <h4><?=$value->name;?></h4>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
-    <?php endforeach; ?>
 <?php endif; ?>

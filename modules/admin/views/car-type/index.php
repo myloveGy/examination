@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var arrStatus = <?=\yii\helpers\Json::encode(Yii::$app->params['status'])?>;
         var m = mt({
             title: "车型配置",
-            fileSelector: ["#image"],
+            fileSelector: ["#icon-image"],
             table: {
                 "aoColumns": [
                     {"title": "ID", "data": "id", "sName": "id", "edit": {"type": "hidden", "required": true,"number": true}, "search": {"type": "text"}, "defaultOrder": "desc"},

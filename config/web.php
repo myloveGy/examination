@@ -5,6 +5,7 @@ $params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
+    'name' => '考试系统',
     'bootstrap' => ['log'],
     'language'   => 'zh-CN',
     'modules' => [

@@ -31,7 +31,7 @@ class Subject extends Model
         return [
             [['name', 'car_id'], 'required'],
             [['car_id', 'status', 'sort'], 'integer'],
-            [['name'], 'string', 'max' => 255, 'min' => 2],
+            [['name', 'image'], 'string', 'max' => 255, 'min' => 2],
             [['desc'], 'string', 'min' => 2, 'max' => 1000],
         ];
     }
@@ -47,6 +47,7 @@ class Subject extends Model
             'car_id' => '车型ID',
             'desc' => '说明',
             'status' => '状态',
+            'image' => '图片信息',
             'created_at' => '创建时间',
         ];
     }
