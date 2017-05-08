@@ -78,7 +78,7 @@ class Question extends TimeModel
             self::ANSWER_TYPE_ONE => '单选',
             self::ANSWER_TYPE_JUDGE => '判断',
             self::ANSWER_TYPE_MULTI => '多选',
-            self::ANSWER_TYPE_TEXT => '填空'
+            self::ANSWER_TYPE_TEXT => '问答'
         ];
 
         if ($intStatus !== null && isset($array[$intStatus])) $array = $array[$intStatus];
@@ -96,7 +96,7 @@ class Question extends TimeModel
             self::ANSWER_TYPE_ONE => '单选题,请选择你认为正确的答案!',
             self::ANSWER_TYPE_JUDGE => '判断题,请判断对错!',
             self::ANSWER_TYPE_MULTI => '多选题,请选择你认为正确的答案!',
-            self::ANSWER_TYPE_TEXT => '填空题，请填写你的答案'
+            self::ANSWER_TYPE_TEXT => '问答题，请填写你的答案'
         ];
 
         if ($intType !== null && isset($array[$intType])) $array = $array[$intType];

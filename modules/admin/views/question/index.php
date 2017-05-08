@@ -77,6 +77,42 @@ $this->params['breadcrumbs'][] = $this->title;
                         "isHide": true
                     },
                     {
+                        "title": "所属科目",
+                        "data": "subject_id",
+                        "sName": "subject_id",
+                        "value": aSubject,
+                        "edit": {"type": "select", "default": 1, "required": true, "number": true},
+                        "search": {"type": "select"},
+                        "bSortable": false,
+                        "createdCell": function(td, data) {
+                            $(td).html(aSubject[data] ? aSubject[data] : data);
+                        }
+                    },
+                    {
+                        "title": "所属章节",
+                        "data": "chapter_id",
+                        "sName": "chapter_id",
+                        "value": aChapter,
+                        "search": {"type": "select"},
+                        "edit": {"type": "select", "required": true, "number": true},
+                        "bSortable": false,
+                        "createdCell": function(td, data) {
+                            $(td).html(aChapter[data] ? aChapter[data] : data);
+                        }
+                    },
+                    {
+                        "title": "所属专项分类",
+                        "data": "special_id",
+                        "sName": "special_id",
+                        "value": aSpecial,
+                        "search": {"type": "select"},
+                        "edit": {"type": "select", "required": true, "number": true},
+                        "bSortable": false,
+                        "createdCell": function(td, data) {
+                            $(td).html(aChapter[data] ? aChapter[data] : data);
+                        }
+                    },
+                    {
                         "title": "题目图片",
                         "data": "question_img",
                         "sName": "question_img",
@@ -133,30 +169,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     {"title": "创建时间", "data": "created_at", "sName": "created_at", "createdCell": mt.dateTimeString},
                     {"title": "修改时间", "data": "updated_at", "sName": "updated_at", "createdCell": mt.dateTimeString},
-                    {
-                        "title": "所属科目",
-                        "data": "subject_id",
-                        "sName": "subject_id",
-                        "value": aSubject,
-                        "edit": {"type": "select", "default": 1, "required": true, "number": true},
-                        "bSortable": false
-                    },
-                    {
-                        "title": "所属章节",
-                        "data": "chapter_id",
-                        "sName": "chapter_id",
-                        "value": aChapter,
-                        "edit": {"type": "select", "required": true, "number": true},
-                        "bSortable": false
-                    },
-                    {
-                        "title": "所属专项分类",
-                        "data": "special_id",
-                        "sName": "special_id",
-                        "value": aSpecial,
-                        "edit": {"type": "select", "required": true, "number": true},
-                        "bSortable": false
-                    },
                     {"title": "错误人数", "data": "error_number", "sName": "error_number"}
                 ]
             },

@@ -14,7 +14,7 @@ class Helper
      * @param  array $params 其他数据
      * @return array
      */
-    public static function map($array, $id, $name, $params = ['请选择'])
+    public static function map($array, $id, $name, $params = [])
     {
         $array = ArrayHelper::map($array, $id, $name);
         if ($params) {

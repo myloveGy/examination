@@ -26,7 +26,10 @@ class QuestionController extends Controller
     {
         return [
             'status' => '=',
-            'answer_type' => '='
+            'answer_type' => '=',
+            'subject_id' => '=',
+            'chapter_id' => '=',
+            'special_id' => '=',
         ];
     }
 
