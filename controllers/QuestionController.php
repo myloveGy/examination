@@ -18,7 +18,6 @@ class QuestionController extends Controller
 {
     /**
      * actionIndex() 显示首页
-     * @return string
      */
     public function actionIndex()
     {
@@ -95,7 +94,8 @@ class QuestionController extends Controller
         }
 
         // 有问题抛出错误
-        throw new HttpException(401, $errMsg);
+        Yii::$app->session->setFlash('error', $errMsg);
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -124,7 +124,9 @@ class QuestionController extends Controller
 
         }
 
-        return $this->redirect(['/']);
+        // 有问题抛出错误
+        Yii::$app->session->setFlash('error', '没有问题信息');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -179,7 +181,9 @@ class QuestionController extends Controller
             ]);
         }
 
-        return $this->redirect(['/']);
+        // 有问题抛出错误
+        Yii::$app->session->setFlash('error', '没有问题信息');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -343,7 +347,9 @@ class QuestionController extends Controller
             }
         }
 
-        throw  new HttpException(404, '数据不存在');
+        // 有问题抛出错误
+        Yii::$app->session->setFlash('error', '没有问题信息');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -400,6 +406,7 @@ class QuestionController extends Controller
         }
 
         // 没有数据直接返回
-        return $this->redirect(['/', 'subject' => 1]);
+        Yii::$app->session->setFlash('error', '没有问题信息');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 }

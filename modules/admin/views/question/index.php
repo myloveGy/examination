@@ -30,7 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         aStatus  = <?=$status?>,
         aColor   = <?=$color?>,
         aType    = <?=$type?>,
-        myTable = meTables({
+        aCars = <?=$cars?>;
+
+        aCars["0"] = "请选择";
+        var myTable = meTables({
             sTitle:"题库信息",
             fileSelector: ["#image-file"],
             operations: {
@@ -77,11 +80,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         "isHide": true
                     },
                     {
+                        "title": "考试类型",
+                        "data": null,
+                        "sName": "car_id",
+                        "value": aCars,
+                        "edit": {"type": "select", "default": 0, "id": "car-id", "required": true, "number": true},
+                        "search": {"type": "select"},
+                        "bSortable": false,
+                        "isHide": true
+                    },
+                    {
                         "title": "所属科目",
                         "data": "subject_id",
                         "sName": "subject_id",
                         "value": aSubject,
-                        "edit": {"type": "select", "default": 1, "required": true, "number": true},
+                        "edit": {"type": "select", "default": 1, "id": "subject-id", "required": true, "number": true},
                         "search": {"type": "select"},
                         "bSortable": false,
                         "createdCell": function(td, data) {
@@ -94,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         "sName": "chapter_id",
                         "value": aChapter,
                         "search": {"type": "select"},
-                        "edit": {"type": "select", "required": true, "number": true},
+                        "edit": {"type": "select", "required": true, "id": "chapter-id", "number": true},
                         "bSortable": false,
                         "createdCell": function(td, data) {
                             $(td).html(aChapter[data] ? aChapter[data] : data);
@@ -203,6 +216,24 @@ $this->params['breadcrumbs'][] = $this->title;
      * myTable.beforeShow(object data, bool child, object clickObject) return true 前置
      * myTable.afterShow(object data, bool child, object clickObject)  return true 后置
      */
+    myTable.beforeShow = function(data, child, chickObject) {
+        if (!child && this.action != "delete") {
+            var html = '<option value=""> -- 请选择 -- </option>', sHtml = html, x;
+            for (x in aSubject) {
+                html += '<option value="' + x + '">' + aSubject[x] + '</option>';
+            }
+
+            for (x in aChapter) {
+                sHtml += '<option value="' + x + '">' + aChapter[x] + '</option>';
+            }
+
+            $("#subject-id").html(html);
+            $("#chapter-id").html(sHtml);
+        }
+
+        return true;
+    };
+
     myTable.afterShow = function(data, child, clickObject) {
         if (child) {
             // 详情处理
@@ -282,6 +313,52 @@ $this->params['breadcrumbs'][] = $this->title;
                  shadeClose: true,
                  content: img
              });
+         });
+
+         // 选择车型联动科目
+         $("#car-id").change(function(){
+             var v = parseInt($(this).val()), html = '<option value="">请选择</option>';
+             if (v) {
+                mt.ajax({
+                    url: "<?=Url::toRoute(['subject'])?>",
+                    data: {cid: v},
+                    type: "POST",
+                    dataType:"json"
+                }).done(function(json) {
+                    if (json.errCode === 0) {
+                        for (var x in json.data) {
+                            html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
+                        }
+
+                        $("#subject-id").html(html);
+                    } else {
+                        layer.msg(json.errMsg);
+                    }
+                });
+             }
+         });
+
+         // 选择科目联动章节
+         $("#subject-id").change(function(){
+             var v = parseInt($(this).val()), html = '<option value="">请选择</option>';
+             if (v) {
+                 mt.ajax({
+                     url: "<?=Url::toRoute(['chapter'])?>",
+                     data: {sid: v},
+                     type: "POST",
+                     dataType:"json"
+                 }).done(function(json) {
+                     if (json.errCode === 0) {
+                         for (var x in json.data) {
+                             html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
+                         }
+
+                         $("#chapter-id").html(html);
+                     } else {
+                         layer.msg(json.errMsg);
+                     }
+                 });
+             }
          });
      });
 </script>

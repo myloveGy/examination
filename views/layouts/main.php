@@ -34,7 +34,7 @@ AppAsset::register($this);
             <ul class="nav navbar-nav">
                 <li <?=Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index' ? 'class="active"' : ''?>><a href="/">首页</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择车型 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择考试类型 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php if (isset($this->params['carTypes'])): ?>
                             <?php foreach ($this->params['carTypes'] as $value) : ?>
@@ -186,6 +186,12 @@ AppAsset::register($this);
 </script>
 <?php $this->endBody() ?>
 <?=$this->blocks['javascript']?>
+<script>
+    var message = '<?=Yii::$app->session->getFlash('error')?>';
+    if (message) {
+        layer.msg(message);
+    }
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>
