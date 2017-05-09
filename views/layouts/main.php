@@ -107,7 +107,7 @@ AppAsset::register($this);
         <form class="login-form form-horizontal user-form" id="login-form" action="<?=Url::toRoute(['site/login'])?>">
             <input type="hidden" value="<?= Yii::$app->getRequest()->getCsrfToken() ?>" name="_csrf" />
             <div class="form-group">
-                <input name="username" class="i-username form-control" required="true" email="true" rangelength="[2, 100]" placeholder="请输入账号邮箱" type="text" />
+                <input name="username" class="i-username form-control" required="true" rangelength="[2, 100]" placeholder="请输入手机号 or 昵称" type="text" />
             </div>
             <div class="form-group">
                 <input name="password" class="i-password form-control" required="true" rangelength="[6, 50]" placeholder="请输入您的密码" type="password" />
@@ -133,7 +133,7 @@ AppAsset::register($this);
                 <input name="username" class="form-control" required="true" rangelength="[2, 100]" placeholder="请输入昵称" type="text">
             </div>
             <div class="form-group">
-                <input name="email" class="i-username form-control" required="true" email="true" rangelength="[2, 100]" placeholder="请输入登录邮箱" type="text">
+                <input name="phone" class="i-username form-control" required="true"  maxlength="11" minlength="11" placeholder="请输入手机号" type="text">
             </div>
             <div class="form-group">
                 <input name="password" id="m-password" class="i-password form-control" required="true" rangelength="[6, 50]"  placeholder="请设置密码" type="password">
