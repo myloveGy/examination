@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 
-$this->title = $car->name.',车型信息';
+$this->title = $car->name.',类型信息';
 $this->params['menu'] = [
     'title' => $car->name,
     'link' => Url::toRoute(['index', 'id' => $car->id])
@@ -23,7 +23,7 @@ $this->registerCssFile('@web/css/index.css', ['depends' => ['app\assets\AppAsset
         <div class="content-wapper clc col-md-12">
             <?php foreach ($subject as $value): ?>
                 <div class="col-md-4">
-                    <a class="fl lianxi2-a li0 car-item"  href="<?=Url::toRoute(['car/subject', 'id' => $value->id])?>">
+                    <a class="fl lianxi2-a li0 car-item"  href="<?=Url::toRoute(['classification/subject', 'id' => $value->id])?>">
                         <div class="text-center car-image">
                             <img src="<?=$value->image?>" class="img-circle" alt="<?=$value->name?>" />
                         </div>

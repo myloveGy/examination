@@ -10,7 +10,7 @@ $this->registerCssFile('@web/css/imitate.css');
 <div class="info-up clearfix row">
     <div class="infoup-left clearfix pull-left col-md-3">
         <fieldset class="kaochang-info">
-            <legend>理论考试</legend>
+            <legend>科目考试</legend>
             <span>第01考台</span>
         </fieldset>
         <fieldset class="kaosheng-info">
@@ -20,12 +20,12 @@ $this->registerCssFile('@web/css/imitate.css');
                     <img src="/images/diandian.png">
                 </div>
                 <p class="name">
-                    考生姓名：<span class="nickname ellipsis">我是车神</span>
+                    考生姓名：<span class="nickname ellipsis">我是考霸</span>
                 </p>
                 <p>考试题数：100题</p>
-                <p>考试时间：45分钟</p>
-                <p>合格标准：满分100分</p>
-                <p class="text-right">90及格</p>
+                <p>考试时间：90分钟</p>
+                <p>合格标准：满分120分</p>
+                <p class="text-right">72及格</p>
             </div>
         </fieldset>
     </div>
@@ -100,7 +100,7 @@ $this->registerCssFile('@web/css/imitate.css');
     <div class="col-md-3">
         <fieldset class="time-info pull-left">
             <legend>剩余时间</legend>
-            <span data-item="left-time"><span id="minute">45</span>:<span id="second">00</span></span>
+            <span data-item="left-time"><span id="minute">90</span>:<span id="second">00</span></span>
         </fieldset>
     </div>
     <div class="col-md-6">
@@ -459,7 +459,7 @@ $this->registerCssFile('@web/css/imitate.css');
 
     $(window).ready(function(){
         // 加载完成
-        layer.alert('按交管部门通知，科目一考试系统全面更新。全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为90分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
+        layer.alert('全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为72分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
             // 定时时间
             meBase.startInter();
         }});

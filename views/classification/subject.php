@@ -6,7 +6,7 @@ $this->title = $cars->name.','.$subject->name;
 $this->registerCssFile('@web/css/index.css', ['depends' => ['app\assets\AppAsset']]);
 $this->params['menu'] = [
     'title' => $cars->name,
-    'link' => Url::toRoute(['car/index', 'id' => $cars->id])
+    'link' => Url::toRoute(['classification/index', 'id' => $cars->id])
 ];
 ?>
 <div class="page-header">

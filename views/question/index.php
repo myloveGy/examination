@@ -7,7 +7,7 @@ use app\common\models\Question;
 $this->title = '顺序练习';
 $this->params['menu'] = [
     'title' => $cars->name,
-    'link' => Url::toRoute(['car/index', 'id' => $cars->id])
+    'link' => Url::toRoute(['classification/index', 'id' => $cars->id])
 ];
 $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAsset']]);
 ?>

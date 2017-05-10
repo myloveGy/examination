@@ -7,23 +7,23 @@ $this->registerCssFile('@web/css/chapter.css');
 $this->params['breadcrumbs'] = [
     [
         'label' => $cars->name,
-        'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+        'url' => Url::toRoute(['classification/index', 'id' => $cars->id])
     ],
     [
         'label' => $subject->name,
-        'url' => Url::toRoute(['car/subject', 'id' => $subject->id])
+        'url' => Url::toRoute(['classification/subject', 'id' => $subject->id])
     ],
     $this->title
 ];
 $this->params['menu'] = [
     'title' => $cars->name,
-    'link' => Url::toRoute(['car/index', 'id' => $cars->id])
+    'link' => Url::toRoute(['classification/index', 'id' => $cars->id])
 ];
 ?>
 <?=$this->render('_crumbs')?>
 <div class="lx-main jkbd-width wid-auto">
     <h1 class="lx-title text-center"><?=$cars->name?> - <?=$subject->name?> 章节练习</h1>
-    <p class="text-center">按照法规章节逐步分类</p>
+    <p class="text-center">按照章节逐步分类</p>
     <div class="mt-15"></div>
     <?php if ($chapter) : ?>
     <?php foreach ($chapter as $value) : ?>

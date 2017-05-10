@@ -37,6 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     "bSortable": false
                 },
                 {
+                    "title": "手机号",
+                    "data": "phone",
+                    "sName": "phone",
+                    "edit": {"type": "text", "required": true, "rangelength": "[2, 255]"},
+                    "bSortable": false
+                },
+                {
                     "title": "密码",
                     "data": "password",
                     "sName": "password",

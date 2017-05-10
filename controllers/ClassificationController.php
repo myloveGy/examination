@@ -7,7 +7,7 @@ use app\common\models\Subject;
 use app\common\models\Special;
 use yii\web\HttpException;
 
-class CarController extends Controller
+class ClassificationController extends Controller
 {
     /**
      * actionIndex() 显示首页
@@ -33,8 +33,9 @@ class CarController extends Controller
             ]);
         }
 
-        // 有问题抛出错误
-        throw new HttpException(401, '数据存在问题哦');
+        // 没有数据直接返回
+        Yii::$app->session->setFlash('error', '分类信息不存在');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     public function actionSubject($id)
@@ -55,7 +56,8 @@ class CarController extends Controller
             ]);
         }
 
-        // 有问题抛出错误
-        throw new HttpException(401, '数据存在问题哦');
+        // 没有数据直接返回
+        Yii::$app->session->setFlash('error', '章节信息不存在');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 }

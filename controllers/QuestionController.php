@@ -37,11 +37,11 @@ class QuestionController extends Controller
             $crumbs = [
                 [
                     'label' => $cars->name,
-                    'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+                    'url' => Url::toRoute(['classification/index', 'id' => $cars->id])
                 ],
                 [
                     'label' => $subject->name,
-                    'url' => Url::toRoute(['car/subject', 'id' => $subject->id]),
+                    'url' => Url::toRoute(['classification/subject', 'id' => $subject->id]),
                 ]
             ];
 
@@ -125,7 +125,7 @@ class QuestionController extends Controller
         }
 
         // 有问题抛出错误
-        Yii::$app->session->setFlash('error', '没有问题信息');
+        Yii::$app->session->setFlash('error', '章节练习问题信息为空');
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
@@ -182,7 +182,7 @@ class QuestionController extends Controller
         }
 
         // 有问题抛出错误
-        Yii::$app->session->setFlash('error', '没有问题信息');
+        Yii::$app->session->setFlash('error', '专项练习问题不存在');
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
@@ -348,7 +348,7 @@ class QuestionController extends Controller
         }
 
         // 有问题抛出错误
-        Yii::$app->session->setFlash('error', '没有问题信息');
+        Yii::$app->session->setFlash('error', '全真模拟考试问题不存在');
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
@@ -376,7 +376,7 @@ class QuestionController extends Controller
                 Yii::$app->view->params['breadcrumbs'] = [
                     [
                         'label' => $cars->name,
-                        'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+                        'url' => Url::toRoute(['classification/index', 'id' => $cars->id])
                     ],
                     [
                         'label' => $subject->name,
@@ -406,7 +406,7 @@ class QuestionController extends Controller
         }
 
         // 没有数据直接返回
-        Yii::$app->session->setFlash('error', '没有问题信息');
+        Yii::$app->session->setFlash('error', '我的错题信息为空');
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 }

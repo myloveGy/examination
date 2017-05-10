@@ -38,7 +38,7 @@ AppAsset::register($this);
                     <ul class="dropdown-menu">
                         <?php if (isset($this->params['carTypes'])): ?>
                             <?php foreach ($this->params['carTypes'] as $value) : ?>
-                            <li><a href="<?=Url::toRoute(['car/index', 'id' => $value->id])?>"><?=$value->name?></a></li>
+                            <li><a href="<?=Url::toRoute(['classification/index', 'id' => $value->id])?>"><?=$value->name?></a></li>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
@@ -87,12 +87,12 @@ AppAsset::register($this);
             <div class="col-md-12">
                 <div class="jkbd-width wid-auto">
                     <ul class="cl">
-                        <li><a rel="nofollow"  href="/about/intro.html" class="joinus a-link">关于我们</a></li>
-                        <li class="bd-line"></li>
-                        <li class="fankui" data-item="feedback"><a href="/feedback" class="a-link">意见反馈</a></li>
+                        <li>技术支持--湖南得大工程有限公司</li>
+<!--                        <li class="bd-line"></li>-->
+<!--                        <li class="fankui" data-item="feedback"><a href="/feedback" class="a-link">意见反馈</a></li>-->
                     </ul>
-                    <p>Copyright © 2016 刘星工作室版权所有&nbsp;&nbsp;京ICP备11009001号-17</p>
-                    <img class="a-wap a-dis icon" src="http://web.resource.mucang.cn/jiakaobaodian.web/jkbd/resources/images/public/gongan.png">
+<!--                    <p>技术支持--湖南得大工程有限公司</p>-->
+<!--                    <img class="a-wap a-dis icon" src="http://web.resource.mucang.cn/jiakaobaodian.web/jkbd/resources/images/public/gongan.png">-->
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="form-group">
-                <p class="other-tips">点击“注册”按钮，既表示你同意<a rel="nofollow" target="_blank" href="http://www.jiakaobaodian.com/member/protocol.html">《用户协议》</a></p>
+                <p class="other-tips">点击“注册”按钮，既表示你同意<a rel="nofollow" target="_blank" href="<?=Url::toRoute(['article/detail', 'id' => 1])?>">《用户协议》</a></p>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-info submit">立即注册</button>
