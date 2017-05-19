@@ -87,7 +87,7 @@ AppAsset::register($this);
             <div class="col-md-12">
                 <div class="jkbd-width wid-auto">
                     <ul class="cl">
-                        <li>技术支持--湖南得大工程有限公司</li>
+                        <li><a href="/" class="a-link">技术支持--湖南得大工程有限公司</a></li>
 <!--                        <li class="bd-line"></li>-->
 <!--                        <li class="fankui" data-item="feedback"><a href="/feedback" class="a-link">意见反馈</a></li>-->
                     </ul>
