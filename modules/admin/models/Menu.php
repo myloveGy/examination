@@ -76,6 +76,12 @@ class Menu extends AdminModel
         return true;
     }
 
+    public function afterDelete()
+    {
+        self::setNavigation(Yii::$app->admin->id);
+        parent::afterDelete();
+    }
+
     /**
      * setNavigation() 设置用户导航栏信息
      * @param  int $intUserId 用户ID

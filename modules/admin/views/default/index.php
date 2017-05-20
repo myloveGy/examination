@@ -116,30 +116,6 @@ MainAsset::register($this);
         <script type="text/javascript">
             try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
         </script>
-
-        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-            <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                <!--<button class="btn btn-success window-iframe"  title="我的日程信息" data-id="my-arrange" data-url="<?=Url::toRoute(['arrange/calendar'])?>">
-                    <i class="ace-icon fa fa-calendar"></i>
-                </button>
-                <button class="btn btn-info">
-                    <i class="ace-icon fa fa-pencil"></i>
-                </button>
-                <button class="btn btn-warning window-iframe" title="个人信息" data-id="my-info" data-url="<?=Url::toRoute(['admin/view'])?>">
-                    <i class="ace-icon glyphicon glyphicon-user"></i>
-                </button>
-                <button class="btn btn-danger window-iframe" title="登录信息" data-id="index" data-url="<?=Url::toRoute(['site/system'])?>">
-                    <i class="ace-icon fa fa-cogs"></i>
-                </button>-->
-            </div>
-            <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-                <span class="btn btn-success"></span>
-                <span class="btn btn-info"></span>
-                <span class="btn btn-warning"></span>
-                <span class="btn btn-danger"></span>
-            </div>
-        </div>
-
         <!--左侧导航栏信息-->
         <ul class="nav nav-list" id="nav-list-main">
             <?php foreach ($this->params['menus'] as $value) : ?>

@@ -1023,7 +1023,7 @@
                 }
 
                 form += this.labelCreate(k.title, {"class": "col-sm-" + oParams.aCols[0] + " control-label"});
-                form += '<div class="col-sm-'+ oParams.aCols[1] + '">';
+                form += '<div class="col-sm-'+ oParams.aCols[1] + ' div-' + k.sName + '">';
 
                 // 使用函数
                 try {

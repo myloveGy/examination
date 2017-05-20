@@ -8,7 +8,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <!--前面导航信息-->
 <p id="me-table-buttons"></p>
-<p><span class="text-danger"> 说明： 先添加问题, 然后添加对应问题的答案！最后在编辑中选择一个答案作为正确答案 </span></p>
 <!--表格数据-->
 <table class="table table-striped table-bordered table-hover" id="show-table"></table>
 <div class="col-xs-12 hidden">
@@ -20,6 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
     function showSpan(s, c, d) {
         return '<span class="label label-sm ' + (c[d] ? c[d] : d ) + '">' + (s[d] ? s[d]: d) + '</span>'
     }
+
+    mt.extend({
+        multipleCreate: function(params) {
+            var n = params.number ? params.number : 4, html = "<div class=\"div-inputs\">";
+            for (x = 0; x < n; x++) {
+                html += createInput(params.name, "", x);
+            }
+
+            html += "</div>" +
+                "<div class=\"div-buttons clearfix\">" +
+                    "<button type=\"button\" class=\"btn btn-sm btn-info m-input-create\">添加答案</button> " +
+                    " <button type=\"button\" class=\"btn btn-warning btn-sm m-input-delete\">删除上一个答案</button></div>";
+            return html;
+        }
+    });
 
     var aTypeColor = {"1": "label-success", "2": "label-info", "3": "label-pink", "4": "label-inverse"};
 
@@ -36,20 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
         var myTable = meTables({
             sTitle:"题库信息",
             fileSelector: ["#image-file"],
-            operations: {
-                width: "200px",
-                buttons: {
-                    "other": {
-                        "title": "添加答案",
-                        "button-title": "添加答案",
-                        "className": "btn-warning",
-                        "cClass":"me-table-child-create",
-                        "icon":"fa-pencil-square-o",
-                        "sClass":"yellow"
-                    }
-                }
-            },
-
             // 主表格
             table: {
                 "aoColumns": [
@@ -114,7 +114,38 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     {
-                        "title": "所属专项分类",
+                        "title": "问题答案",
+                        "data": "answers",
+                        "sName": "answers",
+                        "edit": {"type": "multiple", "number": 4},
+                        "bSortable": false,
+                        "isHide": true
+                    },
+                    {
+                        "title": "答案类型",
+                        "data": "answer_type",
+                        "sName": "answer_type",
+                        "value": aType,
+                        "edit": {"type": "select", "id": "answer-type-select", "required": true, "number": true},
+                        "search": {"type": "select"},
+                        "bSortable": false,
+                        "createdCell": function (td, data) {
+                            $(td).html(mt.valuesString(aType, aTypeColor, data));
+                        }
+                    },
+                    {
+                        "title": "正确答案",
+                        "data": "answer_id",
+                        "sName": "answer_id",
+                        "bSortable": false,
+                        "createdCell": function (td, data) {
+                            $(td).html(data == 0 ? '<span class="label label-sm label-warning">还没有设置答案</span>' : data)
+                        },
+                        "value": {"-1":"请选择"},
+                        "edit": {"type": "select", "id": "input-answer-type", "multiple": "multiple", "required": true}
+                    },
+                    {
+                        "title": "专项分类",
                         "data": "special_id",
                         "sName": "special_id",
                         "value": aSpecial,
@@ -146,18 +177,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     {
-                        "title": "答案类型",
-                        "data": "answer_type",
-                        "sName": "answer_type",
-                        "value": aType,
-                        "edit": {"type": "select", "required": true, "number": true},
-                        "search": {"type": "select"},
-                        "bSortable": false,
-                        "createdCell": function (td, data) {
-                            $(td).html(mt.valuesString(aType, aTypeColor, data));
-                        }
-                    },
-                    {
                         "title": "状态",
                         "data": "status",
                         "sName": "status",
@@ -169,42 +188,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             $(td).html(showSpan(aStatus, aColor, data));
                         }
                     },
-                    {
-                        "title": "正确答案",
-                        "data": "answer_id",
-                        "sName": "answer_id",
-                        "bSortable": false,
-                        "createdCell": function (td, data) {
-                            $(td).html(data == 0 ? '<span class="label label-sm label-warning">还没有设置答案</span>' : data)
-                        },
-                        "value": {"0": "请选择"},
-                        "edit": {"type": "select", "id": "input-answer-type"}
-                    },
                     {"title": "创建时间", "data": "created_at", "sName": "created_at", "createdCell": mt.dateTimeString},
                     {"title": "修改时间", "data": "updated_at", "sName": "updated_at", "createdCell": mt.dateTimeString},
                     {"title": "错误人数", "data": "error_number", "sName": "error_number"}
                 ]
-            },
-
-            // 子表格
-            bChildTables: true,
-            childTables: {
-                url: {
-                    "search": "/admin/answer/search",
-                    "create": "/admin/answer/create",
-                    "update": "/admin/answer/update",
-                    "delete": "/admin/answer/delete"
-                },
-                table: {
-                    aoColumns: [
-                        {title: "ID", "data": "id", "sName": "id", "edit": {"type": "hidden"}},
-                        {title: "问题ID", "data": "qid", "sName": "qid", "edit": {"type": "hidden"}, "isHide": true},
-                        {title: "答案", "data": "name", "sName": "name",
-                            "edit": {"type": "text", "required": true, "rangelength": "[2, 1000]"}
-                        },
-                        mt.fn.options.childTables.operations
-                    ]
-                }
             }
         });
 
@@ -217,7 +204,7 @@ $this->params['breadcrumbs'][] = $this->title;
      * myTable.afterShow(object data, bool child, object clickObject)  return true 后置
      */
     myTable.beforeShow = function(data, child, chickObject) {
-        if (!child && this.action != "delete") {
+        if (this.action != "delete") {
             var html = '<option value=""> -- 请选择 -- </option>', sHtml = html, x;
             for (x in aSubject) {
                 html += '<option value="' + x + '">' + aSubject[x] + '</option>';
@@ -235,62 +222,73 @@ $this->params['breadcrumbs'][] = $this->title;
     };
 
     myTable.afterShow = function(data, child, clickObject) {
-        if (child) {
-            // 详情处理
-            if (this.action == "create") {
-                var childArray = this.table.data()[clickObject.attr('table-data')];
-                if (childArray) {
-                    $('#child-form').find('input[name=qid]').val(childArray['id']);
-                } else {
-                    layer.msg('数据不存在');
-                    return false;
-                }
-            }
-        } else {
-            $img.ace_file_input("reset_input");
-            // 不是编辑详情
-            switch (this.action) {
-                case 'create': // 新增
-                    $select.html('<option value="0">请选择</option>');
-                    break;
-                case 'update': // 编辑
-                    if (data) {
-                        if (data.question_img) $img.ace_file_input("show_file_list", [data.question_img]);
-                        mt.ajax({
-                            "url": '<?=Url::toRoute(['question/child'])?>',
-                            "type": "GET",
-                            "dataType": "json",
-                            "data": {"id": data["id"]}
-                        }).done(function(json) {
-                            if (json.errCode == 0 && json.data.length >= 1) {
-                                var html = "";
-                                if (data.answer_type == 3) {
-                                    var answers = $.parseJSON(data.answer_id);
-                                    for (var i in json.data) {
-                                        html += '<option value="' + json.data[i]["id"] + '" ' + (mt.inArray(json.data[i]["id"], answers) ? " selected=\"selected\"" : "") + '> ' + json.data[i]["name"] + '</option>';
-                                    }
+        $img.ace_file_input("reset_input");
+        // 不是编辑详情
+        switch (this.action) {
+            case 'create': // 新增
+                initAnswers("answers", ["", "", "", ""]);
+                break;
+            case 'update': // 编辑
+                if (data) {
+                    if (data.question_img) $img.ace_file_input("show_file_list", [data.question_img]);
+                    var arr = [];
 
-                                    $select.prop({"multiple": "multiple", "name": "answer_id[]"});
-                                } else {
-                                    for (var i in json.data) {
-                                        html += '<option value="' + json.data[i]["id"] + '" ' + (data.answer_id == json.data[i]["id"] ? " selected=\"selected\"" : "") + '> ' + json.data[i]["name"] + '</option>';
-                                    }
-
-                                    $select.removeProp("multiple").prop("name", "answer_id");
-                                }
-
-                                $select.html(html);
-                            } else {
-                                layer.msg(json.errMsg);
-                            }
-                        });
+                    if (data.answers) {
+                        try {
+                            arr = $.parseJSON(data.answers);
+                        } catch (e) {
+                            arr = [];
+                        }
                     }
-                    break;
-            }
+
+                    // 问题处理
+                    initAnswers("answers", arr);
+                    // 选择答案
+                    initAnswerId(arr, data.answer_id);
+                }
+                break;
         }
 
         return true;
     };
+
+    function createInput(name, defaultVal, num) {
+        if (!defaultVal) defaultVal = "";
+        return '<div class="col-sm-12">' +
+            '<div class="form-group">' +
+                '<input name="' + name + '[]" value="' + defaultVal + '" type="text" class="form-control multiple-input" placeholder="答案' + num + '">' +
+            '</div>' +
+        '</div>';
+    }
+
+    function initAnswers(name, data) {
+        var html = "", x;
+        for (x in data) {
+            html += createInput(name, data[x], x);
+        }
+
+        $(".div-inputs").html(html);
+    }
+
+    function initAnswerId(answer, answerId) {
+        var html = "", x, arrIds = [];
+        if (answerId) {
+            try {
+                arrIds = $.parseJSON(answerId);
+            } catch (e) {
+                arrIds = [];
+            }
+        }
+
+        console.info(arrIds);
+
+        for (x in answer) {
+            console.info(x);
+            html += "<option value=\"" + x + "\" " + (mt.inArray(parseInt(x), arrIds) ? "selected=\"selected\"" : "") + ">" + answer[x] + "</option>";
+        }
+
+        $("#input-answer-type").html(html);
+    }
 
      /**
       * 编辑的前置和后置操作
@@ -300,7 +298,34 @@ $this->params['breadcrumbs'][] = $this->title;
      $(function(){
          myTable.init();
          $img = $("#image-file");
-         $select = $("#input-answer-type").after("<p id=\"input-desc\"> 按住 Ctrl + 鼠标选择可以选择多个答案 </p>");
+         $select = $("#input-answer-type").prop("name", "answer_id[]").after("<p id=\"input-desc\"> 按住 Ctrl + 鼠标选择可以选择多个答案; (<span style=\"color:red\">*</span>请只在多选的情况下选择多个答案 </p>");
+
+         // 添加答案
+         $(document).on("click", ".m-input-create", function(evt){
+             evt.preventDefault();
+             var $input = $(".div-inputs");
+             $input.append(createInput("answers", "", $input.find("input").length));
+         });
+
+         // 删除答案
+         $(document).on("click", ".m-input-delete", function(evt){
+             evt.preventDefault();
+             $(".div-inputs").find("div.col-sm-12:last").remove();
+         });
+
+         // 添加答案
+         $(document).on("blur", ".multiple-input", function(){
+             var arr = [], x;
+             $(".multiple-input").each(function(){
+                 x = $.trim($(this).val());
+                 if (x) arr.push(x);
+             });
+
+             if (arr.length > 0) {
+                 initAnswerId(arr, "");
+             }
+         });
+
          // 查询大图
          $(document).on("click", ".btn-image", function(){
              var img = "<img src=" + $(this).attr("data-img") + ">";

@@ -59,12 +59,7 @@ AdminAsset::register($this);
             <!--主要内容信息-->
             <div class="page-content-area">
                 <div class="page-header">
-                    <h1> <?=$this->title;?>
-                        <!--                        <small>-->
-                        <!--                            <i class="ace-icon fa fa-angle-double-right"></i>-->
-                        <!--                            编辑我的信息-->
-                        <!--                        </small>-->
-                    </h1>
+                    <h1> <?=$this->title;?></h1>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -81,7 +76,7 @@ AdminAsset::register($this);
             <div class="footer-content">
                 <span class="bigger-120">
                     <span class="blue bolder">  </span>
-                    技术支持-<a href="http://www.dd119.com">湖南得大工程有限公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    技术支持-<a href="http://www.dd119.com">湖南得大工程有限公司</a>
                 </span>
             </div>
         </div>
