@@ -31,16 +31,14 @@ AppAsset::register($this);
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/"> 考试系统 </a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav pull-left">
+            <ul class="nav navbar-nav">
                 <li <?=Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index' ? 'class="active"' : ''?>><a href="/">首页</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择考试类型 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php if (isset($this->params['carTypes'])): ?>
                             <?php foreach ($this->params['carTypes'] as $value) : ?>
-                                <li><a href="<?=Url::toRoute(['classification/index', 'id' => $value->id])?>"><?=$value->name?></a></li>
+                            <li><a href="<?=Url::toRoute(['classification/index', 'id' => $value->id])?>"><?=$value->name?></a></li>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
@@ -50,7 +48,10 @@ AppAsset::register($this);
                         <a href="<?=$this->params['menu']['link']?>"><?=$this->params['menu']['title']?></a>
                     </li>
                 <?php endif; ?>
-
+            </ul>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav pull-right">
                 <li><a href="javascript:;" class="login no-login <?=Yii::$app->user->isGuest ? '' : 'hide'?>">登录</a></li>
                 <li><a href="javascript:;" class="register no-login <?=Yii::$app->user->isGuest ? '' : 'hide'?>">注册</a></li>
                 <li class="dropdown user-login <?=Yii::$app->user->isGuest ? 'hide' : ''?>">

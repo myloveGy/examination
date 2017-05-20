@@ -14,6 +14,7 @@ use yii\web\IdentityInterface;
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
+ * @property string $phone
  * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
@@ -26,6 +27,8 @@ class User extends \app\common\models\Model implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+
+    const PHONE_PATTERN = '/13[1235690]{1}\d{8}|15[1235689]\d{8}|188\d{8}|170\d{8}/';
 
 
     /**
@@ -79,10 +82,20 @@ class User extends \app\common\models\Model implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($username, $key = '')
     {
-        return static::findOne(['email' => $username, 'status' => self::STATUS_ACTIVE]);
+        // 没有指定字段
+        if (empty($key)) {
+            if (strlen($username) == 11 && preg_match(self::PHONE_PATTERN, $username)) {
+                $key = 'phone';
+            } else {
+                $key = 'username';
+            }
+        }
+
+        return static::findOne([$key => $username, 'status' => self::STATUS_ACTIVE]);
     }
+
 
     /**
      * Finds user by password reset token
