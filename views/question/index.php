@@ -7,7 +7,7 @@ use app\common\models\Question;
 $this->title = '顺序练习';
 $this->params['menu'] = [
     'title' => $cars->name,
-    'link' => Url::toRoute(['car/index', 'id' => $cars->id])
+    'link' => Url::toRoute(['classification/index', 'id' => $cars->id])
 ];
 $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAsset']]);
 ?>
@@ -76,7 +76,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
             <button id="prev" type="button" class="btn btn-info pull-left ml-15">上一题</button>
             <button id="next" type="button" class="btn btn-info pull-left ml-15">下一题</button>
 <!--            <button data-item="datika" type="button" class="btn btn-default pull-right ml-15">展开答题卡</button>-->
-            <button id="see-info" type="button" class="btn btn-default pull-right ml-15">查看详解</button>
+            <button id="see-info" type="button" class="btn btn-default ml-15">查阅题解</button>
         </div>
         <div class="tongji-container clearfix mt-15">
             <label class="daduinext float-l"><input type="checkbox" id="isAutoNext" checked="checked"><span>答对自动下一题</span></label>
@@ -497,10 +497,10 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
         $('#see-info').click(function(){
             if (objBase.complete[objBase.question.id]) {
                 if ($("#info").hasClass('hide')) {
-                    $(this).html('收起详情');
+                    $(this).html("收起题解");
                     $('#info').removeClass('hide');
                 } else {
-                    $(this).html('查看详情');
+                    $(this).html("查阅题解");
                     $('#info').addClass('hide');
                 }
             } else {

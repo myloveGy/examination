@@ -345,6 +345,7 @@ class Controller extends \app\common\controllers\Controller
                 $model = new UploadForm();
                 $model->scenario = $strField;
                 try {
+			// var_dump($_FILES);
                     $objFile = $model->$strField = UploadedFile::getInstance($model, $strField);
                     $this->arrJson['errCode'] = 221;
                     if ($objFile) {
@@ -360,7 +361,8 @@ class Controller extends \app\common\controllers\Controller
                                 // 生成文件随机名
                                 $strFileName = uniqid() . '.';
                                 $strFilePath = $dirName. $strFileName. $objFile->extension;
-                                $this->arrJson['errCode'] = 204;
+                              //  var_dump($strFilePath, $strFileName); exit;
+				 $this->arrJson['errCode'] = 204;
                                 if ($objFile->saveAs($strFilePath) && $this->afterUpload($objFile, $strFilePath, $strField)) {
                                     $this->handleJson([
                                         'sFilePath' => trim($strFilePath, '.'),

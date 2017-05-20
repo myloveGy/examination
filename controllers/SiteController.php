@@ -72,18 +72,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        // 查询车型信息
-        Yii::$app->view->params['carTypes'] = CarType::find()->where(['status' => 1])->orderBy(['sort' => SORT_ASC])->all();
-
-        // 查询科目一
-        $subject = Subject::findOne(['name' => '科目一']);
-        if (!$subject) $subject = Subject::findOne(1);
-        // 查询难题
-        $special = Special::findOne(['name' => '难题']);
-        return $this->render('index', [
-            'subject' => $subject,
-            'special' => $special,
-        ]);
+        return $this->render('index');
     }
 
     /**

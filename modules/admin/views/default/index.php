@@ -69,7 +69,7 @@ MainAsset::register($this);
 
         <div class="navbar-header pull-left">
             <a href="/site" class="navbar-brand">
-                <small>Yii2 Admin 后台管理</small>
+                <small>考试系统 &nbsp;&nbsp;后台管理</small>
             </a>
         </div>
 
@@ -119,7 +119,7 @@ MainAsset::register($this);
 
         <div class="sidebar-shortcuts" id="sidebar-shortcuts">
             <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                <button class="btn btn-success window-iframe"  title="我的日程信息" data-id="my-arrange" data-url="<?=Url::toRoute(['arrange/calendar'])?>">
+                <!--<button class="btn btn-success window-iframe"  title="我的日程信息" data-id="my-arrange" data-url="<?=Url::toRoute(['arrange/calendar'])?>">
                     <i class="ace-icon fa fa-calendar"></i>
                 </button>
                 <button class="btn btn-info">
@@ -130,7 +130,7 @@ MainAsset::register($this);
                 </button>
                 <button class="btn btn-danger window-iframe" title="登录信息" data-id="index" data-url="<?=Url::toRoute(['site/system'])?>">
                     <i class="ace-icon fa fa-cogs"></i>
-                </button>
+                </button>-->
             </div>
             <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
                 <span class="btn btn-success"></span>

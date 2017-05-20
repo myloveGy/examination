@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         table: {
             "aoColumns":[
                 {"title": "id", "data": "id", "sName": "id", "edit": {"type": "hidden"}, "search": {"type": "text"}},
-                {"title": "所属车型", "data": "car_id", "sName": "car_id", "value": arrCarType,
+                {"title": "所属类型", "data": "car_id", "sName": "car_id", "value": arrCarType,
                     "edit": {"type": "select", "required": true, "number": true},
                     "search": {"type": "select"},
                     "createdCell": function(td, data) {

@@ -11,7 +11,7 @@ AdminAsset::register($this);
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="<?= Yii::$app->charset ?>"/>
-    <title><?=Yii::$app->name.Html::encode($this->title) ?></title>
+    <title>考试系统</title>
     <meta name="description" content="3 styles with inline editable feature" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <?= Html::csrfMetaTags() ?>
@@ -80,8 +80,8 @@ AdminAsset::register($this);
         <div class="footer-inner">
             <div class="footer-content">
                 <span class="bigger-120">
-                    <span class="blue bolder"> Liujinxing </span>
-                    Yii2 Admin 项目 &copy; 2016-2018
+                    <span class="blue bolder">  </span>
+                    技术支持-<a href="http://www.dd119.com">湖南得大工程有限公司</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
             </div>
         </div>

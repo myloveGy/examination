@@ -7,11 +7,11 @@ $this->registerCssFile('@web/css/chapter.css');
 $this->params['breadcrumbs'] = [
     [
         'label' => $cars->name,
-        'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+        'url' => Url::toRoute(['classification/index', 'id' => $cars->id])
     ],
     [
         'label' => $subject->name,
-        'url' => Url::toRoute(['car/subject', 'id' => $subject->id])
+        'url' => Url::toRoute(['classification/subject', 'id' => $subject->id])
     ],
     $this->title
 
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'] = [
 
 $this->params['menu'] = [
     'title' => $cars->name,
-    'link' => Url::toRoute(['car/index', 'id' => $cars->id])
+    'link' => Url::toRoute(['classification/index', 'id' => $cars->id])
 ];
 
 ?>

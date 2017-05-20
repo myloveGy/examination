@@ -1,5 +1,5 @@
 <?php
-$this->title = 'Yii2 Admin 登录信息';
+$this->title = '登录信息';
 ?>
 <div class="row">
     <div class="col-xs-12 col-sm-12">
@@ -83,24 +83,6 @@ $this->title = 'Yii2 Admin 登录信息';
                 <div class="profile-info-name"> 上传文件 </div>
                 <div class="profile-info-value">
                     <span><?=$upload?></span>
-                </div>
-            </div>
-        </div>
-        <div class="hr hr-8 dotted"></div>
-        <div class="profile-user-info">
-            <div class="profile-info-row">
-                <div class="profile-info-name"> 个人主页 </div>
-                <div class="profile-info-value">
-                    <a target="_blank" href="http://821901008.qzone.qq.com">http://821901008.qzone.qq.com</a>
-                </div>
-            </div>
-            <div class="profile-info-row">
-                <div class="profile-info-name">
-                    <i class="fa fa-github-square" aria-hidden="true"></i>
-                    GitHub
-                </div>
-                <div class="profile-info-value">
-                    <a href="https://github.com/myloveGy" target="_blank">https://github.com/myloveGy</a>
                 </div>
             </div>
         </div>

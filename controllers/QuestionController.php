@@ -18,7 +18,6 @@ class QuestionController extends Controller
 {
     /**
      * actionIndex() 显示首页
-     * @return string
      */
     public function actionIndex()
     {
@@ -38,11 +37,11 @@ class QuestionController extends Controller
             $crumbs = [
                 [
                     'label' => $cars->name,
-                    'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+                    'url' => Url::toRoute(['classification/index', 'id' => $cars->id])
                 ],
                 [
                     'label' => $subject->name,
-                    'url' => Url::toRoute(['car/subject', 'id' => $subject->id]),
+                    'url' => Url::toRoute(['classification/subject', 'id' => $subject->id]),
                 ]
             ];
 
@@ -95,7 +94,8 @@ class QuestionController extends Controller
         }
 
         // 有问题抛出错误
-        throw new HttpException(401, $errMsg);
+        Yii::$app->session->setFlash('error', $errMsg);
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -124,7 +124,9 @@ class QuestionController extends Controller
 
         }
 
-        return $this->redirect(['/']);
+        // 有问题抛出错误
+        Yii::$app->session->setFlash('error', '章节练习问题信息为空');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -179,7 +181,9 @@ class QuestionController extends Controller
             ]);
         }
 
-        return $this->redirect(['/']);
+        // 有问题抛出错误
+        Yii::$app->session->setFlash('error', '专项练习问题不存在');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -343,7 +347,9 @@ class QuestionController extends Controller
             }
         }
 
-        throw  new HttpException(404, '数据不存在');
+        // 有问题抛出错误
+        Yii::$app->session->setFlash('error', '全真模拟考试问题不存在');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**
@@ -370,7 +376,7 @@ class QuestionController extends Controller
                 Yii::$app->view->params['breadcrumbs'] = [
                     [
                         'label' => $cars->name,
-                        'url' => Url::toRoute(['car/index', 'id' => $cars->id])
+                        'url' => Url::toRoute(['classification/index', 'id' => $cars->id])
                     ],
                     [
                         'label' => $subject->name,
@@ -400,6 +406,7 @@ class QuestionController extends Controller
         }
 
         // 没有数据直接返回
-        return $this->redirect(['/', 'subject' => 1]);
+        Yii::$app->session->setFlash('error', '我的错题信息为空');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 }

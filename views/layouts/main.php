@@ -31,14 +31,16 @@ AppAsset::register($this);
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/"> 考试系统 </a>
-            <ul class="nav navbar-nav">
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav pull-left">
                 <li <?=Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id == 'index' ? 'class="active"' : ''?>><a href="/">首页</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择车型 <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 选择考试类型 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php if (isset($this->params['carTypes'])): ?>
                             <?php foreach ($this->params['carTypes'] as $value) : ?>
-                            <li><a href="<?=Url::toRoute(['car/index', 'id' => $value->id])?>"><?=$value->name?></a></li>
+                                <li><a href="<?=Url::toRoute(['classification/index', 'id' => $value->id])?>"><?=$value->name?></a></li>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
@@ -48,10 +50,7 @@ AppAsset::register($this);
                         <a href="<?=$this->params['menu']['link']?>"><?=$this->params['menu']['title']?></a>
                     </li>
                 <?php endif; ?>
-            </ul>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav pull-right">
+
                 <li><a href="javascript:;" class="login no-login <?=Yii::$app->user->isGuest ? '' : 'hide'?>">登录</a></li>
                 <li><a href="javascript:;" class="register no-login <?=Yii::$app->user->isGuest ? '' : 'hide'?>">注册</a></li>
                 <li class="dropdown user-login <?=Yii::$app->user->isGuest ? 'hide' : ''?>">
@@ -87,12 +86,12 @@ AppAsset::register($this);
             <div class="col-md-12">
                 <div class="jkbd-width wid-auto">
                     <ul class="cl">
-                        <li><a rel="nofollow"  href="/about/intro.html" class="joinus a-link">关于我们</a></li>
-                        <li class="bd-line"></li>
-                        <li class="fankui" data-item="feedback"><a href="/feedback" class="a-link">意见反馈</a></li>
+                        <li><a href="/" class="a-link">技术支持--湖南得大工程有限公司</a></li>
+<!--                        <li class="bd-line"></li>-->
+<!--                        <li class="fankui" data-item="feedback"><a href="/feedback" class="a-link">意见反馈</a></li>-->
                     </ul>
-                    <p>Copyright © 2016 刘星工作室版权所有&nbsp;&nbsp;京ICP备11009001号-17</p>
-                    <img class="a-wap a-dis icon" src="http://web.resource.mucang.cn/jiakaobaodian.web/jkbd/resources/images/public/gongan.png">
+<!--                    <p>技术支持--湖南得大工程有限公司</p>-->
+<!--                    <img class="a-wap a-dis icon" src="http://web.resource.mucang.cn/jiakaobaodian.web/jkbd/resources/images/public/gongan.png">-->
                 </div>
             </div>
         </div>
@@ -107,7 +106,7 @@ AppAsset::register($this);
         <form class="login-form form-horizontal user-form" id="login-form" action="<?=Url::toRoute(['site/login'])?>">
             <input type="hidden" value="<?= Yii::$app->getRequest()->getCsrfToken() ?>" name="_csrf" />
             <div class="form-group">
-                <input name="username" class="i-username form-control" required="true" email="true" rangelength="[2, 100]" placeholder="请输入账号邮箱" type="text" />
+                <input name="username" class="i-username form-control" required="true" rangelength="[2, 100]" placeholder="请输入手机号 or 昵称" type="text" />
             </div>
             <div class="form-group">
                 <input name="password" class="i-password form-control" required="true" rangelength="[6, 50]" placeholder="请输入您的密码" type="password" />
@@ -133,7 +132,7 @@ AppAsset::register($this);
                 <input name="username" class="form-control" required="true" rangelength="[2, 100]" placeholder="请输入昵称" type="text">
             </div>
             <div class="form-group">
-                <input name="email" class="i-username form-control" required="true" email="true" rangelength="[2, 100]" placeholder="请输入登录邮箱" type="text">
+                <input name="phone" class="i-username form-control" required="true"  maxlength="11" minlength="11" placeholder="请输入手机号" type="text">
             </div>
             <div class="form-group">
                 <input name="password" id="m-password" class="i-password form-control" required="true" rangelength="[6, 50]"  placeholder="请设置密码" type="password">
@@ -160,7 +159,7 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="form-group">
-                <p class="other-tips">点击“注册”按钮，既表示你同意<a rel="nofollow" target="_blank" href="http://www.jiakaobaodian.com/member/protocol.html">《用户协议》</a></p>
+                <p class="other-tips">点击“注册”按钮，既表示你同意<a rel="nofollow" target="_blank" href="<?=Url::toRoute(['article/detail', 'id' => 1])?>">《用户协议》</a></p>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-info submit">立即注册</button>
@@ -186,6 +185,12 @@ AppAsset::register($this);
 </script>
 <?php $this->endBody() ?>
 <?=$this->blocks['javascript']?>
+<script>
+    var message = '<?=Yii::$app->session->getFlash('error')?>';
+    if (message) {
+        layer.msg(message);
+    }
+</script>
 </body>
 </html>
 <?php $this->endPage() ?>

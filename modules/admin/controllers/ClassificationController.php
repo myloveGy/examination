@@ -1,16 +1,15 @@
 <?php
 /**
- * file: AnswerController.php
- * desc: 答案信息 执行操作控制器
- * date: 2016-10-11 18:55:56
+ * file: ChapterController.php
+ * desc: 章节信息 执行操作控制器
+ * date: 2016-10-11 15:47:39
  */
 
 namespace app\modules\admin\controllers;
 
-use Yii;
-use app\common\models\Answer;
+use app\common\models\CarType;
 
-class AnswerController extends Controller
+class ClassificationController extends Controller
 {
     /**
      * where() 查询处理
@@ -20,16 +19,16 @@ class AnswerController extends Controller
     public function where($params)
     {
         return [
-            'where' => [['=', 'qid', (int)Yii::$app->request->post('id')]],
+			'name' => 'like',
         ];
     }
 
     /**
      * getModel() 返回model
-     * @return Answer
+     * @return CarType
      */
     public function getModel()
     {
-        return new Answer();
+        return new CarType();
     }
 }

@@ -28,7 +28,7 @@ class SubjectController extends Controller
 
     public function actionIndex()
     {
-        // 查询车型信息
+        // 查询类别信息
         $carType = CarType::findAll(['status' => 1]);
         $carType = ArrayHelper::map($carType, 'id', 'name');
         return $this->render('index', [
