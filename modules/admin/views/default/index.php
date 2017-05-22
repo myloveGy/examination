@@ -68,8 +68,8 @@ MainAsset::register($this);
         </button>
 
         <div class="navbar-header pull-left">
-            <a href="/site" class="navbar-brand">
-                <small>考试系统 &nbsp;&nbsp;后台管理</small>
+            <a href="<?=Url::toRoute(['default/index'])?>" class="navbar-brand">
+                <small>考试系统后台管理</small>
             </a>
         </div>
 
@@ -87,7 +87,7 @@ MainAsset::register($this);
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a class="window-iframe" data-id="index" title="登录信息" data-url="<?=Url::toRoute(['default/index'])?>" href="<?=Url::toRoute(['site/index'])?>">
+                            <a class="window-iframe" data-id="index" title="登录信息" data-url="<?=Url::toRoute(['default/system'])?>" href="<?=Url::toRoute(['site/index'])?>">
                                 <i class="ace-icon fa fa-desktop"></i>登录信息
                             </a>
                         </li>

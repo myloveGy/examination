@@ -57,8 +57,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         "title": "题目ID",
                         "data": "id",
                         "sName": "id",
-                        "class": "child-control",
+//                        "class": "child-control",
                         "edit": {"type": "hidden"},
+                        "isHide": true,
                         "defaultOrder": "desc",
                         "createdCell": function (td, data, rowArr, row, col) {
                             $(td).html(data + '<b class="arrow fa fa-angle-down pull-right"></b>');
@@ -85,7 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         "sName": "car_id",
                         "value": aCars,
                         "edit": {"type": "select", "default": 0, "id": "car-id", "required": true, "number": true},
-                        "search": {"type": "select"},
                         "bSortable": false,
                         "isHide": true
                     },
@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         "sName": "answer_id",
                         "bSortable": false,
                         "createdCell": function (td, data) {
-                            $(td).html(data == 0 ? '<span class="label label-sm label-warning">还没有设置答案</span>' : data)
+                            $(td).html(data === "" ? '<span class="label label-sm label-warning">还没有设置答案</span>' : data)
                         },
                         "value": {"-1":"请选择"},
                         "edit": {"type": "select", "id": "input-answer-type", "multiple": "multiple", "required": true}
@@ -153,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         "edit": {"type": "select", "required": true, "number": true},
                         "bSortable": false,
                         "createdCell": function(td, data) {
-                            $(td).html(aChapter[data] ? aChapter[data] : data);
+                            $(td).html(aSpecial[data] ? aSpecial[data] : data);
                         }
                     },
                     {
@@ -227,6 +227,8 @@ $this->params['breadcrumbs'][] = $this->title;
         switch (this.action) {
             case 'create': // 新增
                 initAnswers("answers", ["", "", "", ""]);
+                // 问题类型
+                updateAnswerName(1);
                 break;
             case 'update': // 编辑
                 if (data) {
@@ -241,6 +243,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
 
+                    // 问题类型
+                    updateAnswerName(parseInt(data.answer_type));
                     // 问题处理
                     initAnswers("answers", arr);
                     // 选择答案
@@ -280,14 +284,28 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         }
 
-        console.info(arrIds);
-
         for (x in answer) {
             console.info(x);
             html += "<option value=\"" + x + "\" " + (mt.inArray(parseInt(x), arrIds) ? "selected=\"selected\"" : "") + ">" + answer[x] + "</option>";
         }
 
         $("#input-answer-type").html(html);
+    }
+
+    function renderAnswers() {
+        var arr = [], x;
+        $(".multiple-input").each(function(){
+            x = $.trim($(this).val());
+            if (x) arr.push(x);
+        });
+
+        if (arr.length > 0) {
+            initAnswerId(arr, "");
+        }
+    }
+
+    function updateAnswerName(strType) {
+        $("#input-answer-type").prop("name", strType === 3 ? "answer_id[]" : "answer_id");
     }
 
      /**
@@ -298,9 +316,14 @@ $this->params['breadcrumbs'][] = $this->title;
      $(function(){
          myTable.init();
          $img = $("#image-file");
-         $select = $("#input-answer-type").prop("name", "answer_id[]").after("<p id=\"input-desc\"> 按住 Ctrl + 鼠标选择可以选择多个答案; (<span style=\"color:red\">*</span>请只在多选的情况下选择多个答案 </p>");
+         $select = $("#input-answer-type").after("<p id=\"input-desc\"> 按住 Ctrl + 鼠标选择可以选择多个答案; (<span style=\"color:red\">*</span>请只在多选的情况下选择多个答案 </p>");
 
-         // 添加答案
+         // 问题类型选择
+         $("#answer-type-select").change(function(){
+             updateAnswerName(parseInt($(this).val()));
+         });
+
+         // 添加答
          $(document).on("click", ".m-input-create", function(evt){
              evt.preventDefault();
              var $input = $(".div-inputs");
@@ -311,19 +334,12 @@ $this->params['breadcrumbs'][] = $this->title;
          $(document).on("click", ".m-input-delete", function(evt){
              evt.preventDefault();
              $(".div-inputs").find("div.col-sm-12:last").remove();
+             renderAnswers();
          });
 
          // 添加答案
          $(document).on("blur", ".multiple-input", function(){
-             var arr = [], x;
-             $(".multiple-input").each(function(){
-                 x = $.trim($(this).val());
-                 if (x) arr.push(x);
-             });
-
-             if (arr.length > 0) {
-                 initAnswerId(arr, "");
-             }
+             renderAnswers();
          });
 
          // 查询大图

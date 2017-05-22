@@ -77,7 +77,7 @@ class QuestionController extends Controller
             $errMsg = '问题不存在';
             if ($question) {
                 // 查询问题答案
-                $answer = Answer::findAll(['qid' => $question->id]);
+                $answer = Json::decode($question->answers);
                 return $this->render('index', [
                     'cars' => $cars, // 车型信息
                     'subject' => $subject,
@@ -241,7 +241,7 @@ class QuestionController extends Controller
             $this->arrJson['errCode'] = 220;
             $question = Question::findOne($id);
             if ($question) {
-                $answers = Answer::findAll(['qid' => $question->id]);
+                $answers = Json::decode($question->answers);
                 $this->handleJson([
                     'hasCollect' => UserCollect::hasCollect($question->id, $question->subject_id),
                     'question' => $question,
@@ -254,69 +254,6 @@ class QuestionController extends Controller
     }
 
     /**
-     * actionInstall() 获取数据新增
-     * @return mixed|string
-     */
-    public function actionInstall()
-    {
-        $request = Yii::$app->request;
-        $title = trim($request->get('title'));
-        $items = $request->get('items');
-        $answer = $request->get('answer');
-        $content = trim($request->get('content'));
-        $img = trim($request->get('question_img'));
-        $answer_type = (int)$request->get('answer_type');
-        if ($title && $items) {
-            $model = new Question();
-            $model->answer_type = $answer_type;
-            $model->question_title = $title;
-            $model->question_content = $content;
-            $model->status = 1;
-            $model->subject_id = 1;
-            $model->chapter_id = 1;
-            if ($img) {
-                $model->question_img = $this->download($img, 'http://file.open.jiakaobaodian.com/');
-            }
-            if ($model->save()) {
-                foreach ($items as $key => $val) {
-                    $tmp = new Answer();
-                    $tmp->name = $val;
-                    $tmp->qid  = $model->id;
-                    if ($tmp->save() && $key == $answer) {
-                        $model->answer_id = $tmp->id;
-                        $model->save(false);
-                    }
-                }
-            }
-        }
-
-        return $this->returnJson();
-    }
-
-    /**
-     * download() 盗取图片
-     * @param  string $imgPath 图片地址
-     * @param  string $replace 替换地址
-     * @param  string $dir     保存目录
-     * @return bool|mixed
-     */
-    protected function download($imgPath, $replace, $dir = './upload/')
-    {
-        $mixReturn = false;
-        $strImg = file_get_contents($imgPath);
-        if ($strImg) {
-            $dirPath = str_replace($replace, $dir, $imgPath);
-            $dir = dirname($dirPath);
-            if (!file_exists($dir)) mkdir($dir, 0777, true);
-            if (file_put_contents($dirPath, $strImg)) {
-                $mixReturn = $dirPath;
-            }
-        }
-
-        return $mixReturn;
-    }
-
-    /**
      * actionImitate() 全真模拟考试
      * @return string
      * @throws HttpException
@@ -326,18 +263,58 @@ class QuestionController extends Controller
         // 查询科目信息
         $subject = Subject::findOne(Yii::$app->request->get('subject', 1));
         if ($subject) {
+            // 解析配置信息
+            $config = Json::decode($subject->config);
+            if (!$config) $config = [];
+            if (!isset($config['passingScore'])) $config['passingScore'] = 72;
+            if (!isset($config['totalScore'])) $config['totalScore'] = 100;
+            if (!isset($config['time'])) $config['time'] = 60;
+
             $where = ['subject_id' => $subject->id];
-            $total = Question::find()->where($where)->count();
-            $params = ['limit' => 300];
-            $params['offset'] = mt_rand(0, max(0, $total - $params['limit']));
-            $ids = Question::getAllIds($where, $params);
+
+            // 判断题目数
+            if (!isset($config['judgmentNumber'])) $config['judgmentNumber'] = 10;
+            $where['answer_type'] = Question::ANSWER_TYPE_ONE;
+
+            // 查询所有判断题目
+            $arrJudgment = Question::getAllIds($where);
+            $intStart = mt_rand(0, max(0,count($arrJudgment) - $config['judgmentNumber']));
+            $arrJudgment = array_slice($arrJudgment, $intStart, $config['judgmentNumber']);
+
+            // 单选题目数
+            if (!isset($config['selectNumber'])) $config['selectNumber'] = 40;
+            $where['answer_type'] = Question::ANSWER_TYPE_JUDGE;
+
+            // 查询所以单选题目
+            $arrSelect = Question::getAllIds($where);
+            $intStart = mt_rand(0, max(0,count($arrSelect) - $config['selectNumber']));
+            $arrSelect = array_slice($arrSelect, $intStart, $config['selectNumber']);
+
+            // 多选题目数
+            if (!isset($config['multipleNumber'])) $config['multipleNumber'] = 30;
+            $where['answer_type'] = Question::ANSWER_TYPE_MULTI;
+
+            // 查询所以多选题目multipleNumber
+            $arrMultiple = Question::getAllIds($where);
+            $intStart = mt_rand(0, max(0,count($arrMultiple) - $config['multipleNumber']));
+            $arrMultiple = array_slice($arrMultiple, $intStart, $config['multipleNumber']);
+
+            // 问答题目数
+            if (!isset($config['shortNumber'])) $config['shortNumber'] = 5;
+            $where['answer_type'] = Question::ANSWER_TYPE_TEXT;
+
+            // 查询所以问答题目shortNumber
+            $arrShort = Question::getAllIds($where);
+            $intStart = mt_rand(0, max(0,count($arrShort) - $config['shortNumber']));
+            $arrShort = array_slice($arrShort, $intStart, $config['shortNumber']);
+            $ids = array_merge($arrJudgment, $arrSelect, $arrMultiple, $arrShort);
             if ($ids) {
                 shuffle($ids);
-                $ids = array_slice($ids, 0, $params['limit'] / 3);
                 $question = Question::findOne($ids[0]);
                 if ($question) {
-                    $answers = Answer::findAll(['qid' => $question->id]);
+                    $answers = Json::decode($question->answers);
                     return $this->render('imitate', [
+                        'config' => $config,
                         'cars' => $subject->car,
                         'question' => $question,
                         'answers' => $answers,

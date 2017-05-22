@@ -150,6 +150,8 @@ class Question extends TimeModel
             }
 
             $this->answer_id = Json::encode($answers);
+        } else {
+            $this->answer_id = $this->answer_id == -1 ? "" : $this->answer_id;
         }
 
         if (is_array($this->answers)) {

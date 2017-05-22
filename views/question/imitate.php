@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use app\common\models\Question;
 $this->title = '全真模拟';
 $this->registerCssFile('@web/css/imitate.css');
+$array = range('A', 'J');
 ?>
 <?=$this->render('_crumbs')?>
 <div class="info-up clearfix row">
@@ -22,10 +23,10 @@ $this->registerCssFile('@web/css/imitate.css');
                 <p class="name">
                     考生姓名：<span class="nickname ellipsis">我是考霸</span>
                 </p>
-                <p>考试题数：100题</p>
-                <p>考试时间：90分钟</p>
-                <p>合格标准：满分120分</p>
-                <p class="text-right">72及格</p>
+                <p>考试题数：<?=count($allIds)?>题</p>
+                <p>考试时间：<?=$config['time']?>分钟</p>
+                <p>合格标准：满分<?=$config['totalScore']?>分</p>
+                <p class="text-right"><?=$config['passingScore']?>及格</p>
             </div>
         </fieldset>
     </div>
@@ -38,14 +39,14 @@ $this->registerCssFile('@web/css/imitate.css');
                         <div class="pull-left col-md-6">
                             <div class="timu-x">
                                 <p class="timu-p">
-                                    <span id="do-number">1</span>/<span>100</span>.
+                                    <span id="do-number">1</span>/<span><?=count($allIds)?></span>.
                                     <span id="question-title"><?=$question->question_title?></span>
                                 </p>
                             </div>
                             <div id="answers" class="<?=$question->answer_type == 4 ? 'hide' : ''?>">
                                 <?php if ($answers) : ?>
-                                <?php foreach ($answers as $value) : ?>
-                                <p data-id="<?=$value->id?>"><?=$value->name?></p>
+                                <?php foreach ($answers as $key => $value) : ?>
+                                <p data-id="<?=$key?>"><?=$value?></p>
                                 <?php endforeach;?>
                                 <?php endif; ?>
                             </div>
@@ -85,7 +86,7 @@ $this->registerCssFile('@web/css/imitate.css');
                             <span id="select-answers">
                                 <?php if ($answers) : ?>
                                 <?php foreach ($answers as $key => $value) : ?>
-                                <button type="button" class="btn btn-default" data-answer="<?=$value->id?>"><?=isset($array[$key]) ? $array[$key] : substr($value->name, 0, 1)?></button>
+                                <button type="button" class="btn btn-default" data-answer="<?=$key?>"><?=isset($array[$key]) ? $array[$key] : substr($value, 0, 1)?></button>
                                 <?php endforeach; ?>
                                 <?php endif; ?>
                             </span>
@@ -100,7 +101,7 @@ $this->registerCssFile('@web/css/imitate.css');
     <div class="col-md-3">
         <fieldset class="time-info pull-left">
             <legend>剩余时间</legend>
-            <span data-item="left-time"><span id="minute">90</span>:<span id="second">00</span></span>
+            <span data-item="left-time"><span id="minute"><?=$config['time']?></span>:<span id="second">00</span></span>
         </fieldset>
     </div>
     <div class="col-md-6">
@@ -136,7 +137,7 @@ $this->registerCssFile('@web/css/imitate.css');
             allQuestions: <?=Json::encode($allIds)?>, // 所有问题信息
             pk: "<?=$question->id?>", // 主键ID
             index: 0, // 回答问题位置
-            minute: 44, // 分钟
+            minute: <?=$config['time'] - 1?>, // 分钟
             second: 59, // 秒数
             first: true,
             fraction: 0, // 分数
@@ -208,8 +209,8 @@ $this->registerCssFile('@web/css/imitate.css');
                 $("#text-answer-div").removeClass("hide");
                 var html = "";
                 this.answer.forEach(function(v, k){
-                    if (v.id == meBase.question.answer_id) {
-                        html += v.name;
+                    if (k == meBase.question.answer_id) {
+                        html += v;
                     }
                 });
 
@@ -305,12 +306,15 @@ $this->registerCssFile('@web/css/imitate.css');
                     this.html = "";
                     var selector = '';
                     for (var i in this.answer) {
-                        this.html += '<p data-id="' + this.answer[i]["id"] + '">' + this.answer[i]["name"] + '</p> ';
-                        selector += '<button type="button" class="btn btn-default" data-answer="' + this.answer[i]["id"] + '"> ' + (this.answerLetter[i] ? this.answerLetter[i] : this.answer[i]["name"]) + ' </button> ';
+                        this.html += '<p data-id="' + i + '">' + this.answer[i] + '</p> ';
+                        selector += '<button type="button" class="btn btn-default" data-answer="' + i + '"> ' + (this.answerLetter[i] ? this.answerLetter[i] : this.answer[i]) + ' </button> ';
                     }
 
                     $('#answers').html(this.html);
                     $('#select-answers').html(selector);
+                } else {
+                    $('#answers').html("");
+                    $('#select-answers').html("");
                 }
 
                 // 判断是否已经存在
@@ -397,7 +401,7 @@ $this->registerCssFile('@web/css/imitate.css');
             startInter: function() {
                 this.inter = setInterval(function(){
                     if (meBase.first) {
-                        $('#minute').html('44');
+                        $('#minute').html(meBase.minute);
                         meBase.first = false;
                     }
 
@@ -459,7 +463,7 @@ $this->registerCssFile('@web/css/imitate.css');
 
     $(window).ready(function(){
         // 加载完成
-        layer.alert('全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为72分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
+        layer.alert('全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为<?=$config['passingScore']?>分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
             // 定时时间
             meBase.startInter();
         }});

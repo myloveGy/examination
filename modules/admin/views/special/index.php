@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         "data": "id",
                         "sName": "id",
                         "edit": {"type": "hidden"},
-                        "search": {"type": "text"}
+                        "search": {"type": "text"},
+                        "defaultOrder": "desc"
                     },
                     {
                         "title": "父类ID",

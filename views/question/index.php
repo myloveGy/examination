@@ -27,8 +27,8 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                     <?php if ($answer) : ?>
                     <div class="shiti-wapper  pull-left col-md-8 <?php if ($question->answer_type == 4) : ?>hide<?php endif; ?>" id="question-answer">
                         <div  class="options-container" id="answers">
-                            <?php foreach ($answer as $value) : ?>
-                                <p answer="<?=$value->id?>"><i></i><span><?=$value->name?></span></p>
+                            <?php foreach ($answer as $key => $value) : ?>
+                                <p answer="<?=$key?>"><i></i><span><?=$value?></span></p>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -145,7 +145,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
 
                 if (o) {
                     for(var i in o) {
-                        this.answerHtml += '<p answer="'+ o[i]["id"] +'"><i></i><span>'+ o[i]["name"] +'</span></p>';
+                        this.answerHtml += '<p answer="'+ i +'"><i></i><span>'+ o[i] +'</span></p>';
                     }
                 }
 
@@ -236,8 +236,8 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                 $("#text-answer-div").removeClass("hide");
                 var html = "";
                 this.answer.forEach(function(v, k){
-                    if (v.id == objBase.question.answer_id) {
-                        html += v.name;
+                    if (k == objBase.question.answer_id) {
+                        html += v;
                     }
                 });
 

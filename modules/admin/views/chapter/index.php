@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         title:"章节信息",
         table: {
             "aoColumns":[
-                {"title": "章节分类ID", "data": "id", "sName": "id", "edit": {"type": "hidden"}, "search": {"type": "text"}},
+                {"title": "章节分类ID", "data": "id", "sName": "id", "defaultOrder": "desc", "edit": {"type": "hidden"}, "search": {"type": "text"}},
                 {"title": "所属科目", "data": "subject_id", "sName": "subject_id", "value": arrSubject,
                     "edit": {"type": "select", "required": true, "number": true},
                     "search": {"type": "select"},

@@ -10,6 +10,49 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
+    var arrConfig = {
+        "totalScore": "总分",
+        "passingScore": "及格分数",
+        "time": "考试时间(分)",
+        "judgmentNumber": "判断题数",
+        "selectNumber": "单选题数",
+        "multipleNumber": "多选题数",
+        "shortNumber": "问答题数"
+    }, defaultArrConfig = {
+        "totalScore": 120,
+        "passingScore": 72,
+        "time": 60,
+        "judgmentNumber": 10,
+        "selectNumber": 40,
+        "multipleNumber": 30,
+        "shortNumber": 5
+    };
+
+    mt.extend({
+        configCreate: function (params, defaultConfig) {
+            if (!defaultConfig) defaultConfig = defaultArrConfig;
+            var html = "<div class='col-sm-12'>";
+            for (var x in arrConfig) {
+                html += "<div class='form-group'>" +
+                    "<label class='col-sm-3 control-label'>" + arrConfig[x] + "</label>" +
+                    "<div class='col-sm-9'>" +
+                    "<input type='text' name='" + params.name + "[" + x + "]' required='true' value='" + defaultConfig[x] + "' class='form-control'>" +
+                    "</div>" +
+                    "</div>";
+
+            }
+
+            return html + "</div>";
+        }
+    });
+
+    function initConfig(defaultVal) {
+        var $div = $(".div-config");
+        for (var x in defaultVal) {
+            $div.find("input[name=config\\["+x+"\\]]").val(defaultVal[x]);
+        }
+    }
+
     var arrCarType = <?=\yii\helpers\Json::encode($arrCarType)?>,
         arrStatus = <?=\yii\helpers\Json::encode(Yii::$app->params['status'])?>;
     var myTable = meTables({
@@ -17,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         fileSelector: ["#icon-image"],
         table: {
             "aoColumns":[
-                {"title": "id", "data": "id", "sName": "id", "edit": {"type": "hidden"}, "search": {"type": "text"}},
+                {"title": "id", "data": "id", "sName": "id", "edit": {"type": "hidden"}, "search": {"type": "text"}, "defaultOrder": "desc"},
                 {"title": "所属类型", "data": "car_id", "sName": "car_id", "value": arrCarType,
                     "edit": {"type": "select", "required": true, "number": true},
                     "search": {"type": "select"},
@@ -26,7 +69,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
                 {"title": "科目名称", "data": "name", "sName": "name", "edit": {"type": "text", "required":true,"rangelength":"[2, 255]"}, "search": {"type": "text"}},
-                {"title": "科目说明", "data": "desc", "sName": "desc", "edit": {"type": "text", "required":true,"rangelength":"[2, 1000]"}, "bSortable": false},
+                {"title": "科目说明", "data": "desc", "sName": "desc", "edit": {"type": "text", "required":true,"rangelength":"[2, 1000]"}, "bSortable": false, "isHide": true},
+                {"title": "科目配置", "data": "config", "sName": "config", "edit": {"type": "config", "required":true,"rangelength":"[2, 1000]"}, "bSortable": false, "isHide": true},
                 {"title": "图标", "data": "image", "sName": "image", "bSortable": false,
                     "edit": {"type": "file", "rangelength": "[2, 255]",
                         "options": {"id": "icon-image", "name": "UploadForm[image]", "input-type": "ace_file", "input-name": "image"}
@@ -43,11 +87,27 @@ $this->params['breadcrumbs'][] = $this->title;
     var $image = null;
     mt.fn.extend({
         afterShow: function(data, child) {
-            $image.ace_file_input("reset_input");
 
-            // 修改复值
-            if (this.action == "update" && ! empty(data.image)) {
-                $image.ace_file_input("show_file_list", [data.image]);
+            if (this.action !== "delete") {
+                $image.ace_file_input("reset_input");
+                var defaultVal = defaultArrConfig;
+                if (this.action === "update") {
+                    // 图片处理
+                    if (!empty(data.image)) {
+                        $image.ace_file_input("show_file_list", [data.image]);
+                    }
+
+                    // 配置文件
+                    if (data.config) {
+                        try {
+                            defaultVal = $.parseJSON(data.config);
+                        } catch (e) {
+
+                        }
+                    }
+                }
+
+                initConfig(defaultVal);
             }
 
             return true;
