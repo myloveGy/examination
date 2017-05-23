@@ -13,6 +13,38 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-xs-12 hidden">
     <table id="child-table" class="table table-striped table-bordered table-hover"></table>
 </div>
+
+<div class="modal fade" id="upload-modal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">导入题目信息</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<?=Url::toRoute(['question/upload-question'])?>" method="POST">
+                    <div class="form-group">
+                        <label for="upload-subject">选择科目</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">选择章节</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">题目文件</label>
+                        <input type="hidden" name="upload_file" >
+
+                        <input type="file" id="upload-xls" name="UploadForm[upload_file]" input-type="ace_file" input-name="upload_file" allowExt="xls,xlsx">
+                        <p class="help-block">请上传.xls或者.xlsx文件</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
 
@@ -49,7 +81,19 @@ $this->params['breadcrumbs'][] = $this->title;
         aCars["0"] = "请选择";
         var myTable = meTables({
             sTitle:"题库信息",
-            fileSelector: ["#image-file"],
+            fileSelector: ["#image-file", "#upload-xls"],
+            buttons: {
+                "export": {
+                    bShow: false
+                },
+
+                "upload": {
+                    bShow: true,
+                    text: "导入题目",
+                    icon: "ace-icon fa fa-cloud-upload blue",
+                    className: "btn btn-white btn-primary btn-bold"
+                }
+            },
             // 主表格
             table: {
                 "aoColumns": [
@@ -321,6 +365,12 @@ $this->params['breadcrumbs'][] = $this->title;
          // 问题类型选择
          $("#answer-type-select").change(function(){
              updateAnswerName(parseInt($(this).val()));
+         });
+
+         // 导入显示
+         $("#show-table-upload").click(function(evt){
+             evt.preventDefault();
+             $("#upload-modal").modal({backdrop: "static"});   // 弹出信息
          });
 
          // 添加答

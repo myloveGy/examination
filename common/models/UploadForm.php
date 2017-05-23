@@ -14,6 +14,7 @@ class UploadForm extends \yii\base\Model
     public $face;         // 管理员信息页面上传头像
     public $question_img; // 问题图片上传
     public $image;        // 车型配置图标
+    public $upload_file;        // 车型配置图标
 
     // 设置应用场景
     public function scenarios()
@@ -23,6 +24,7 @@ class UploadForm extends \yii\base\Model
             'face'   => ['face'],
             'question_img' => ['question_img'],
             'image' => ['image'],
+            'upload_file' => ['upload_file']
         ];
     }
 
@@ -34,6 +36,7 @@ class UploadForm extends \yii\base\Model
             [['face'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'face'],
             [['question_img'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'question_img'],
             [['image'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'image'],
+            [['upload_file'], 'file', 'extensions' => ['xls', 'xlsx'], 'checkExtensionByMimeType' => true, 'on' => 'upload_file'],
         ];
     }
 }

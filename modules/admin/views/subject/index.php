@@ -11,21 +11,27 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
     var arrConfig = {
-        "totalScore": "总分",
         "passingScore": "及格分数",
         "time": "考试时间(分)",
         "judgmentNumber": "判断题数",
         "selectNumber": "单选题数",
         "multipleNumber": "多选题数",
-        "shortNumber": "问答题数"
+        "shortNumber": "问答题数",
+        "judgmentScore": "判断题分数",
+        "selectScore": "单选题分数",
+        "multipleScore": "多选题分数",
+        "shortScore": "问答题目分数"
     }, defaultArrConfig = {
-        "totalScore": 120,
         "passingScore": 72,
         "time": 60,
         "judgmentNumber": 10,
         "selectNumber": 40,
         "multipleNumber": 30,
-        "shortNumber": 5
+        "shortNumber": 5,
+        "judgmentScore": 2,
+        "selectScore": 2,
+        "multipleScore": 3,
+        "shortScore": 5
     };
 
     mt.extend({

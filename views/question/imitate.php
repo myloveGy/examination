@@ -52,7 +52,9 @@ $array = range('A', 'J');
                             </div>
                             <div id="answer-text" class="<?=$question->answer_type == 4 ? '' : 'hide'?>">
                                 <form id="submit-answer">
-                                    <textarea id="question-answer-text" name="question-answer" class="form-control" required="true" rangelength="[2, 1000]" rows="3" placeholder="请填写答案"></textarea>
+                                    <div class="form-group">
+                                        <textarea id="question-answer-text" name="question-answer" class="form-control" required="true" rangelength="[2, 1000]" rows="3" placeholder="请填写答案"></textarea>
+                                    </div>
                                     <div class="span4"></div>
                                     <button type="submit" class="btn btn-default">提交答案</button>
                                 </form>
@@ -60,6 +62,14 @@ $array = range('A', 'J');
                                     <p>正确答案信息： </p>
                                     <p id="text-answer" class="text-success"></p>
                                 </div>
+                                <div class="span4"></div>
+                                <form id="score-form" class="form-inline hide">
+                                    <div class="form-group">
+                                        <label for="me-score">分数</label>
+                                        <input type="text" name="score" required="true" number="true" max="<?=$config['shortScore']?>" class="form-control" id="me-score" placeholder="请自己打分"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">确定</button>
+                                </form>
                             </div>
                         </div>
                         <div id="show-img" class="pull-right col-md-6 text-right <?=$question->question_img ? '' : 'hide'?>">
@@ -74,8 +84,6 @@ $array = range('A', 'J');
                             <p id="question-desc" class="hide">
                                 <span class="al is-dui dui"> 回答正确! </span>
                                 <span class="al is-cuo cuo"> 回答错误! </span>
-<!--                                <span class="al2 is-cuo">您的答案：</span>-->
-<!--                                <span class="al3 is-cuo"><strong id="do-no"></strong></span>-->
                                 <span class="al2 dui-answer">正确答案：</span>
                                 <span class="al3 dui-answer"><strong id="do-yes"></strong></span>
                                 <span class="al4"><a href="javascript:;" id="why">为什么？</a></span>
@@ -141,6 +149,12 @@ $array = range('A', 'J');
             second: 59, // 秒数
             first: true,
             fraction: 0, // 分数
+            score: {
+                "1": <?=$config['judgmentScore']?>,
+                "2": <?=$config['selectScore']?>,
+                "3": <?=$config['multipleScore']?>,
+                "4": <?=$config['shortScore']?>
+            },
 
             question: null,
             answer: null,
@@ -159,6 +173,15 @@ $array = range('A', 'J');
             noNumber: 0, // 做错题目
             request: {},
             answerLetter: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"],
+            desc: "全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为<?=$config['passingScore']?>分." +
+            "判断题共<?=$config['judgmentNumber']?>题，每题<?=$config['judgmentScore']?>分;" +
+            "单选题共<?=$config['selectNumber']?>题，每题<?=$config['selectScore']?>分;"+
+            "多选题共<?=$config['multipleNumber']?>题，每题<?=$config['multipleScore']?>分,漏选1分;"+
+            "问答题共<?=$config['shortNumber']?>题，每题<?=$config['shortScore']?>分;",
+
+            getScore: function(answer_type) {
+                return this.score[answer_type];
+            },
 
             // 添加数据到请求数据里面
             insertRequest: function(question, answer) {
@@ -173,7 +196,7 @@ $array = range('A', 'J');
             },
 
             // 添加完成问题信息
-            addComplete: function(pk, complete, answer) {
+            addComplete: function(pk, complete, answer, score) {
                 if (!this.complete[pk]) {
 
                     this.complete[pk] = {
@@ -187,16 +210,21 @@ $array = range('A', 'J');
                     // 计算得分和做对做错题目数
                     switch (complete) {
                         case "yes":
-                            this.fraction += 1;
+                            this.complete[pk]["score"] = parseInt(this.question.answer_type) === 4 ? score : this.getScore(this.question.answer_type);
                             this.yesNumber ++;
                             break;
                         case "missing":
-                            this.fraction += 0.5;
+                            this.complete[pk]["score"] = Math.floor(this.getScore(this.question.answer_type) / 2);
+
                             this.yesNumber ++;
                             break;
                         default:
+                            this.complete[pk]["score"] = 0;
                             this.noNumber ++;
                     }
+
+                    // 计算分数
+                    this.fraction += this.complete[pk]["score"];
 
                     // 添加该题目Class
                     $('#select-question li[data-id=' + this.question.id + ']').addClass(complete == "no" ? "cuo": "dui");
@@ -259,7 +287,7 @@ $array = range('A', 'J');
 
             renderQuestionDesc: function(type, func) {
                 var $q = $("#question-desc").removeClass("hide");
-                if (type == "yes" || type == "missing") {
+                if (type === "yes" || type === "missing") {
                     $q.find("span.is-dui").show();
                     $q.find("span.is-cuo").hide();
                 } else {
@@ -270,13 +298,15 @@ $array = range('A', 'J');
 
             initAnswerText: function() {
                 // 判断题目类型
-                if (this.question.answer_type == 4) {
+                if (parseInt(this.question.answer_type) === 4) {
                     $("#question-desc").find(".dui-answer").hide();
                     $("#submit-answer").get(0).reset();
                     $("#answers").add("#right-answer").addClass("hide");
                     $("#answer-text").removeClass("hide");
                     $("#text-answer-div").addClass("hide");
                     $("#text-answer").html("");
+                    $("#score-form").addClass("hide");
+                    $("#me-score").val("");
                 } else {
                     $("#question-desc").find(".dui-answer").show();
                     $("#answers").add("#right-answer").removeClass("hide");
@@ -346,6 +376,8 @@ $array = range('A', 'J');
                         case 4: // 填空
                                 this.setAnswerText();
                                 $("#question-answer-text").val(this.complete[this.pk].answer);
+                                $("#me-score").val(this.complete[this.pk].score);
+                                $("#score-form").removeClass("hide");
                             break;
 
                         default:
@@ -463,7 +495,7 @@ $array = range('A', 'J');
 
     $(window).ready(function(){
         // 加载完成
-        layer.alert('全真模拟考试下不能修改答案，每做一题，系统自动计算错误题数，及格标准为<?=$config['passingScore']?>分。多选，单选，填空题均为1分, 多选选错不计分,漏选0.5分', {title: '温馨提示', end: function(){
+        layer.alert(meBase.desc, {title: '温馨提示', end: function(){
             // 定时时间
             meBase.startInter();
         }});
@@ -479,21 +511,38 @@ $array = range('A', 'J');
 
         // 提交答案
         $("#submit-answer").submit(function(evt){
-            meBase.current.complete = true;
             evt.preventDefault();
             // 改题目已经做完
             if (meBase.complete[meBase.pk]) {
                 return false;
             } else {
                 $("#question-desc").find(".dui-answer").hide();
+                $("#score-form").removeClass("hide");
                 // 显示正确答案
                 meBase.setAnswerText();
                 meBase.renderQuestionDesc("yes");
-                // 添加回答完问题
-                meBase.addComplete(meBase.pk, "yes", $("#question-answer-text").val());
-                $('#select-question li[data-id=' + meBase.question.id + ']').addClass("dui");
             }
         });
+
+        // 自己评分
+        $("#score-form").submit(function(evt){
+            evt.preventDefault();
+            meBase.current.complete = true;
+            if (meBase.complete[meBase.pk]) {
+                return false;
+            } else {
+                if ($(this).validate().form()) {
+                    // 添加回答完问题
+                    meBase.addComplete(meBase.pk, "yes", $("#question-answer-text").val(), parseInt($("#me-score").val()));
+                    $('#select-question li[data-id=' + meBase.question.id + ']').addClass("dui");
+
+                    // 下一题目
+                    meBase.handleQuestion('next');
+                }
+            }
+
+        });
+
 
         // 选择答案
         $(document).on('click', 'span#select-answers button', function() {

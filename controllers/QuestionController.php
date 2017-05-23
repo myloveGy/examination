@@ -265,47 +265,54 @@ class QuestionController extends Controller
         if ($subject) {
             // 解析配置信息
             $config = Json::decode($subject->config);
+
+            // 默认配置
             if (!$config) $config = [];
             if (!isset($config['passingScore'])) $config['passingScore'] = 72;
             if (!isset($config['totalScore'])) $config['totalScore'] = 100;
             if (!isset($config['time'])) $config['time'] = 60;
+            if (!isset($config['judgmentScore'])) $config['judgmentScore'] = 2;
+            if (!isset($config['selectScore'])) $config['selectScore'] = 2;
+            if (!isset($config['multipleScore'])) $config['multipleScore'] =  3;
+            if (!isset($config['shortScore'])) $config['shortScore'] = 5;
+            if (!isset($config['judgmentNumber'])) $config['judgmentNumber'] = 10;
+            if (!isset($config['selectNumber'])) $config['selectNumber'] = 40;
+            if (!isset($config['multipleNumber'])) $config['multipleNumber'] = 30;
+            if (!isset($config['shortNumber'])) $config['shortNumber'] = 5;
 
+            // 处理总分
+            $config['totalScore'] = $config['shortNumber'] * $config['shortScore'];
+            $config['totalScore'] += $config['judgmentNumber'] * $config['judgmentScore'];
+            $config['totalScore'] += $config['selectNumber'] * $config['selectScore'];
+            $config['totalScore'] += $config['multipleNumber'] * $config['multipleScore'];
+
+            // 默认必须查询条件
             $where = ['subject_id' => $subject->id];
 
-            // 判断题目数
-            if (!isset($config['judgmentNumber'])) $config['judgmentNumber'] = 10;
-            $where['answer_type'] = Question::ANSWER_TYPE_ONE;
-
             // 查询所有判断题目
+            $where['answer_type'] = Question::ANSWER_TYPE_ONE;
             $arrJudgment = Question::getAllIds($where);
             $intStart = mt_rand(0, max(0,count($arrJudgment) - $config['judgmentNumber']));
             $arrJudgment = array_slice($arrJudgment, $intStart, $config['judgmentNumber']);
 
-            // 单选题目数
-            if (!isset($config['selectNumber'])) $config['selectNumber'] = 40;
-            $where['answer_type'] = Question::ANSWER_TYPE_JUDGE;
-
             // 查询所以单选题目
+            $where['answer_type'] = Question::ANSWER_TYPE_JUDGE;
             $arrSelect = Question::getAllIds($where);
             $intStart = mt_rand(0, max(0,count($arrSelect) - $config['selectNumber']));
             $arrSelect = array_slice($arrSelect, $intStart, $config['selectNumber']);
 
-            // 多选题目数
-            if (!isset($config['multipleNumber'])) $config['multipleNumber'] = 30;
-            $where['answer_type'] = Question::ANSWER_TYPE_MULTI;
-
             // 查询所以多选题目multipleNumber
             $arrMultiple = Question::getAllIds($where);
+            $where['answer_type'] = Question::ANSWER_TYPE_MULTI;
             $intStart = mt_rand(0, max(0,count($arrMultiple) - $config['multipleNumber']));
             $arrMultiple = array_slice($arrMultiple, $intStart, $config['multipleNumber']);
 
-            // 问答题目数
-            if (!isset($config['shortNumber'])) $config['shortNumber'] = 5;
-            $where['answer_type'] = Question::ANSWER_TYPE_TEXT;
-
             // 查询所以问答题目shortNumber
+            $where['answer_type'] = Question::ANSWER_TYPE_TEXT;
             $arrShort = Question::getAllIds($where);
             $intStart = mt_rand(0, max(0,count($arrShort) - $config['shortNumber']));
+
+            // 合并所以题目
             $arrShort = array_slice($arrShort, $intStart, $config['shortNumber']);
             $ids = array_merge($arrJudgment, $arrSelect, $arrMultiple, $arrShort);
             if ($ids) {
