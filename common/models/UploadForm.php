@@ -36,7 +36,7 @@ class UploadForm extends \yii\base\Model
             [['face'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'face'],
             [['question_img'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'question_img'],
             [['image'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'image'],
-            [['upload_file'], 'file', 'extensions' => ['xls', 'xlsx'], 'checkExtensionByMimeType' => true, 'on' => 'upload_file'],
+            [['upload_file'], 'file', 'extensions' => ['xls', 'xlsx'], 'checkExtensionByMimeType' => false, 'on' => 'upload_file'],
         ];
     }
 }
