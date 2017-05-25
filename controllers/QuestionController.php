@@ -373,7 +373,7 @@ class QuestionController extends Controller
                 $question = Question::findOne($arrIds[0]); // 查询一条数据
                 if ($question) {
                     // 查询问题答案
-                    $answer = Answer::findAll(['qid' => $question->id]);
+                    $answer = Json::decode($question->answers);
                     return $this->render('index', [
                         'cars' => $cars,
                         'subject' => $subject,

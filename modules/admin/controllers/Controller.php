@@ -339,13 +339,12 @@ class Controller extends \app\common\controllers\Controller
             $strField = $request->get('sField');    // 上传文件表单名称
             if ( ! empty($strField)) {
                 // 判断删除之前的文件
-                $strFile  = $request->post($strField);   // 旧的地址
+                $strFile = $request->post($strField);   // 旧的地址
                 if (! empty($strFile) && file_exists('.'.$strFile)) unlink('.'.$strFile);
 
                 $model = new UploadForm();
                 $model->scenario = $strField;
                 try {
-			// var_dump($_FILES);
                     $objFile = $model->$strField = UploadedFile::getInstance($model, $strField);
                     $this->arrJson['errCode'] = 221;
                     if ($objFile) {
@@ -361,8 +360,7 @@ class Controller extends \app\common\controllers\Controller
                                 // 生成文件随机名
                                 $strFileName = uniqid() . '.';
                                 $strFilePath = $dirName. $strFileName. $objFile->extension;
-                              //  var_dump($strFilePath, $strFileName); exit;
-				 $this->arrJson['errCode'] = 204;
+                                $this->arrJson['errCode'] = 204;
                                 if ($objFile->saveAs($strFilePath) && $this->afterUpload($objFile, $strFilePath, $strField)) {
                                     $this->handleJson([
                                         'sFilePath' => trim($strFilePath, '.'),

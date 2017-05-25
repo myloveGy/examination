@@ -22,12 +22,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h4 class="modal-title">导入题目信息</h4>
             </div>
             <div class="modal-body">
-                <form action="<?=Url::toRoute(['question/upload-question'])?>" method="POST">
+                <form id="upload-form" action="" method="POST">
                     <div class="form-group">
                         <label for="upload-subject">选择科目</label>
+                        <?php $arrSubject[0] = '请选择';?>
+                        <?=\yii\helpers\Html::dropDownList('subject_id', 0, $arrSubject, [
+                            'class' => 'form-control',
+                            'id' => 'upload-subject-id',
+                            'required' => true,
+                            'number' => true,
+                        ])?>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">选择章节</label>
+                        <?=\yii\helpers\Html::dropDownList('chapter_id', 0, $arrChapter, [
+                            'class' => 'form-control',
+                            'id' => 'upload-chapter-id',
+                            'required' => true,
+                            'number' => true,
+                        ])?>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputFile">题目文件</label>
@@ -40,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">上传</button>
+                <button type="button" class="btn btn-primary" id="submit-upload">上传</button>
             </div>
         </div>
     </div>
@@ -70,7 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
     var aTypeColor = {"1": "label-success", "2": "label-info", "3": "label-pink", "4": "label-inverse"};
 
     var aSubject = <?=$subject?>,
-        sUpload = '<?=Url::toRoute(['question/upload', 'sField' => 'question_img'])?>',
         aSpecial = <?=$special?>,
         aChapter = <?=$chapter?>,
         aStatus  = <?=$status?>,
@@ -151,7 +163,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         "sName": "chapter_id",
                         "value": aChapter,
                         "search": {"type": "select"},
-                        "edit": {"type": "select", "required": true, "id": "chapter-id", "number": true},
+                        "edit": {"type": "select", "id": "chapter-id", "number": true},
                         "bSortable": false,
                         "createdCell": function(td, data) {
                             $(td).html(aChapter[data] ? aChapter[data] : data);
@@ -328,8 +340,9 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         }
 
+        if (typeof arrIds !== "object") arrIds = [arrIds];
+
         for (x in answer) {
-            console.info(x);
             html += "<option value=\"" + x + "\" " + (mt.inArray(parseInt(x), arrIds) ? "selected=\"selected\"" : "") + ">" + answer[x] + "</option>";
         }
 
@@ -352,6 +365,12 @@ $this->params['breadcrumbs'][] = $this->title;
         $("#input-answer-type").prop("name", strType === 3 ? "answer_id[]" : "answer_id");
     }
 
+    mt.fn.extend({
+        upload: function() {
+            $("#upload-modal").modal({backdrop: "static"});   // 弹出信息
+        }
+    });
+
      /**
       * 编辑的前置和后置操作
       * myTable.beforeSave(object data) return true 前置
@@ -365,12 +384,6 @@ $this->params['breadcrumbs'][] = $this->title;
          // 问题类型选择
          $("#answer-type-select").change(function(){
              updateAnswerName(parseInt($(this).val()));
-         });
-
-         // 导入显示
-         $("#show-table-upload").click(function(evt){
-             evt.preventDefault();
-             $("#upload-modal").modal({backdrop: "static"});   // 弹出信息
          });
 
          // 添加答
@@ -430,7 +443,7 @@ $this->params['breadcrumbs'][] = $this->title;
          });
 
          // 选择科目联动章节
-         $("#subject-id").change(function(){
+         $("#subject-id").add("#upload-subject-id").change(function(){
              var v = parseInt($(this).val()), html = '<option value="">请选择</option>';
              if (v) {
                  mt.ajax({
@@ -444,12 +457,43 @@ $this->params['breadcrumbs'][] = $this->title;
                              html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
                          }
 
-                         $("#chapter-id").html(html);
+                         $("#chapter-id").add("#upload-chapter-id").html(html);
                      } else {
                          layer.msg(json.errMsg);
                      }
                  });
              }
+         });
+
+         // 文件上传
+         $("#submit-upload").click(function(){
+             var $fm = $("#upload-form"), message = "数据存在问题";
+             if ($fm.validate().form()) {
+                 message = "请选择科目";
+                 // 验证科目
+                 if ($fm.find("select[name=subject_id]").val()) {
+                    message = "请上传文件";
+                    if ($fm.find("input[name=upload_file]").val()) {
+                        mt.ajax({
+                            url: "<?=Url::toRoute(['question/upload-question'])?>",
+                            data: $fm.serialize(),
+                            type: "POST",
+                            dataType: "json"
+                        }).done(function(json) {
+                            if (json.errCode === 0) {
+                                layer.msg("上传成功");
+                                $("#upload-modal").modal("hide");
+                            } else {
+                                layer.msg(json.errMsg, {icon:5})
+                            }
+                        });
+
+                        return false;
+                    }
+                 }
+             }
+
+             layer.msg(message, {icon: 5});
          });
      });
 </script>
