@@ -64,6 +64,18 @@ $this->params['breadcrumbs'][] = $this->title;
     var myTable = meTables({
         title: "科目信息",
         fileSelector: ["#icon-image"],
+        operations: {
+            width: "180px",
+            buttons: {
+                "create": {
+                    "className": "btn-success",
+                    "cClass": "create-question",
+                    "icon": "fa-plus-circle",
+                    "sClass": "blue",
+                    "button-title": "添加题目"
+                }
+            }
+        },
         table: {
             "aoColumns":[
                 {"title": "id", "data": "id", "sName": "id", "edit": {"type": "hidden"}, "search": {"type": "text"}, "defaultOrder": "desc"},
@@ -120,9 +132,36 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     });
 
+    var layerLoading = null;
+
+    function closeLayer() {
+        layer.close(layerLoading);
+    }
+
     $(function(){
         myTable.init();
         $image = $("#icon-image");
+
+        // 添加题目
+        $(document).on('click', 'button.create-question', function(){
+            var i = $(this).attr("table-data");
+            if (i) {
+                var data = myTable.table.data()[i];
+                if (data) {
+                    layerLoading = layer.open({
+                        title: "添加题目",
+                        type: 2,
+                        area: ["90%", "90%"],
+                        maxmin: true,
+                        content: "<?=\yii\helpers\Url::toRoute(['question/create'])?>?subject_id=" + data["id"]
+                    });
+
+                    return false;
+                }
+            }
+
+            layer.msg("请确认操作");
+        });
     });
 </script>
 <?php $this->endBlock(); ?>

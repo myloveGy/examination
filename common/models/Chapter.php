@@ -8,6 +8,7 @@ namespace app\common\models;
  * @property integer $id
  * @property string $name
  * @property integer $sort
+ * @property integer $subject_id
  * @property integer $created_at
  * @property integer $updated_at
  */

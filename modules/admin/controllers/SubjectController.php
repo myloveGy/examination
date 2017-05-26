@@ -23,6 +23,8 @@ class SubjectController extends Controller
         return [
             'id' => '=',
 			'name' => 'like',
+            'car_id' => '=',
+            'status' => '=',
         ];
     }
 
