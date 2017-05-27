@@ -13,6 +13,18 @@ $this->params['breadcrumbs'][] = $this->title;
     var arrSubject = <?=\yii\helpers\Json::encode($subject)?>;
     var myTable = meTables({
         title:"章节信息",
+        operations: {
+            width: "auto",
+            buttons: {
+                "create": {
+                    "className": "btn-success",
+                    "cClass": "create-question",
+                    "icon": "fa-plus-circle",
+                    "sClass": "blue",
+                    "button-title": "添加题目"
+                }
+            }
+        },
         table: {
             "aoColumns":[
                 {"title": "章节分类ID", "data": "id", "sName": "id", "defaultOrder": "desc", "edit": {"type": "hidden"}, "search": {"type": "text"}},
@@ -31,8 +43,35 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     });
 
-     $(function(){
-         myTable.init();
-     });
+    var layerLoading = null;
+
+    function closeLayer() {
+        layer.close(layerLoading);
+    }
+
+    $(function(){
+        myTable.init();
+
+        // 添加题目
+        $(document).on('click', '.create-question', function(){
+            var i = $(this).attr("table-data");
+            if (i) {
+                var data = myTable.table.data()[i];
+                if (data) {
+                    layerLoading = layer.open({
+                        title: "添加题目",
+                        type: 2,
+                        area: ["90%", "90%"],
+                        maxmin: true,
+                        content: "<?=\yii\helpers\Url::toRoute(['question/create'])?>?chapter_id=" + data["id"]
+                    });
+
+                    return false;
+                }
+            }
+
+            layer.msg("请确认操作");
+        });
+    });
 </script>
 <?php $this->endBlock(); ?>

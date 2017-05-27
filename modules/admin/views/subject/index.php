@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
         title: "科目信息",
         fileSelector: ["#icon-image"],
         operations: {
-            width: "180px",
+            width: "auto",
             buttons: {
                 "create": {
                     "className": "btn-success",

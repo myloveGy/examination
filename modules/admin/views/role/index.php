@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     var m = mt({
         title: "角色信息",
         operations: {
-            width: "200px",
+            width: "auto",
             buttons: {
                 "see": {"cClass": "role-see"},
                 "update": {"cClass": "role-update"},
