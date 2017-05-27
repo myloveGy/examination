@@ -28,7 +28,7 @@ class User extends \app\common\models\Model implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
-    const PHONE_PATTERN = '/13[1235690]{1}\d{8}|15[1235689]\d{8}|188\d{8}|170\d{8}/';
+    const PHONE_PATTERN = '/1\d{10}/';
 
 
     /**
