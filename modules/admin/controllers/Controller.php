@@ -400,7 +400,7 @@ class Controller extends \app\common\controllers\Controller
             // 接收参数
             $arrFields = $request->post('fields');         // 字段信息
             $strTitle  = $request->post('title');          // 标题信息
-            $params = $request->post('params'); // 查询条件信息
+            $params = $request->post('params');            // 查询条件信息
 
             // 判断数据的有效性
             if ($arrFields && $strTitle) {

@@ -8,7 +8,6 @@
 namespace app\modules\admin\controllers;
 
 use app\common\helpers\Helper;
-use app\common\models\Answer;
 use app\common\models\CarType;
 use app\common\models\Chapter;
 use app\common\models\Question;

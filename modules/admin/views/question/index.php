@@ -92,13 +92,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         aCars["0"] = "请选择";
         var myTable = meTables({
-            sTitle:"题库信息",
+            title:"题库信息",
             fileSelector: ["#image-file", "#upload-xls"],
             buttons: {
-                "export": {
-                    bShow: false
-                },
-
                 "upload": {
                     bShow: true,
                     text: "导入题目",
