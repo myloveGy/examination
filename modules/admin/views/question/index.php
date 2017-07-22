@@ -43,6 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         ])?>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputPassword1">选择专项类型</label>
+                        <?=\yii\helpers\Html::dropDownList('special_id', 0, $arrSpecial, [
+                            'class' => 'form-control',
+                            'number' => true,
+                        ])?>
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputFile">题目文件</label>
                         <input type="hidden" name="upload_file" >
 

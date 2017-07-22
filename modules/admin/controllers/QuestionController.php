@@ -1,9 +1,4 @@
 <?php
-/**
- * file: QuestionController.php
- * desc: 题库信息 执行操作控制器
- * date: 2016-10-11 16:49:26
- */
 
 namespace app\modules\admin\controllers;
 
@@ -16,6 +11,10 @@ use app\common\models\Subject;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
+/**
+ * Class QuestionController 题库信息
+ * @package app\modules\admin\controllers
+ */
 class QuestionController extends Controller
 {
     /**
@@ -49,11 +48,15 @@ class QuestionController extends Controller
         $arrChapter = Helper::map($chapter, 'id', 'name');
         $arrSubject = Subject::getSubject();
 
+        // 专项分类
+        $special = Helper::map($special, 'id', 'name');
+
         return $this->render('index', [
             'cars' => Json::encode(ArrayHelper::map($cars, 'id', 'name')), // 类型
             'subject' => Json::encode($arrSubject), // 科目
             'arrSubject' => $arrSubject,
-            'special' => Json::encode(Helper::map($special, 'id', 'name')), // 专项
+            'special' => Json::encode($special), // 专项
+            'arrSpecial' => $special,
             'chapter' => Json::encode($arrChapter), // 章节
             'arrChapter' => $arrChapter,
             'status'  => Json::encode(Question::getStatusDesc()),           // 状态
@@ -142,10 +145,16 @@ class QuestionController extends Controller
     {
         $request = \Yii::$app->request;
         if ($request->isAjax) {
-            $intSubject = (int)$request->post('subject_id');
-            $intChapter = (int)$request->post('chapter_id');
+            $intSubject = (int)$request->post('subject_id'); // 科目信息
+            $intChapter = (int)$request->post('chapter_id'); // 章节信息
+            $intSpecial = (int)$request->post('special_id'); // 专项信息
             $strFile = trim($request->post('upload_file'));
+
+            // 验证提交数据
             if (($intSubject || $intChapter) && $strFile) {
+                // 查询出全部专项信息
+                $arrSpecial = Special::find()->where(['!=', 'pid', 0])->indexBy('name')->all();
+
                 $objPHPExcel = \PHPExcel_IOFactory::load('.'.$strFile);
                 if ($objPHPExcel) {
                     $objWorksheet = $objPHPExcel->getActiveSheet();
@@ -163,20 +172,45 @@ class QuestionController extends Controller
                         'subject_id',
                         'chapter_id',
                         'created_at',
-                        'updated_at'
+                        'updated_at',
+                        'special_id',
                     ];
 
                     for ($i = 2; $i <= $intRows; $i ++) {
+                        // 获取题目类型
+                        $intAnswerType = (int)$objWorksheet->getCell('C'.$i)->getValue();
+
+                        // 获取正确答案信息
+                        $answer = trim($objWorksheet->getCell('E'.$i)->getValue());
+                        if ($intAnswerType === Question::ANSWER_TYPE_MULTI) {
+                            $mixAnswerId = explode(',', $answer);
+                            $mixAnswerId = array_map(function($value) {
+                                return $value - 1;
+                            }, $mixAnswerId);
+                            $mixAnswerId = Json::encode($mixAnswerId);
+                        } else {
+                            $mixAnswerId = $answer > 0 ? (int)$answer - 1 : 0;
+                        }
+
+                        // 处理专项信息
+                        $special = trim($objWorksheet->getCell('F'.$i)->getValue());
+                        if ($special && isset($arrSpecial[$special])) {
+                            $special = $arrSpecial[$special]->id;
+                        } else {
+                            $special = $intSpecial;
+                        }
+
                         $array[] = [
                             $objWorksheet->getCell('A'.$i)->getValue(),
                             $objWorksheet->getCell('B'.$i)->getValue(),
-                            (int)$objWorksheet->getCell('C'.$i)->getValue(),
+                            $intAnswerType,
                             Json::encode(explode('|', $objWorksheet->getCell('D'.$i)->getValue())),
-                            (int)$objWorksheet->getCell('E'.$i)->getValue()-1,
+                            $mixAnswerId,
                             $intSubject,
                             $intChapter,
                             $time,
                             $time,
+                            $special,
                         ];
 
                         // 所有数据
