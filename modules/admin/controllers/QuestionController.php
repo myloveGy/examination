@@ -10,6 +10,7 @@ use app\common\models\Special;
 use app\common\models\Subject;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii;
 
 /**
  * Class QuestionController 题库信息
@@ -176,6 +177,7 @@ class QuestionController extends Controller
                         'special_id',
                     ];
 
+                    $db = Yii::$app->db;
                     for ($i = 2; $i <= $intRows; $i ++) {
                         // 获取题目类型
                         $intAnswerType = (int)$objWorksheet->getCell('C'.$i)->getValue();
@@ -215,14 +217,22 @@ class QuestionController extends Controller
 
                         // 所有数据
                         if (count($array) >= 100) {
-                            if (\Yii::$app->db->createCommand()->batchInsert('{{%question}}', $fields, $array)->execute()) {
+                            if ($db->createCommand()->batchInsert(
+                                '{{%question}}',
+                                $fields,
+                                $array
+                            )->execute()) {
                                 $array = [];
                             }
                         }
                     }
 
                     if (!empty($array)) {
-                        if (\Yii::$app->db->createCommand()->batchInsert('{{%question}}', $fields, $array)->execute()) {
+                        if ($db->createCommand()->batchInsert(
+                            '{{%question}}',
+                            $fields,
+                            $array
+                        )->execute()) {
                             $isTrue = true;
                         } else {
                             $isTrue = false;
