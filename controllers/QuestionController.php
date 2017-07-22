@@ -302,8 +302,8 @@ class QuestionController extends Controller
             $arrSelect = array_slice($arrSelect, $intStart, $config['selectNumber']);
 
             // 查询所以多选题目multipleNumber
-            $arrMultiple = Question::getAllIds($where);
             $where['answer_type'] = Question::ANSWER_TYPE_MULTI;
+            $arrMultiple = Question::getAllIds($where);
             $intStart = mt_rand(0, max(0,count($arrMultiple) - $config['multipleNumber']));
             $arrMultiple = array_slice($arrMultiple, $intStart, $config['multipleNumber']);
 
@@ -311,11 +311,11 @@ class QuestionController extends Controller
             $where['answer_type'] = Question::ANSWER_TYPE_TEXT;
             $arrShort = Question::getAllIds($where);
             $intStart = mt_rand(0, max(0,count($arrShort) - $config['shortNumber']));
-
             // 合并所以题目
             $arrShort = array_slice($arrShort, $intStart, $config['shortNumber']);
             $ids = array_merge($arrJudgment, $arrSelect, $arrMultiple, $arrShort);
             if ($ids) {
+                $ids = array_unique($ids);
                 shuffle($ids);
                 $question = Question::findOne($ids[0]);
                 if ($question) {
