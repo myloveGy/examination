@@ -54,8 +54,9 @@ class QuestionController extends Controller
 
         return $this->render('index', [
             'cars' => Json::encode(ArrayHelper::map($cars, 'id', 'name')), // 类型
-            'subject' => Json::encode($arrSubject), // 科目
-            'arrSubject' => $arrSubject,
+            'subject' => Json::encode($arrSubject['subject']), // 科目
+            'arrSubject' => $arrSubject['subject'], // 科目信息,
+            'car_subject' => Json::encode($arrSubject['car_subject']),
             'special' => Json::encode($special), // 专项
             'arrSpecial' => $special,
             'chapter' => Json::encode($arrChapter), // 章节

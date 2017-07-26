@@ -91,7 +91,10 @@ class Subject extends Model
 
     public static function getSubject($where = [])
     {
-        $arrReturn = [];
+        $arrReturn = [
+            'subject' => [],
+            'car_subject' => [],
+        ];
         $where = array_merge(['status' => 1], $where);
         // 查询所有车型
         $cars = CarType::find()->indexBy('id')->all();
@@ -99,7 +102,13 @@ class Subject extends Model
         $subject = self::find()->where($where)->asArray()->all();
         if ($subject) {
             foreach ($subject as $value) {
-                $arrReturn[$value['id']] = isset($cars[$value['car_id']]) ? $cars[$value['car_id']]->name.'--'.$value['name'] : $value['name'];
+                $strName = isset($cars[$value['car_id']]) ? $cars[$value['car_id']]->name.'--'.$value['name'] : $value['name'];
+                $arrReturn['subject'][$value['id']] = $strName;
+                if (empty($arrReturn['car_subject'][$value['car_id']])) {
+                    $arrReturn['car_subject'][$value['car_id']] = [];
+                }
+
+                $arrReturn['car_subject'][$value['car_id']][$value['id']] = $strName;
             }
         }
 

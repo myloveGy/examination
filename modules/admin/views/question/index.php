@@ -95,7 +95,18 @@ $this->params['breadcrumbs'][] = $this->title;
         aStatus  = <?=$status?>,
         aColor   = <?=$color?>,
         aType    = <?=$type?>,
-        aCars = <?=$cars?>;
+        aCars = <?=$cars?>,
+        aCarSubject = <?=$car_subject?>;
+
+        function getCarBySubject(intSubject) {
+            for (var i in aCarSubject) {
+                if (aCarSubject[i][intSubject]) {
+                    return i;
+                }
+            }
+
+            return 0;
+        }
 
         aCars["0"] = "请选择";
         var myTable = meTables({
@@ -308,6 +319,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     initAnswers("answers", arr);
                     // 选择答案
                     initAnswerId(arr, data.answer_id);
+                    // 设置类型
+                    $("#car-id").val(getCarBySubject(data.subject_id));
                 }
                 break;
         }
@@ -426,22 +439,30 @@ $this->params['breadcrumbs'][] = $this->title;
          $("#car-id").change(function(){
              var v = parseInt($(this).val()), html = '<option value="">请选择</option>';
              if (v) {
-                mt.ajax({
-                    url: "<?=Url::toRoute(['subject'])?>",
-                    data: {cid: v},
-                    type: "POST",
-                    dataType:"json"
-                }).done(function(json) {
-                    if (json.errCode === 0) {
-                        for (var x in json.data) {
-                            html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
-                        }
+                 if (aCarSubject[v]) {
+                     for (var x in aCarSubject[v]) {
+                         html += '<option value="' + x + '"> ' + aCarSubject[v][x] + ' </option>';
+                     }
 
-                        $("#subject-id").html(html);
-                    } else {
-                        layer.msg(json.errMsg);
-                    }
-                });
+                     $("#subject-id").html(html);
+                 } else {
+                     mt.ajax({
+                         url: "<?=Url::toRoute(['subject'])?>",
+                         data: {cid: v},
+                         type: "POST",
+                         dataType:"json"
+                     }).done(function(json) {
+                         if (json.errCode === 0) {
+                             for (var x in json.data) {
+                                 html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
+                             }
+
+                             $("#subject-id").html(html);
+                         } else {
+                             layer.msg(json.errMsg);
+                         }
+                     });
+                 }
              }
          });
 
