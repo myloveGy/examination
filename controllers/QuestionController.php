@@ -161,6 +161,9 @@ class QuestionController extends Controller
                     }
                 }
 
+                // 没有数据默认查询
+                if (empty($ids)) $ids = [0];
+
                 // 查询
                 $counts = Yii::$app->db->createCommand('SELECT COUNT(*) AS `length`, `special_id` FROM `ks_question` WHERE `special_id` IN ('.implode(',', $ids).') AND `subject_id` = '.$subject->id.'  GROUP BY `special_id`')->queryAll();
                 if ($counts) $counts = ArrayHelper::map($counts, 'special_id', 'length');
