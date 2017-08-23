@@ -31,7 +31,7 @@ class ChapterController extends Controller
     {
         $subject = Subject::getSubject();
         return $this->render('index', [
-            'subject' => $subject,
+            'subject' => $subject['subject'],
         ]);
     }
 
