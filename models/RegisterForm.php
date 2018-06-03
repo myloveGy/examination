@@ -2,9 +2,8 @@
 namespace app\models;
 
 use jinxing\admin\helpers\Helper;
-use yii\base\Model;
 
-class RegisterForm extends Model
+class RegisterForm extends User
 {
     public $username;
     public $phone;

@@ -41,6 +41,7 @@ $config = [
             'identityClass'   => 'app\models\User',
             'enableAutoLogin' => true,
             'idParam'         => '_userId',
+            'loginUrl'        => ['/'],
             'identityCookie'  => ['name' => '_user', 'httpOnly' => true],
         ],
 
