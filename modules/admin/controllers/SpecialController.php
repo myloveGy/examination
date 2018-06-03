@@ -7,13 +7,13 @@
 
 namespace app\modules\admin\controllers;
 
-use app\common\models\Special;
+use app\models\Special;
 use jinxing\admin\controllers\Controller;
 use jinxing\admin\helpers\Helper;
 
 class SpecialController extends Controller
 {
-    public $modelClass = 'app\common\models\Special';
+    public $modelClass = 'app\models\Special';
 
     /**
      * where() 查询处理

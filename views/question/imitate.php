@@ -2,7 +2,7 @@
 
 use yii\helpers\Json;
 use yii\helpers\Url;
-use app\common\models\Question;
+use app\models\Question;
 $this->title = '全真模拟';
 $this->registerCssFile('@web/css/imitate.css');
 $array = range('A', 'J');

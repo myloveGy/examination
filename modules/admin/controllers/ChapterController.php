@@ -7,12 +7,12 @@
 
 namespace app\modules\admin\controllers;
 
-use app\common\models\Subject;
+use app\models\Subject;
 use jinxing\admin\controllers\Controller;
 
 class ChapterController extends Controller
 {
-    public $modelClass = 'app\common\models\Chapter';
+    public $modelClass = 'app\models\Chapter';
 
     /**
      * where() 查询处理

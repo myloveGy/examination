@@ -8,7 +8,7 @@
 // 引入命名空间
 namespace app\modules\admin\controllers;
 
-use app\common\models\User;
+use app\models\User;
 use jinxing\admin\controllers\Controller;
 
 /**
@@ -18,7 +18,7 @@ use jinxing\admin\controllers\Controller;
  */
 class UserController extends Controller
 {
-    public $modelClass = 'app\common\models\User';
+    public $modelClass = 'app\modules\models\User';
 
     /**
      * where() 查询处理

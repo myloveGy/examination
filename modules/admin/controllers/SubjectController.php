@@ -7,15 +7,15 @@
 
 namespace app\modules\admin\controllers;
 
-use app\common\models\CarType;
+use app\models\CarType;
 use jinxing\admin\controllers\Controller;
 use yii\helpers\ArrayHelper;
 
 class SubjectController extends Controller
 {
-    public $modelClass = 'app\common\models\Subject';
+    public $modelClass = 'app\models\Subject';
 
-    public $uploadFromClass = 'app\common\models\UploadForm';
+    public $uploadFromClass = 'app\models\UploadForm';
 
     /**
      * where() 查询处理

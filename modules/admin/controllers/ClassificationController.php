@@ -6,9 +6,9 @@ use jinxing\admin\controllers\Controller;
 
 class ClassificationController extends Controller
 {
-    public $modelClass = 'app\common\models\CarType';
+    public $modelClass = 'app\models\CarType';
 
-    public $uploadFromClass = 'app\common\models\UploadForm';
+    public $uploadFromClass = 'app\models\UploadForm';
 
     /**
      * where() 查询处理

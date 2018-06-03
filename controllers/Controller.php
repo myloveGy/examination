@@ -2,12 +2,12 @@
 namespace app\controllers;
 
 use yii;
-use app\common\models\CarType;
+use app\models\CarType;
 
 /**
  * Site controller
  */
-class Controller extends \app\common\controllers\Controller
+class Controller extends yii\web\Controller
 {
     /**
      * @param $action

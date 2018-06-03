@@ -7,20 +7,24 @@
 
 namespace app\controllers;
 
-use app\common\models\CarType;
+use app\models\CarType;
+use jinxing\admin\helpers\Helper;
+use jinxing\admin\traits\JsonTrait;
 use Yii;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use app\common\models\Question;
-use app\common\models\Subject;
+use app\models\Question;
+use app\models\Subject;
 use app\models\UserCollect;
 
 /**
  * Class UserController
  * @package frontend\controllers
  */
-class UserController extends \app\common\controllers\UserController
+class UserController extends Controller
 {
+    use JsonTrait;
+
     /**
      * actionCollect 用户收藏的问题
      * @return string|\yii\web\Response
@@ -87,48 +91,48 @@ class UserController extends \app\common\controllers\UserController
         $intQid     = (int)$request->post('qid');
         $strType    = $request->post('type');
         $intSubject = (int)$request->post('subject', 1);
-
-        // 判断数据的有效性
-        if ($intQid && $strType && in_array($strType, ['create', 'remove'])) {
-            // 查询对象
-            $model = UserCollect::findOne([
-                'user_id'    => Yii::$app->user->id,
-                'subject_id' => $intSubject
-            ]);
-            if (!$model) {
-                $model             = new UserCollect();
-                $model->user_id    = Yii::$app->user->id;
-                $model->subject_id = $intSubject;
-                $model->qids       = [];
-            }
-
-            $array  = $model->qids;
-            $isTrue = false;
-            if ($strType == 'create') {
-                // 获取之前的收藏信息
-                $this->arrJson['errCode'] = 222;
-                if (!in_array($intQid, $array) || empty($array)) {
-                    array_push($array, $intQid);
-                    $array  = array_unique($array);
-                    $isTrue = true;
-                }
-            } else {
-                // 删除收藏
-                $this->arrJson['errCode'] = 224;
-                if (in_array($intQid, $array)) {
-                    $intKey = array_search($intQid, $array);
-                    if ($intKey !== false) unset($array[$intKey]);
-                    sort($array);
-                    $isTrue = true;
-                }
-            }
-
-            if ($isTrue) {
-                $model->qids = Json::encode($array);
-                if ($model->save()) $this->handleJson($model);
-            }
+        if (empty($intQid) || empty($strType) || !in_array($strType, ['create', 'remove'])) {
+            return $this->error();
         }
 
-        return $this->returnJson();
+        // 查询对象
+        if (!$model = UserCollect::findOne([
+            'user_id'    => Yii::$app->user->id,
+            'subject_id' => $intSubject
+        ])) {
+            $model             = new UserCollect();
+            $model->user_id    = Yii::$app->user->id;
+            $model->subject_id = $intSubject;
+            $model->qids       = [];
+        }
+
+        $array = $model->qids;
+        if ($strType == 'create') {
+            // 获取之前的收藏信息
+            if ($array && in_array($intQid, $array)) {
+                return $this->error(222);
+            }
+
+            array_push($array, $intQid);
+            $array = array_unique($array);
+        } else {
+            // 删除收藏
+            if (!in_array($intQid, $array)) {
+                return $this->error(224);
+            }
+
+            $intKey = array_search($intQid, $array);
+            if ($intKey !== false) {
+                unset($array[$intKey]);
+            }
+            sort($array);
+        }
+
+        $model->qids = Json::encode($array);
+        if ($model->save()) {
+            return $this->success($model);
+        }
+
+        return $this->error(2, Helper::arrayToString($model->getErrors()));
     }
 }

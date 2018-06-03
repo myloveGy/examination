@@ -1,8 +1,8 @@
 <?php
 namespace app\models;
 
-use app\common\helpers\Helper;
-use app\common\models\Model;
+use jinxing\admin\helpers\Helper;
+use yii\base\Model;
 
 class RegisterForm extends Model
 {

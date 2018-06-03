@@ -2,10 +2,9 @@
 namespace app\controllers;
 
 use Yii;
-use app\common\models\CarType;
-use app\common\models\Subject;
-use app\common\models\Special;
-use yii\web\HttpException;
+use app\models\CarType;
+use app\models\Subject;
+use app\models\Special;
 
 class ClassificationController extends Controller
 {

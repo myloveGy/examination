@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 use \yii\helpers\Json;
-use app\common\models\Question;
+use app\models\Question;
 
 $this->title = '顺序练习';
 $this->params['menu'] = [

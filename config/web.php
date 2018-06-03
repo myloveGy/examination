@@ -96,6 +96,17 @@ $config = [
             ],
         ],
 
+        // 多语言配置
+        'i18n'         => [
+            'translations' => [
+                'admin' => [
+                    'class'          => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en',
+                    'basePath'       => '@jinxing/admin/messages'
+                ],
+            ],
+        ],
+
         // 图片处理
         'image'        => [
             'class'  => 'yii\image\ImageDriver',

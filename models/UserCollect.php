@@ -11,7 +11,7 @@ use yii\helpers\Json;
  *
  * @property integer $user_id
  * @property integer $subject_id
- * @property string  $qids
+ * @property array  $qids
  */
 class UserCollect extends ActiveRecord
 {

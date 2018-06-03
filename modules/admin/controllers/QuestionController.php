@@ -2,11 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
-use app\common\models\CarType;
-use app\common\models\Chapter;
-use app\common\models\Question;
-use app\common\models\Special;
-use app\common\models\Subject;
+use app\models\CarType;
+use app\models\Chapter;
+use app\models\Question;
+use app\models\Special;
+use app\models\Subject;
 use jinxing\admin\controllers\Controller;
 use jinxing\admin\helpers\Helper;
 use yii\helpers\ArrayHelper;
@@ -19,9 +19,9 @@ use yii;
  */
 class QuestionController extends Controller
 {
-    public $modelClass = 'app\common\models\Question';
+    public $modelClass = 'app\models\Question';
 
-    public $uploadFromClass = 'app\common\models\UploadForm';
+    public $uploadFromClass = 'app\models\UploadForm';
 
     /**
      * where() 查询处理
