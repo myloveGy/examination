@@ -7,22 +7,23 @@
 
 namespace app\modules\admin\controllers;
 
-use app\common\models\CarType;
-use app\common\models\Chapter;
 use app\common\models\Subject;
+use jinxing\admin\controllers\Controller;
 
 class ChapterController extends Controller
 {
+    public $modelClass = 'app\common\models\Chapter';
+
     /**
      * where() 查询处理
-     * @param  array $params
+     *
      * @return array 返回数组
      */
-    public function where($params)
+    public function where()
     {
         return [
-            'id' => '=',
-			'name' => 'like',
+            'id'         => '=',
+            'name'       => 'like',
             'subject_id' => '='
         ];
     }
@@ -30,18 +31,6 @@ class ChapterController extends Controller
     public function actionIndex()
     {
         $subject = Subject::getSubject();
-        return $this->render('index', [
-            'subject' => $subject['subject'],
-        ]);
-    }
-
-
-    /**
-     * getModel() 返回model
-     * @return Chapter
-     */
-    public function getModel()
-    {
-        return new Chapter();
+        return $this->render('index', ['subject' => $subject['subject']]);
     }
 }

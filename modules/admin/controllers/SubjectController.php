@@ -8,21 +8,25 @@
 namespace app\modules\admin\controllers;
 
 use app\common\models\CarType;
-use app\common\models\Subject;
+use jinxing\admin\controllers\Controller;
 use yii\helpers\ArrayHelper;
 
 class SubjectController extends Controller
 {
+    public $modelClass = 'app\common\models\Subject';
+
+    public $uploadFromClass = 'app\common\models\UploadForm';
+
     /**
      * where() 查询处理
-     * @param  array $params
+     *
      * @return array 返回数组
      */
-    public function where($params)
+    public function where()
     {
         return [
-            'id' => '=',
-			'name' => 'like',
+            'id'     => '=',
+            'name'   => 'like',
             'car_id' => '=',
             'status' => '=',
         ];
@@ -33,17 +37,6 @@ class SubjectController extends Controller
         // 查询类别信息
         $carType = CarType::findAll(['status' => 1]);
         $carType = ArrayHelper::map($carType, 'id', 'name');
-        return $this->render('index', [
-            'arrCarType' => $carType
-        ]);
-    }
-
-    /**
-     * getModel() 返回model
-     * @return Subject
-     */
-    public function getModel()
-    {
-        return new Subject();
+        return $this->render('index', compact('carType'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\common\models;
 
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\helpers\Json;
 
@@ -16,7 +17,7 @@ use yii\helpers\Json;
  * @property string $images
  * @property integer $created_at
  */
-class Subject extends Model
+class Subject extends ActiveRecord
 {
     /**
      * @inheritdoc

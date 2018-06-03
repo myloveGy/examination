@@ -7,21 +7,24 @@
 
 namespace app\modules\admin\controllers;
 
-use app\common\helpers\Helper;
 use app\common\models\Special;
+use jinxing\admin\controllers\Controller;
+use jinxing\admin\helpers\Helper;
 
 class SpecialController extends Controller
 {
+    public $modelClass = 'app\common\models\Special';
+
     /**
      * where() 查询处理
-     * @param  array $params
+     *
      * @return array 返回数组
      */
-    public function where($params)
+    public function where()
     {
         return [
             'id'   => '=',
-			'name' => 'like',
+            'name' => 'like',
         ];
     }
 
@@ -33,14 +36,5 @@ class SpecialController extends Controller
     {
         $arrParent = Special::find()->where(['pid' => 0])->orderBy('sort')->all();
         return $this->render('index', ['parents' => Helper::map($arrParent, 'id', 'name', ['顶级分类'])]);
-    }
-
-    /**
-     * getModel() 返回model
-     * @return Special
-     */
-    public function getModel()
-    {
-        return new Special();
     }
 }

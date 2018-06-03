@@ -4,6 +4,7 @@ namespace app\models;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
@@ -23,7 +24,7 @@ use yii\web\IdentityInterface;
  * @property integer $last_ip
  * @property string $password write-only password
  */
-class User extends \app\common\models\Model implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
@@ -70,6 +71,7 @@ class User extends \app\common\models\Model implements IdentityInterface
 
     /**
      * @inheritdoc
+     * @throws NotSupportedException
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {

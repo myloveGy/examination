@@ -1,13 +1,12 @@
 <?php
+
+use jinxing\admin\widgets\MeTable;
+
 // 定义标题和面包屑信息
 $this->title = '科目信息';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<!--前面导航信息-->
-<p id="me-table-buttons"></p>
-<!--表格数据-->
-<table class="table table-striped table-bordered table-hover" id="show-table"></table>
-
+<?= MeTable::widget() ?>
 <?php $this->beginBlock('javascript') ?>
 <script type="text/javascript">
     var arrConfig = {
@@ -59,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     }
 
-    var arrCarType = <?=\yii\helpers\Json::encode($arrCarType)?>,
+    var arrCarType = <?=\yii\helpers\Json::encode($carType)?>,
         arrStatus = <?=\yii\helpers\Json::encode(Yii::$app->params['status'])?>;
     var myTable = meTables({
         title: "科目信息",

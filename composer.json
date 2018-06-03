@@ -19,13 +19,13 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "phpoffice/phpexcel": "*",
-        "yurkinx/yii2-image": "^1.1"
+        "yurkinx/yii2-image": "^1.1",
+        "jinxing/yii2-admin": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
         "yiisoft/yii2-gii": "~2.0.0",
         "yiisoft/yii2-faker": "~2.0.0",
-
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1",
         "codeception/specify": "~0.4.3"
@@ -38,6 +38,12 @@
             "yii\\composer\\Installer::postCreateProject"
         ]
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:myloveGy/yii2-admin.git"
+        }
+    ],
     "extra": {
         "yii\\composer\\Installer::postCreateProject": {
             "setPermission": [

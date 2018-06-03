@@ -5,10 +5,12 @@
  * Time: 下午11:16
  */
 
+use jinxing\admin\AdminAsset;
 use \yii\helpers\Url;
 use \yii\helpers\Html;
 
 $this->title = '题目信息添加';
+AdminAsset::meTablesRegister($this);
 ?>
 <form class="form-horizontal" id="create-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="status" value="1" />

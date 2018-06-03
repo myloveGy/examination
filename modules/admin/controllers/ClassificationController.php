@@ -1,34 +1,24 @@
 <?php
-/**
- * file: ChapterController.php
- * desc: 章节信息 执行操作控制器
- * date: 2016-10-11 15:47:39
- */
 
 namespace app\modules\admin\controllers;
 
-use app\common\models\CarType;
+use jinxing\admin\controllers\Controller;
 
 class ClassificationController extends Controller
 {
-    /**
-     * where() 查询处理
-     * @param  array $params
-     * @return array 返回数组
-     */
-    public function where($params)
-    {
-        return [
-			'name' => 'like',
-        ];
-    }
+    public $modelClass = 'app\common\models\CarType';
+
+    public $uploadFromClass = 'app\common\models\UploadForm';
 
     /**
-     * getModel() 返回model
-     * @return CarType
+     * where() 查询处理
+     *
+     * @return array 返回数组
      */
-    public function getModel()
+    public function where()
     {
-        return new CarType();
+        return [
+            'name' => 'like',
+        ];
     }
 }

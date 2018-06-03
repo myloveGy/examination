@@ -3,18 +3,27 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'basic',
-    'basePath' => dirname(__DIR__),
-    'name' => '考试系统',
-    'bootstrap' => ['log'],
+    'id'         => 'basic',
+    'basePath'   => dirname(__DIR__),
+    'name'       => '考试系统',
+    'bootstrap'  => ['log'],
     'language'   => 'zh-CN',
-    'modules' => [
+    'modules'    => [
         'admin' => [
-            'class' => 'app\modules\admin\Admin',
+            'class'   => 'app\modules\admin\Admin',
+            'modules' => [
+                'admin' => [
+                    'class'          => 'jinxing\admin\Module',
+                    'user'           => 'admin',
+                    'leftTopButtons' => [],
+                    'userLinks'      => []
+                ]
+            ],
+            'layout'  => '@jinxing/admin/views/layouts/main'
         ],
     ],
     'components' => [
-        'request' => [
+        'request'     => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'RG8j2YozSEWqgqQQhjnEjXkm1yCP77U1',
         ],
@@ -29,45 +38,45 @@ $config = [
         ],
 
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass'   => 'app\models\User',
             'enableAutoLogin' => true,
-            'idParam'           => '_userId',
-            'identityCookie'    => ['name' => '_user','httpOnly' => true],
+            'idParam'         => '_userId',
+            'identityCookie'  => ['name' => '_user', 'httpOnly' => true],
         ],
 
         'admin' => [
-            'class' => '\yii\web\User',
-            'identityClass' => 'app\modules\admin\models\Admin',
+            'class'           => 'yii\web\User',
+            'identityClass'   => 'jinxing\admin\models\Admin',
             'enableAutoLogin' => true,
-            'loginUrl' => ['/admin/default/login'],
-            'idParam' => '_adminId',
-            'identityCookie' => ['name' => '_admin','httpOnly' => true],
+            'loginUrl'        => ['/admin/admin/default/login'],
+            'idParam'         => '_adminId',
+            'identityCookie'  => ['name' => '_admin', 'httpOnly' => true],
         ],
 
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+        'mailer'       => [
+            'class'            => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-        'log' => [
+        'log'          => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
+            'targets'    => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class'  => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
-        'urlManager' => [
+        'db'           => require(__DIR__ . '/db.php'),
+        'urlManager'   => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
+            'showScriptName'  => false,
+            'rules'           => [
             ],
         ],
 
@@ -80,46 +89,32 @@ $config = [
                 ],
 
                 // 去掉自己加载的Jquery
-                'yii\web\JqueryAsset' => [
+                'yii\web\JqueryAsset'          => [
                     'sourcePath' => null,
-                    'js' => [],
-                ],
-            ],
-        ],
-
-        // 多语言配置
-        'i18n' => [
-            'translations' => [
-                'app' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/modules/admin/messages',
-                    'fileMap' => [
-                        'app' => 'app.php',
-                        'error' => 'error.php',
-                    ],
+                    'js'         => [],
                 ],
             ],
         ],
 
         // 图片处理
-        'image' => [
+        'image'        => [
             'class'  => 'yii\image\ImageDriver',
             'driver' => 'GD'
         ],
     ],
-    'params' => $params,
+    'params'     => $params,
 ];
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
+    $config['bootstrap'][]      = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
-    $config['bootstrap'][] = 'gii';
+    $config['bootstrap'][]    = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.

@@ -15,7 +15,9 @@ class Controller extends \yii\web\Controller
 
     /**
      * returnJson() 响应ajax 返回
+     *
      * @param string $array
+     *
      * @return mixed|string
      */
     protected function returnJson($array = null)
@@ -23,8 +25,8 @@ class Controller extends \yii\web\Controller
         if ($array == null) $array = $this->arrJson;                    // 默认赋值
 
         // 没有错误信息使用code 确定错误信息
-        if ( ! isset($array['errMsg']) || empty($array['errMsg'])) {
-            $errCode = Yii::t('app', 'errCode');
+        if (!isset($array['errMsg']) || empty($array['errMsg'])) {
+            $errCode         = Yii::t('app', 'errCode');
             $array['errMsg'] = $errCode[$array['errCode']];
         }
 
@@ -34,9 +36,10 @@ class Controller extends \yii\web\Controller
 
     /**
      * handleJson() 处理返回数据
-     * @param mixed $data     返回数据
-     * @param int   $errCode  返回状态码
-     * @param null  $errMsg   提示信息
+     *
+     * @param mixed $data    返回数据
+     * @param int   $errCode 返回状态码
+     * @param null  $errMsg  提示信息
      */
     protected function handleJson($data, $errCode = 0, $errMsg = null)
     {

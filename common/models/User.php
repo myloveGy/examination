@@ -1,25 +1,25 @@
 <?php
+
 namespace app\common\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
 
 /**
  * User model
  *
  * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
- * @property string $auth_key
+ * @property string  $username
+ * @property string  $password_hash
+ * @property string  $password_reset_token
+ * @property string  $email
+ * @property string  $auth_key
  * @property integer $role
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  * @property integer $updated_id
  * @property integer $created_id
- * @property string $password write-only password
+ * @property string  $password write-only password
  */
 class User extends \app\models\User
 {
@@ -28,14 +28,16 @@ class User extends \app\models\User
 
     /**
      * getArrayStatus() 获取状态说明信息
+     *
      * @param  int $intStatus 状态
+     *
      * @return array|string
      */
     public static function getArrayStatus($intStatus = null)
     {
         $array = [
-            self::STATUS_ACTIVE   => Yii::t('app', 'STATUS_ACTIVE'),
-            self::STATUS_DELETED  => Yii::t('app', 'STATUS_DELETED'),
+            self::STATUS_ACTIVE  => Yii::t('admin', 'STATUS_ACTIVE'),
+            self::STATUS_DELETED => Yii::t('admin', 'STATUS_DELETED'),
         ];
 
         if ($intStatus !== null && isset($array[$intStatus])) {
@@ -47,14 +49,16 @@ class User extends \app\models\User
 
     /**
      * getStatusColor() 获取状态值对应的颜色信息
+     *
      * @param  int $intStatus 状态值
+     *
      * @return array|string
      */
     public static function getStatusColor($intStatus = null)
     {
         $array = [
-            self::STATUS_ACTIVE   => 'label-success',
-            self::STATUS_DELETED  => 'label-danger',
+            self::STATUS_ACTIVE  => 'label-success',
+            self::STATUS_DELETED => 'label-danger',
         ];
 
         if ($intStatus !== null && isset($array[$intStatus])) {
@@ -71,8 +75,8 @@ class User extends \app\models\User
     public function rules()
     {
         return [
-            [['username', 'email', 'status'], 'required'],
-            [['password', 'repassword'], 'required', 'on' => ['user-create']],
+            [['username', 'email', 'status', 'phone'], 'required'],
+            [['password', 'repassword'], 'required', 'on' => ['create']],
             [['username', 'email', 'password', 'repassword'], 'trim'],
             [['password', 'repassword'], 'string', 'min' => 6, 'max' => 30],
             // Unique
@@ -86,7 +90,7 @@ class User extends \app\models\User
             // Repassword
             ['repassword', 'compare', 'compareAttribute' => 'password'],
             //['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE,  self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
 
@@ -97,9 +101,9 @@ class User extends \app\models\User
     public function scenarios()
     {
         return [
-            'default'     => ['username', 'email', 'password', 'repassword', 'status', 'face'],
-            'user-create' => ['username', 'email', 'password', 'repassword', 'status', 'face'],
-            'user-update' => ['username', 'email', 'password', 'repassword', 'status', 'face']
+            'default' => ['username', 'email', 'password', 'repassword', 'status', 'face', 'phone'],
+            'create'  => ['username', 'email', 'password', 'repassword', 'status', 'face', 'phone'],
+            'update'  => ['username', 'email', 'password', 'repassword', 'status', 'face', 'phone']
         ];
     }
 
@@ -125,15 +129,16 @@ class User extends \app\models\User
 
     /**
      * beforeSave() 新增之前的处理
+     *
      * @param  bool $insert 是否是新增数据
+     *
      * @return bool 处理是否成功
      */
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             // 新增记录和修改了密码
-            if ($this->isNewRecord || (!$this->isNewRecord && $this->password))
-            {
+            if ($this->isNewRecord || (!$this->isNewRecord && $this->password)) {
                 $this->setPassword($this->password);
                 $this->generateAuthKey();
                 $this->generatePasswordResetToken();

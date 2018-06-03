@@ -9,8 +9,9 @@
 namespace app\common\models;
 
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
-class TimeModel extends Model
+class TimeModel extends ActiveRecord
 {
     public function behaviors()
     {

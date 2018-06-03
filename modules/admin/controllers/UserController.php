@@ -9,39 +9,28 @@
 namespace app\modules\admin\controllers;
 
 use app\common\models\User;
+use jinxing\admin\controllers\Controller;
 
 /**
  * Class UserController
- * @package backend\controllers
+ * @package     backend\controllers
  * @description 用户信息
  */
 class UserController extends Controller
 {
-    protected $scenario = [
-        'create' => 'user-create',
-        'update' => 'user-update'
-    ];
+    public $modelClass = 'app\common\models\User';
 
     /**
      * where() 查询处理
-     * @param  array $params
+     *
      * @return array 返回数组
      */
-    public function where($params)
+    public function where()
     {
         return [
             'username' => 'like',
-			'email' => 'like',
+            'email'    => 'like',
         ];
-    }
-
-    /**
-     * getModel() 返回model
-     * @return User
-     */
-    public function getModel()
-    {
-        return new User();
     }
 
     /**
@@ -51,7 +40,7 @@ class UserController extends Controller
     public function actionIndex()
     {
         return $this->render('index', [
-            'status' => User::getArrayStatus(),
+            'status'      => User::getArrayStatus(),
             'statusColor' => User::getStatusColor(),
         ]);
     }

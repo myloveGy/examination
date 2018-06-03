@@ -3,6 +3,7 @@
 namespace app\common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
@@ -14,7 +15,7 @@ use yii\db\Expression;
  * @property integer $sort
  * @property integer $created_at
  */
-class CarType extends Model
+class CarType extends ActiveRecord
 {
     /**
      * @inheritdoc
