@@ -323,7 +323,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:myloveGy/yii2-admin.git",
-                "reference": "d4888a18001b6bea78be41c821291b014fd46826"
+                "reference": "a172212ab45672877c134b619a05402aa7a40152"
             },
             "require": {
                 "phpoffice/phpexcel": "*",
@@ -357,7 +357,7 @@
                 "issues": "https://github.com/myloveGy/yii2-admin/issues",
                 "source": "https://github.com/myloveGy/yii2-admin"
             },
-            "time": "2018-06-03T03:47:33+00:00"
+            "time": "2018-06-03T05:20:58+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
