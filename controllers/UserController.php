@@ -11,6 +11,7 @@ use app\models\CarType;
 use jinxing\admin\helpers\Helper;
 use jinxing\admin\traits\JsonTrait;
 use Yii;
+use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use app\models\Question;
@@ -24,6 +25,25 @@ use app\models\UserCollect;
 class UserController extends Controller
 {
     use JsonTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow'   => true,
+                        'roles'   => ['@'],
+                    ],
+                ],
+            ]
+        ];
+    }
 
     /**
      * actionCollect 用户收藏的问题
