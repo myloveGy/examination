@@ -2,11 +2,12 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Model;
 
 /**
  * Login form
  */
-class LoginForm extends \app\common\models\Model
+class LoginForm extends Model
 {
     public $username;
     public $password;

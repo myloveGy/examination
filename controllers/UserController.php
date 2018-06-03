@@ -7,13 +7,13 @@
 
 namespace app\controllers;
 
+use app\common\models\CarType;
 use Yii;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use app\common\models\Question;
 use app\common\models\Subject;
 use app\models\UserCollect;
-use app\common\models\Answer;
 
 /**
  * Class UserController
@@ -31,7 +31,7 @@ class UserController extends \app\common\controllers\UserController
         $subject = Subject::findOne(Yii::$app->request->get('subject', 1));
         if ($subject) {
             $collect = UserCollect::findOne([
-                'user_id' => Yii::$app->user->id,
+                'user_id'    => Yii::$app->user->id,
                 'subject_id' => $subject->id,
             ]);
 
@@ -39,18 +39,18 @@ class UserController extends \app\common\controllers\UserController
             if ($collect && $collect->qids) {
                 // 全部题目
                 $allTotal = Question::find()->where([
-                    'status' => Question::STATUS_KEY,
+                    'status'     => Question::STATUS_KEY,
                     'subject_id' => $subject->id
                 ])->count(); // 全部题库
 
                 Yii::$app->view->params['breadcrumbs'] = [
                     [
                         'label' => $subject->name,
-                        'url' => Url::toRoute(['/', 'subject' => $subject->id]),
+                        'url'   => Url::toRoute(['/', 'subject' => $subject->id]),
                     ],
                     [
                         'label' => '我的收藏',
-                        'url' => Url::toRoute(['user/collect', 'subject' => $subject->id])
+                        'url'   => Url::toRoute(['user/collect', 'subject' => $subject->id])
                     ],
                     '顺序练习',
                 ];
@@ -58,17 +58,16 @@ class UserController extends \app\common\controllers\UserController
                 // 开始查询
                 $question = Question::findOne($collect->qids[0]); // 查询一条数据
                 if ($question) {
-                    // 查询问题答案
-                    $answer = Answer::findAll(['qid' => $question->id]);
                     return $this->render('/question/index', [
-                        'subject' => $subject,
-                        'allTotal' => (int)$allTotal,
-                        'total' => count($collect->qids),
+                        'cars'       => CarType::findOne($subject->car_id),
+                        'subject'    => $subject,
+                        'allTotal'   => (int)$allTotal,
+                        'total'      => count($collect->qids),
                         'hasCollect' => UserCollect::hasCollect($question->id, $subject->id),
-                        'allIds' => Json::encode($collect->qids),
-                        'question' => $question,
-                        'answer' => $answer,
-                        'style' => 'sequence',
+                        'allIds'     => Json::encode($collect->qids),
+                        'question'   => $question,
+                        'answer'     => Json::decode($question->answers),
+                        'style'      => 'sequence',
                     ]);
                 }
             }
@@ -84,33 +83,33 @@ class UserController extends \app\common\controllers\UserController
      */
     public function actionCreateCollect()
     {
-        $request = Yii::$app->request;
-        $intQid = (int)$request->post('qid');
-        $strType = $request->post('type');
+        $request    = Yii::$app->request;
+        $intQid     = (int)$request->post('qid');
+        $strType    = $request->post('type');
         $intSubject = (int)$request->post('subject', 1);
 
         // 判断数据的有效性
         if ($intQid && $strType && in_array($strType, ['create', 'remove'])) {
             // 查询对象
             $model = UserCollect::findOne([
-                'user_id' => Yii::$app->user->id,
+                'user_id'    => Yii::$app->user->id,
                 'subject_id' => $intSubject
             ]);
-            if ( ! $model) {
-                $model = new UserCollect();
-                $model->user_id = Yii::$app->user->id;
+            if (!$model) {
+                $model             = new UserCollect();
+                $model->user_id    = Yii::$app->user->id;
                 $model->subject_id = $intSubject;
-                $model->qids = [];
+                $model->qids       = [];
             }
 
-            $array = $model->qids;
+            $array  = $model->qids;
             $isTrue = false;
             if ($strType == 'create') {
                 // 获取之前的收藏信息
                 $this->arrJson['errCode'] = 222;
-                if (! in_array($intQid, $array) || empty($array)) {
+                if (!in_array($intQid, $array) || empty($array)) {
                     array_push($array, $intQid);
-                    $array = array_unique($array);
+                    $array  = array_unique($array);
                     $isTrue = true;
                 }
             } else {

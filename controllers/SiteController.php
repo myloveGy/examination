@@ -1,15 +1,12 @@
 <?php
 namespace app\controllers;
 
-use app\common\models\CarType;
+use jinxing\admin\helpers\Helper;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\LoginForm;
 use app\models\RegisterForm;
-use app\common\helpers\Helper;
-use app\common\models\Special;
-use app\common\models\Subject;
 use app\common\models\User;
 
 /**
@@ -127,7 +124,7 @@ class SiteController extends Controller
                 $this->login();
             } else {
                 $this->arrJson['errCode'] = 1;
-                $this->arrJson['errMsg'] = $model->getErrorString();
+                $this->arrJson['errMsg'] = Helper::arrayToString($model->getErrors());
             }
         } else {
             $this->loginRepeat();
@@ -170,7 +167,7 @@ class SiteController extends Controller
                         }
                     } else {
                         $this->arrJson['errCode'] = 2;
-                        $this->arrJson['errMsg']  = $model->getErrorString();
+                        $this->arrJson['errMsg']  = Helper::arrayToString($model->getErrors());
                     }
                 }
             }
