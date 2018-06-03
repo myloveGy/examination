@@ -1,5 +1,6 @@
 # phpstorm project files
 .idea
+/web/uploads/
 
 # netbeans project files
 nbproject
