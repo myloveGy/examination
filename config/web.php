@@ -77,8 +77,6 @@ $config = [
         'urlManager'   => [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
-            'rules'           => [
-            ],
         ],
 
         // 资源管理修改
@@ -95,12 +93,6 @@ $config = [
                     'js'         => [],
                 ],
             ],
-        ],
-
-        // 图片处理
-        'image'        => [
-            'class'  => 'yii\image\ImageDriver',
-            'driver' => 'GD'
         ],
     ],
     'params'     => $params,

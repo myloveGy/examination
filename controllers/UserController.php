@@ -129,7 +129,7 @@ class UserController extends Controller
         if ($strType == 'create') {
             // 获取之前的收藏信息
             if ($array && in_array($intQid, $array)) {
-                return $this->error(222);
+                return $this->error(222, '没有数据');
             }
 
             array_push($array, $intQid);
@@ -137,7 +137,7 @@ class UserController extends Controller
         } else {
             // 删除收藏
             if (!in_array($intQid, $array)) {
-                return $this->error(224);
+                return $this->error(224, '没有数据');
             }
 
             $intKey = array_search($intQid, $array);

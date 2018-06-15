@@ -207,7 +207,7 @@ class QuestionController extends Controller
 
         $strType = $request->post('sType', 'no');
         if (!$question = Question::findOne($intQid)) {
-            return $this->error(220);
+            return $this->error(220, '没有题目');
         }
 
         if ($strType == 'no') {
@@ -244,11 +244,11 @@ class QuestionController extends Controller
     public function actionGetQuestion()
     {
         if (!$id = (int)Yii::$app->request->post('qid')) {
-            return $this->error();
+            return $this->error(220, '没有题目了');
         }
 
         if (!$question = Question::findOne($id)) {
-            return $this->error(220);
+            return $this->error(220, '没有题目了');
         }
 
         return $this->success([
@@ -346,8 +346,7 @@ class QuestionController extends Controller
      * actionWarning() 我的错题
      * @return string|\yii\web\Response
      */
-    public
-    function actionWarning()
+    public function actionWarning()
     {
         // 查询科目
         $subject = Subject::findOne(Yii::$app->request->get('subject', 1));
