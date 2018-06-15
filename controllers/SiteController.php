@@ -48,6 +48,9 @@ class SiteController extends Controller
     public function actions()
     {
         return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
             'captcha' => [
                 'class'           => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
@@ -89,7 +92,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(['params' => Yii::$app->request->post()], 'params') && $model->login()) {
+        if ($model->load(Yii::$app->request->post(), '') && $model->login()) {
             return $this->login();
         }
 
@@ -132,7 +135,7 @@ class SiteController extends Controller
 
         $model = new RegisterForm();
         // 数据加载成功
-        if (!$model->load(['params' => Yii::$app->request->post()], 'params')) {
+        if (!$model->load(Yii::$app->request->post(), '')) {
             return $this->error();
         }
 

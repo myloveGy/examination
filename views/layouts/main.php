@@ -129,7 +129,7 @@ AppAsset::register($this);
         <form class="register-form form-horizontal user-form" id="register-form" action="<?=Url::toRoute(['site/register'])?>">
             <input type="hidden" value="<?= Yii::$app->getRequest()->getCsrfToken() ?>" name="_csrf" />
             <div class="form-group">
-                <input name="username" class="form-control" required="true" rangelength="[2, 100]" placeholder="请输入昵称" type="text">
+                <input name="username" class="i-username form-control" required="true" rangelength="[2, 100]" placeholder="请输入昵称" type="text">
             </div>
             <div class="form-group">
                 <input name="phone" class="i-username form-control" required="true"  maxlength="11" minlength="11" placeholder="请输入手机号" type="text">
@@ -138,7 +138,7 @@ AppAsset::register($this);
                 <input name="password" id="m-password" class="i-password form-control" required="true" rangelength="[6, 50]"  placeholder="请设置密码" type="password">
             </div>
             <div class="form-group">
-                <input name="rePassword" class="form-control" required="true" rangelength="[6, 50]" equalTo="#m-password" placeholder="确认密码" type="password">
+                <input name="rePassword" class="i-password form-control" required="true" rangelength="[6, 50]" equalTo="#m-password" placeholder="确认密码" type="password">
             </div>
             <div class="form-group">
                 <div class="col-sm-6 pl-none">
@@ -172,16 +172,16 @@ AppAsset::register($this);
 </div>
 <!--[if !IE]> -->
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='/resource/js/jquery.min.js'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='/js/jquery.min.js'>"+"<"+"/script>");
 </script>
 <!-- <![endif]-->
 <!--[if IE]>
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='/resource/js/jquery1x.min.js'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='/js/jquery1x.min.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
 <script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='/resource/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    if('ontouchstart' in document.documentElement) document.write("<script src='/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
 <?php $this->endBody() ?>
 <?=$this->blocks['javascript']?>
