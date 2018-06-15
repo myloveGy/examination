@@ -1,18 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : 我的docker数据库
-Source Server Version : 50637
-Source Host           : 192.168.99.100:3306
-Source Database       : examination
-
-Target Server Type    : MYSQL
-Target Server Version : 50637
-File Encoding         : 65001
-
-Date: 2017-09-01 13:51:40
-*/
-
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -21,31 +6,54 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `ks_admin`;
 CREATE TABLE `ks_admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '管理员账号',
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '邮箱',
-  `face` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '管理员头像',
-  `role` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user' COMMENT '角色',
-  `status` smallint(6) NOT NULL DEFAULT '10' COMMENT '状态',
-  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT '自动登录密钥',
-  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '密码哈希值',
-  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '重新登录哈希值',
-  `created_at` int(11) NOT NULL COMMENT '创建时间',
-  `created_id` int(11) NOT NULL COMMENT '创建用户',
-  `updated_at` int(11) NOT NULL COMMENT '修改时间',
-  `updated_id` int(11) DEFAULT NULL COMMENT '修改用户',
-  `last_time` int(11) DEFAULT NULL COMMENT '上一次登录时间',
-  `last_ip` char(12) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '上一次登录IP',
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT '管理员账号',
+  `email` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT '管理员邮箱',
+  `face` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '管理员头像',
+  `role` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '管理员角色',
+  `status` tinyint(1) NOT NULL DEFAULT '10' COMMENT '状态',
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_time` int(11) NOT NULL DEFAULT '0' COMMENT '上一次登录时间',
+  `last_ip` char(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '上一次登录的IP',
+  `address` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '地址信息',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `created_id` int(11) NOT NULL DEFAULT '0' COMMENT '创建用户',
+  `updated_at` int(11) NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `updated_id` int(11) NOT NULL DEFAULT '0' COMMENT '修改用户',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`) USING BTREE,
-  KEY `role` (`role`) USING BTREE,
-  KEY `status` (`status`) USING BTREE,
-  KEY `created_at` (`created_at`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理员信息表';
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `password_reset_token` (`password_reset_token`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理员信息表';
 
 -- ----------------------------
 -- Records of ks_admin
 -- ----------------------------
-INSERT INTO `ks_admin` VALUES ('1', 'super', 'super@admin.com', '/public/uploads/avatars/58fac2c467cb0.jpg', 'administrator', '1', 'gKkLFMdB2pvIXOFNpF_Aeemvdf1j0YUM', '$2y$13$Nuf1mzDRoCMxrWI.rIjENu20QshJG41smdEeHFHxq0qdmS99YytHy', '5vLaPpUS-I-XxJaoGP-GZDk474WdnaK3_1469073015', '1457337222', '1', '1492828871', '1', '1476693446', '127.0.0.1');
+INSERT INTO `ks_admin` VALUES ('1', 'super', 'super@admin.com', '', 'admin', '10', 'tGaaJtNH3SXtUEJtA6LIgNb0LQPEjste', '$2y$13$YxX4lUa.8Ju25k4voR1e0ugjV3riwouxczPr/xPbaCG5TT8gTkpOW', 'Coq2MudT_KvDZrYtli2pepgGNEEDsN9W_1529078268', '1528029973', '127.0.0.1', '湖南省,岳阳市,岳阳县', '1526831872', '1', '1529078268', '1');
+INSERT INTO `ks_admin` VALUES ('2', 'admin', 'admin@admin.com', '', 'admin', '10', 'VWAHqZZOgjZuAovIMmH7gbiBpX76CLS0', '$2y$13$VVNMg4gYETT0YHIJI5VSNOE4O105eKXCA7EIMzyV2KMyUUTx6u7N2', 'GxH7TNQ9kRJAC2JuSGclMQnk0TYvZ2hw_1529078253', '1526831872', '127.0.0.1', '湖南省,岳阳市,岳阳县', '1526831872', '1', '1529078253', '1');
+
+-- ----------------------------
+-- Table structure for ks_admin_operate_logs
+-- ----------------------------
+DROP TABLE IF EXISTS `ks_admin_operate_logs`;
+CREATE TABLE `ks_admin_operate_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '日志ID',
+  `admin_id` int(11) NOT NULL DEFAULT '0' COMMENT '操作管理员ID',
+  `admin_name` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '操作管理员名称',
+  `action` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '方法',
+  `index` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '数据标识',
+  `request` text COLLATE utf8_unicode_ci NOT NULL COMMENT '请求参数',
+  `response` text COLLATE utf8_unicode_ci NOT NULL COMMENT '响应数据',
+  `ip` char(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '请求IP',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `admin_name` (`admin_name`) USING BTREE COMMENT '管理员'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理员操作日志记录信息表';
+
+-- ----------------------------
+-- Records of ks_admin_operate_logs
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for ks_auth_assignment
@@ -87,102 +95,106 @@ CREATE TABLE `ks_auth_item` (
 -- Records of ks_auth_item
 -- ----------------------------
 INSERT INTO `ks_auth_item` VALUES ('admin', '1', '管理员', null, null, '1476085137', '1476096200');
-INSERT INTO `ks_auth_item` VALUES ('admin/address', '2', '管理员地址信息查询', null, null, '1476093015', '1476093015');
-INSERT INTO `ks_auth_item` VALUES ('admin/create', '2', '创建管理员信息', null, null, '1476085130', '1476085130');
-INSERT INTO `ks_auth_item` VALUES ('admin/delete', '2', '删除管理员信息', null, null, '1476085130', '1476085130');
-INSERT INTO `ks_auth_item` VALUES ('admin/delete-all', '2', '批量删除管理员信息', null, null, '1476095763', '1476095763');
-INSERT INTO `ks_auth_item` VALUES ('admin/editable', '2', '管理员信息行内编辑', null, null, '1476090733', '1476090733');
-INSERT INTO `ks_auth_item` VALUES ('admin/index', '2', '显示管理员信息', null, null, '1476085130', '1476085130');
-INSERT INTO `ks_auth_item` VALUES ('admin/search', '2', '搜索管理员信息', null, null, '1476085130', '1476085130');
-INSERT INTO `ks_auth_item` VALUES ('admin/update', '2', '修改管理员信息', null, null, '1476085130', '1476085130');
-INSERT INTO `ks_auth_item` VALUES ('admin/upload', '2', '上传管理员头像信息', null, null, '1476088424', '1476088424');
-INSERT INTO `ks_auth_item` VALUES ('admin/view', '2', '查看管理员详情信息', null, null, '1476088536', '1476088536');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/address', '2', '管理员地址信息查询', null, null, '1476093015', '1476093015');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/create', '2', '创建管理员信息', null, null, '1476085130', '1476085130');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/delete', '2', '删除管理员信息', null, null, '1476085130', '1476085130');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/delete-all', '2', '批量删除管理员信息', null, null, '1476095763', '1476095763');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/editable', '2', '管理员信息行内编辑', null, null, '1476090733', '1476090733');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/index', '2', '显示管理员信息', null, null, '1476085130', '1476085130');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/search', '2', '搜索管理员信息', null, null, '1476085130', '1476085130');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/update', '2', '修改管理员信息', null, null, '1476085130', '1476085130');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/admin/upload', '2', '上传管理员头像信息', null, null, '1476088424', '1476088424');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/authority/create', '2', '创建权限信息', null, null, '1476085131', '1476085131');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/authority/delete', '2', '删除权限信息', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/authority/delete-all', '2', '权限信息删除全部', null, null, '1492830288', '1492830288');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/authority/export', '2', '权限信息导出', null, null, '1476090709', '1476090709');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/authority/index', '2', '显示权限信息', null, null, '1476085131', '1476085131');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/authority/search', '2', '搜索权限信息', null, null, '1476085131', '1476085131');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/authority/update', '2', '修改权限信息', null, null, '1476085131', '1476085131');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/menu/create', '2', '创建导航栏目', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/menu/delete', '2', '删除导航栏目', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/menu/delete-all', '2', '批量删除导航栏目信息', null, null, '1476095845', '1476095845');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/menu/index', '2', '显示导航栏目', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/menu/search', '2', '搜索导航栏目', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/menu/update', '2', '修改导航栏目', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/module/create', '2', '创建模块生成', null, null, '1476085133', '1476085133');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/module/index', '2', '显示模块生成', null, null, '1476085133', '1476085133');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/module/produce', '2', '模块生成配置文件', null, null, '1476085133', '1476093990');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/module/update', '2', '修改模块生成', null, null, '1476085133', '1476085133');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/role/create', '2', '创建角色信息', null, null, '1476085133', '1476085133');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/role/delete', '2', '删除角色信息', null, null, '1476085134', '1476085134');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/role/edit', '2', '角色分配权限', null, null, '1476096038', '1476096038');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/role/index', '2', '显示角色信息', null, null, '1476085133', '1476085133');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/role/search', '2', '搜索角色信息', null, null, '1476085133', '1476085133');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/role/update', '2', '修改角色信息', null, null, '1476085134', '1476085134');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/role/view', '2', '角色权限查看', null, null, '1476096101', '1476096101');
+INSERT INTO `ks_auth_item` VALUES ('admin/admin/view', '2', '查看管理员详情信息', null, null, '1476088536', '1476088536');
+INSERT INTO `ks_auth_item` VALUES ('admin/answer/create', '2', '创建答案信息', null, null, '1476183355', '1476183355');
+INSERT INTO `ks_auth_item` VALUES ('admin/answer/delete', '2', '删除答案信息', null, null, '1476183356', '1476183356');
+INSERT INTO `ks_auth_item` VALUES ('admin/answer/export', '2', '导出答案信息', null, null, '1476183356', '1476183356');
+INSERT INTO `ks_auth_item` VALUES ('admin/answer/index', '2', '显示答案信息', null, null, '1476183355', '1476183355');
+INSERT INTO `ks_auth_item` VALUES ('admin/answer/search', '2', '搜索答案信息', null, null, '1476183355', '1476183355');
+INSERT INTO `ks_auth_item` VALUES ('admin/answer/update', '2', '修改答案信息', null, null, '1476183355', '1476183355');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/create', '2', '创建日程管理', null, null, '1476085131', '1476085131');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/delete', '2', '删除日程管理', null, null, '1476085131', '1476085131');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/delete-all', '2', '批量删除日程信息', null, null, '1476095790', '1476095790');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/editable', '2', '日程管理行内编辑', null, null, '1476088444', '1476088444');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/export', '2', '日程信息导出', null, null, '1476090884', '1476090884');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/index', '2', '显示日程管理', null, null, '1476085130', '1476085130');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/search', '2', '搜索日程管理', null, null, '1476085130', '1476085130');
+INSERT INTO `ks_auth_item` VALUES ('admin/arrange/update', '2', '修改日程管理', null, null, '1476085131', '1476085131');
+INSERT INTO `ks_auth_item` VALUES ('admin/chapter/create', '2', '创建章节信息', null, null, '1476172059', '1476172059');
+INSERT INTO `ks_auth_item` VALUES ('admin/chapter/delete', '2', '删除章节信息', null, null, '1476172059', '1476172059');
+INSERT INTO `ks_auth_item` VALUES ('admin/chapter/export', '2', '导出章节信息', null, null, '1476172059', '1476172059');
+INSERT INTO `ks_auth_item` VALUES ('admin/chapter/index', '2', '显示章节信息', null, null, '1476172059', '1476172059');
+INSERT INTO `ks_auth_item` VALUES ('admin/chapter/search', '2', '搜索章节信息', null, null, '1476172059', '1476172059');
+INSERT INTO `ks_auth_item` VALUES ('admin/chapter/update', '2', '修改章节信息', null, null, '1476172059', '1476172059');
+INSERT INTO `ks_auth_item` VALUES ('admin/china/create', '2', '创建地址信息', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/china/delete', '2', '删除地址信息', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/china/index', '2', '显示地址信息', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/china/search', '2', '搜索地址信息', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/china/update', '2', '修改地址信息', null, null, '1476085132', '1476085132');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/create', '2', '创建车型配置', null, null, '1492831806', '1492831806');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/delete', '2', '删除车型配置', null, null, '1492831806', '1492831806');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/delete-all', '2', '考试类型-批量删除', null, null, '1529075116', '1529075116');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/export', '2', '导出车型配置', null, null, '1492831806', '1492831806');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/index', '2', '车型配置显示', null, null, '1492830329', '1492830329');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/search', '2', '搜索车型配置', null, null, '1492831805', '1492831805');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/update', '2', '修改车型配置', null, null, '1492831806', '1492831806');
+INSERT INTO `ks_auth_item` VALUES ('admin/classification/upload', '2', '上传车型配置图标', null, null, '1492870551', '1492870551');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/chapter', '2', '题库查询章节', null, null, '1527996561', '1527996561');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/child', '2', '查询问题答案', null, null, '1476454541', '1476454541');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/create', '2', '创建题库信息', null, null, '1476175766', '1476175766');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/delete', '2', '删除题库信息', null, null, '1476175766', '1476175766');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/export', '2', '导出题库信息', null, null, '1476175766', '1476175766');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/index', '2', '显示题库信息', null, null, '1476175765', '1476175765');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/search', '2', '搜索题库信息', null, null, '1476175766', '1476175766');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/subject', '2', '问题获取章节', null, null, '1528017028', '1528017028');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/update', '2', '修改题库信息', null, null, '1476175766', '1476175766');
+INSERT INTO `ks_auth_item` VALUES ('admin/question/upload', '2', '上传题目图片', null, null, '1476695636', '1476695646');
+INSERT INTO `ks_auth_item` VALUES ('admin/special/create', '2', '创建专项分类', null, null, '1476172610', '1476172610');
+INSERT INTO `ks_auth_item` VALUES ('admin/special/delete', '2', '删除专项分类', null, null, '1476172610', '1476172610');
+INSERT INTO `ks_auth_item` VALUES ('admin/special/export', '2', '导出专项分类', null, null, '1476172610', '1476172610');
+INSERT INTO `ks_auth_item` VALUES ('admin/special/index', '2', '显示专项分类', null, null, '1476172609', '1476172609');
+INSERT INTO `ks_auth_item` VALUES ('admin/special/search', '2', '搜索专项分类', null, null, '1476172610', '1476172610');
+INSERT INTO `ks_auth_item` VALUES ('admin/special/update', '2', '修改专项分类', null, null, '1476172610', '1476172610');
+INSERT INTO `ks_auth_item` VALUES ('admin/subject/create', '2', '创建科目信息', null, null, '1476171765', '1476171765');
+INSERT INTO `ks_auth_item` VALUES ('admin/subject/delete', '2', '删除科目信息', null, null, '1476171765', '1476171765');
+INSERT INTO `ks_auth_item` VALUES ('admin/subject/export', '2', '导出科目信息', null, null, '1476171765', '1476171765');
+INSERT INTO `ks_auth_item` VALUES ('admin/subject/index', '2', '显示科目信息', null, null, '1476171765', '1476171765');
+INSERT INTO `ks_auth_item` VALUES ('admin/subject/search', '2', '搜索科目信息', null, null, '1476171765', '1476171765');
+INSERT INTO `ks_auth_item` VALUES ('admin/subject/update', '2', '修改科目信息', null, null, '1476171765', '1476171765');
+INSERT INTO `ks_auth_item` VALUES ('admin/subject/upload', '2', '章节配置-添加图片', null, null, '1528002698', '1528002698');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/create', '2', '创建用户信息', null, null, '1476095210', '1476095210');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/delete', '2', '删除用户信息', null, null, '1476095210', '1476095210');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/delete-all', '2', '批量删除用户信息', null, null, '1476096229', '1476096229');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/export', '2', '导出用户信息', null, null, '1476095210', '1476095210');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/index', '2', '显示用户信息', null, null, '1476095210', '1476095210');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/search', '2', '搜索用户信息', null, null, '1476095210', '1476095210');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/update', '2', '修改用户信息', null, null, '1476095210', '1476095210');
+INSERT INTO `ks_auth_item` VALUES ('admin/user/upload', '2', '上传用户头像信息', null, null, '1476149415', '1476149415');
 INSERT INTO `ks_auth_item` VALUES ('administrator', '1', '超级管理员', null, null, '1476085134', '1476085134');
-INSERT INTO `ks_auth_item` VALUES ('answer/create', '2', '创建答案信息', null, null, '1476183355', '1476183355');
-INSERT INTO `ks_auth_item` VALUES ('answer/delete', '2', '删除答案信息', null, null, '1476183356', '1476183356');
-INSERT INTO `ks_auth_item` VALUES ('answer/export', '2', '导出答案信息', null, null, '1476183356', '1476183356');
-INSERT INTO `ks_auth_item` VALUES ('answer/index', '2', '显示答案信息', null, null, '1476183355', '1476183355');
-INSERT INTO `ks_auth_item` VALUES ('answer/search', '2', '搜索答案信息', null, null, '1476183355', '1476183355');
-INSERT INTO `ks_auth_item` VALUES ('answer/update', '2', '修改答案信息', null, null, '1476183355', '1476183355');
-INSERT INTO `ks_auth_item` VALUES ('arrange/create', '2', '创建日程管理', null, null, '1476085131', '1476085131');
-INSERT INTO `ks_auth_item` VALUES ('arrange/delete', '2', '删除日程管理', null, null, '1476085131', '1476085131');
-INSERT INTO `ks_auth_item` VALUES ('arrange/delete-all', '2', '批量删除日程信息', null, null, '1476095790', '1476095790');
-INSERT INTO `ks_auth_item` VALUES ('arrange/editable', '2', '日程管理行内编辑', null, null, '1476088444', '1476088444');
-INSERT INTO `ks_auth_item` VALUES ('arrange/export', '2', '日程信息导出', null, null, '1476090884', '1476090884');
-INSERT INTO `ks_auth_item` VALUES ('arrange/index', '2', '显示日程管理', null, null, '1476085130', '1476085130');
-INSERT INTO `ks_auth_item` VALUES ('arrange/search', '2', '搜索日程管理', null, null, '1476085130', '1476085130');
-INSERT INTO `ks_auth_item` VALUES ('arrange/update', '2', '修改日程管理', null, null, '1476085131', '1476085131');
-INSERT INTO `ks_auth_item` VALUES ('authority/create', '2', '创建权限信息', null, null, '1476085131', '1476085131');
-INSERT INTO `ks_auth_item` VALUES ('authority/delete', '2', '删除权限信息', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('authority/delete-all', '2', '权限信息删除全部', null, null, '1492830288', '1492830288');
-INSERT INTO `ks_auth_item` VALUES ('authority/export', '2', '权限信息导出', null, null, '1476090709', '1476090709');
-INSERT INTO `ks_auth_item` VALUES ('authority/index', '2', '显示权限信息', null, null, '1476085131', '1476085131');
-INSERT INTO `ks_auth_item` VALUES ('authority/search', '2', '搜索权限信息', null, null, '1476085131', '1476085131');
-INSERT INTO `ks_auth_item` VALUES ('authority/update', '2', '修改权限信息', null, null, '1476085131', '1476085131');
-INSERT INTO `ks_auth_item` VALUES ('car-type/create', '2', '创建车型配置', null, null, '1492831806', '1492831806');
-INSERT INTO `ks_auth_item` VALUES ('car-type/delete', '2', '删除车型配置', null, null, '1492831806', '1492831806');
-INSERT INTO `ks_auth_item` VALUES ('car-type/export', '2', '导出车型配置', null, null, '1492831806', '1492831806');
-INSERT INTO `ks_auth_item` VALUES ('car-type/index', '2', '车型配置显示', null, null, '1492830329', '1492830329');
-INSERT INTO `ks_auth_item` VALUES ('car-type/search', '2', '搜索车型配置', null, null, '1492831805', '1492831805');
-INSERT INTO `ks_auth_item` VALUES ('car-type/update', '2', '修改车型配置', null, null, '1492831806', '1492831806');
-INSERT INTO `ks_auth_item` VALUES ('car-type/upload', '2', '上传车型配置图标', null, null, '1492870551', '1492870551');
-INSERT INTO `ks_auth_item` VALUES ('chapter/create', '2', '创建章节信息', null, null, '1476172059', '1476172059');
-INSERT INTO `ks_auth_item` VALUES ('chapter/delete', '2', '删除章节信息', null, null, '1476172059', '1476172059');
-INSERT INTO `ks_auth_item` VALUES ('chapter/export', '2', '导出章节信息', null, null, '1476172059', '1476172059');
-INSERT INTO `ks_auth_item` VALUES ('chapter/index', '2', '显示章节信息', null, null, '1476172059', '1476172059');
-INSERT INTO `ks_auth_item` VALUES ('chapter/search', '2', '搜索章节信息', null, null, '1476172059', '1476172059');
-INSERT INTO `ks_auth_item` VALUES ('chapter/update', '2', '修改章节信息', null, null, '1476172059', '1476172059');
-INSERT INTO `ks_auth_item` VALUES ('china/create', '2', '创建地址信息', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('china/delete', '2', '删除地址信息', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('china/index', '2', '显示地址信息', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('china/search', '2', '搜索地址信息', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('china/update', '2', '修改地址信息', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('menu/create', '2', '创建导航栏目', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('menu/delete', '2', '删除导航栏目', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('menu/delete-all', '2', '批量删除导航栏目信息', null, null, '1476095845', '1476095845');
-INSERT INTO `ks_auth_item` VALUES ('menu/index', '2', '显示导航栏目', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('menu/search', '2', '搜索导航栏目', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('menu/update', '2', '修改导航栏目', null, null, '1476085132', '1476085132');
-INSERT INTO `ks_auth_item` VALUES ('module/create', '2', '创建模块生成', null, null, '1476085133', '1476085133');
-INSERT INTO `ks_auth_item` VALUES ('module/index', '2', '显示模块生成', null, null, '1476085133', '1476085133');
-INSERT INTO `ks_auth_item` VALUES ('module/produce', '2', '模块生成配置文件', null, null, '1476085133', '1476093990');
-INSERT INTO `ks_auth_item` VALUES ('module/update', '2', '修改模块生成', null, null, '1476085133', '1476085133');
-INSERT INTO `ks_auth_item` VALUES ('question/child', '2', '查询问题答案', null, null, '1476454541', '1476454541');
-INSERT INTO `ks_auth_item` VALUES ('question/create', '2', '创建题库信息', null, null, '1476175766', '1476175766');
-INSERT INTO `ks_auth_item` VALUES ('question/delete', '2', '删除题库信息', null, null, '1476175766', '1476175766');
-INSERT INTO `ks_auth_item` VALUES ('question/export', '2', '导出题库信息', null, null, '1476175766', '1476175766');
-INSERT INTO `ks_auth_item` VALUES ('question/index', '2', '显示题库信息', null, null, '1476175765', '1476175765');
-INSERT INTO `ks_auth_item` VALUES ('question/search', '2', '搜索题库信息', null, null, '1476175766', '1476175766');
-INSERT INTO `ks_auth_item` VALUES ('question/update', '2', '修改题库信息', null, null, '1476175766', '1476175766');
-INSERT INTO `ks_auth_item` VALUES ('question/upload', '2', '上传题目图片', null, null, '1476695636', '1476695646');
-INSERT INTO `ks_auth_item` VALUES ('role/create', '2', '创建角色信息', null, null, '1476085133', '1476085133');
-INSERT INTO `ks_auth_item` VALUES ('role/delete', '2', '删除角色信息', null, null, '1476085134', '1476085134');
-INSERT INTO `ks_auth_item` VALUES ('role/edit', '2', '角色分配权限', null, null, '1476096038', '1476096038');
-INSERT INTO `ks_auth_item` VALUES ('role/index', '2', '显示角色信息', null, null, '1476085133', '1476085133');
-INSERT INTO `ks_auth_item` VALUES ('role/search', '2', '搜索角色信息', null, null, '1476085133', '1476085133');
-INSERT INTO `ks_auth_item` VALUES ('role/update', '2', '修改角色信息', null, null, '1476085134', '1476085134');
-INSERT INTO `ks_auth_item` VALUES ('role/view', '2', '角色权限查看', null, null, '1476096101', '1476096101');
-INSERT INTO `ks_auth_item` VALUES ('special/create', '2', '创建专项分类', null, null, '1476172610', '1476172610');
-INSERT INTO `ks_auth_item` VALUES ('special/delete', '2', '删除专项分类', null, null, '1476172610', '1476172610');
-INSERT INTO `ks_auth_item` VALUES ('special/export', '2', '导出专项分类', null, null, '1476172610', '1476172610');
-INSERT INTO `ks_auth_item` VALUES ('special/index', '2', '显示专项分类', null, null, '1476172609', '1476172609');
-INSERT INTO `ks_auth_item` VALUES ('special/search', '2', '搜索专项分类', null, null, '1476172610', '1476172610');
-INSERT INTO `ks_auth_item` VALUES ('special/update', '2', '修改专项分类', null, null, '1476172610', '1476172610');
-INSERT INTO `ks_auth_item` VALUES ('subject/create', '2', '创建科目信息', null, null, '1476171765', '1476171765');
-INSERT INTO `ks_auth_item` VALUES ('subject/delete', '2', '删除科目信息', null, null, '1476171765', '1476171765');
-INSERT INTO `ks_auth_item` VALUES ('subject/export', '2', '导出科目信息', null, null, '1476171765', '1476171765');
-INSERT INTO `ks_auth_item` VALUES ('subject/index', '2', '显示科目信息', null, null, '1476171765', '1476171765');
-INSERT INTO `ks_auth_item` VALUES ('subject/search', '2', '搜索科目信息', null, null, '1476171765', '1476171765');
-INSERT INTO `ks_auth_item` VALUES ('subject/update', '2', '修改科目信息', null, null, '1476171765', '1476171765');
 INSERT INTO `ks_auth_item` VALUES ('user', '1', '普通用户', null, null, '1476085137', '1476085137');
-INSERT INTO `ks_auth_item` VALUES ('user/create', '2', '创建用户信息', null, null, '1476095210', '1476095210');
-INSERT INTO `ks_auth_item` VALUES ('user/delete', '2', '删除用户信息', null, null, '1476095210', '1476095210');
-INSERT INTO `ks_auth_item` VALUES ('user/delete-all', '2', '批量删除用户信息', null, null, '1476096229', '1476096229');
-INSERT INTO `ks_auth_item` VALUES ('user/export', '2', '导出用户信息', null, null, '1476095210', '1476095210');
-INSERT INTO `ks_auth_item` VALUES ('user/index', '2', '显示用户信息', null, null, '1476095210', '1476095210');
-INSERT INTO `ks_auth_item` VALUES ('user/search', '2', '搜索用户信息', null, null, '1476095210', '1476095210');
-INSERT INTO `ks_auth_item` VALUES ('user/update', '2', '修改用户信息', null, null, '1476095210', '1476095210');
-INSERT INTO `ks_auth_item` VALUES ('user/upload', '2', '上传用户头像信息', null, null, '1476149415', '1476149415');
 
 -- ----------------------------
 -- Table structure for ks_auth_item_child
@@ -200,136 +212,140 @@ CREATE TABLE `ks_auth_item_child` (
 -- ----------------------------
 -- Records of ks_auth_item_child
 -- ----------------------------
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/address');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/address');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/create');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/delete-all');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/delete-all');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/editable');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/editable');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/index');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/search');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/update');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/upload');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/upload');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/view');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/view');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'answer/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'answer/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'answer/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'answer/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'answer/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'answer/update');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/create');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/delete-all');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/delete-all');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/editable');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/editable');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/export');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/index');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/search');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'arrange/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'arrange/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'authority/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'authority/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'authority/delete-all');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'authority/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'authority/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'authority/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'authority/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'car-type/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'car-type/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'car-type/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'car-type/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'car-type/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'car-type/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'car-type/upload');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'chapter/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'chapter/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'chapter/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'chapter/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'chapter/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'chapter/update');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'china/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'china/create');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'china/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'china/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'china/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'china/index');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'china/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'china/search');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'china/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'china/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'menu/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'menu/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'menu/delete-all');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'menu/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'menu/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'menu/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'module/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'module/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'module/produce');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'module/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/child');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'question/upload');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'role/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'role/create');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'role/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'role/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'role/edit');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'role/edit');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'role/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'role/index');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'role/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'role/search');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'role/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'role/update');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'role/view');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'role/view');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'special/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'special/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'special/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'special/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'special/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'special/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'subject/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'subject/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'subject/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'subject/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'subject/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'subject/update');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'user/create');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/create');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'user/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/delete');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/delete-all');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'user/export');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/export');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'user/index');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/index');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'user/search');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/search');
-INSERT INTO `ks_auth_item_child` VALUES ('admin', 'user/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/update');
-INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'user/upload');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/address');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/address');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/create');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/editable');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/editable');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/index');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/search');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/update');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/admin/upload');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/admin/upload');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/authority/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/authority/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/authority/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/authority/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/authority/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/authority/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/authority/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/menu/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/menu/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/menu/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/menu/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/menu/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/menu/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/module/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/module/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/module/produce');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/module/update');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/role/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/role/create');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/role/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/role/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/role/edit');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/role/edit');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/role/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/role/index');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/role/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/role/search');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/role/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/role/update');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/role/view');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/role/view');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/admin/view');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/admin/view');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/answer/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/answer/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/answer/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/answer/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/answer/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/answer/update');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/create');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/editable');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/editable');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/export');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/index');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/search');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/arrange/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/arrange/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/chapter/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/chapter/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/chapter/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/chapter/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/chapter/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/chapter/update');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/china/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/china/create');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/china/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/china/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/china/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/china/index');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/china/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/china/search');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/china/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/china/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/classification/upload');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/chapter');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/child');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/subject');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/question/upload');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/special/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/special/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/special/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/special/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/special/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/special/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/subject/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/subject/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/subject/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/subject/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/subject/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/subject/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/subject/upload');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/user/create');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/create');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/user/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/delete');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/delete-all');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/user/export');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/export');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/user/index');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/index');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/user/search');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/search');
+INSERT INTO `ks_auth_item_child` VALUES ('admin', 'admin/user/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/update');
+INSERT INTO `ks_auth_item_child` VALUES ('administrator', 'admin/user/upload');
 
 -- ----------------------------
 -- Table structure for ks_auth_rule
@@ -415,18 +431,18 @@ CREATE TABLE `ks_menu` (
 -- Records of ks_menu
 -- ----------------------------
 INSERT INTO `ks_menu` VALUES ('1', '0', '后台管理', 'menu-icon fa fa-cog', '', '1', '2', '1468985587', '1', '1474340768', '1');
-INSERT INTO `ks_menu` VALUES ('2', '1', '导航栏目', '', 'menu/index', '1', '4', '1468987221', '1', '1468994846', '1');
-INSERT INTO `ks_menu` VALUES ('3', '1', '模块生成', '', 'module/index', '1', '5', '1468994283', '1', '1468994860', '1');
-INSERT INTO `ks_menu` VALUES ('4', '1', '角色管理', '', 'role/index', '1', '2', '1468994665', '1', '1468994676', '1');
-INSERT INTO `ks_menu` VALUES ('5', '1', '管理员信息', '', 'admin/index', '1', '2', '1468994769', '1', '1474340722', '1');
-INSERT INTO `ks_menu` VALUES ('6', '1', '权限管理', '', 'authority/index', '1', '3', '1468994819', '1', '1469410899', '1');
-INSERT INTO `ks_menu` VALUES ('9', '0', '用户信息', 'menu fa fa-user', 'user/index', '1', '5', '1476095210', '1', '1476176242', '1');
-INSERT INTO `ks_menu` VALUES ('10', '14', '科目信息', 'icon-cog', 'subject/index', '1', '104', '1476171766', '1', '1476176338', '1');
-INSERT INTO `ks_menu` VALUES ('11', '14', '章节信息', 'icon-cog', 'chapter/index', '1', '103', '1476172059', '1', '1476176326', '1');
-INSERT INTO `ks_menu` VALUES ('12', '14', '专项分类', 'icon-cog', 'special/index', '1', '102', '1476172610', '1', '1476177469', '1');
-INSERT INTO `ks_menu` VALUES ('13', '14', '题库信息', 'icon-cog', 'question/index', '1', '101', '1476175766', '1', '1476176304', '1');
-INSERT INTO `ks_menu` VALUES ('14', '0', '题库管理', 'menu-icons fa fa-graduation-cap', '', '1', '6', '1476176095', '1', '1476176095', '1');
-INSERT INTO `ks_menu` VALUES ('15', '0', '车型配置', 'menu-icon fa-car', 'car-type/index', '1', '100', '1492829715', '1', '1492831577', '1');
+INSERT INTO `ks_menu` VALUES ('2', '1', '导航栏目', '', 'admin/admin/menu/index', '1', '4', '1468987221', '1', '1468994846', '1');
+INSERT INTO `ks_menu` VALUES ('3', '1', '模块生成', '', 'admin/admin/module/index', '1', '5', '1468994283', '1', '1468994860', '1');
+INSERT INTO `ks_menu` VALUES ('4', '1', '角色管理', '', 'admin/admin/role/index', '1', '2', '1468994665', '1', '1468994676', '1');
+INSERT INTO `ks_menu` VALUES ('5', '1', '管理员信息', '', 'admin/admin/admin/index', '1', '2', '1468994769', '1', '1474340722', '1');
+INSERT INTO `ks_menu` VALUES ('6', '1', '权限管理', '', 'admin/admin/authority/index', '1', '3', '1468994819', '1', '1469410899', '1');
+INSERT INTO `ks_menu` VALUES ('9', '0', '用户信息', 'menu-icon fa fa-user', 'admin/user/index', '1', '5', '1476095210', '1', '1476176242', '1');
+INSERT INTO `ks_menu` VALUES ('10', '14', '科目信息', 'menu-icon icon-cog', 'admin/subject/index', '1', '104', '1476171766', '1', '1476176338', '1');
+INSERT INTO `ks_menu` VALUES ('11', '14', '章节信息', 'menu-icon icon-cog', 'admin/chapter/index', '1', '103', '1476172059', '1', '1476176326', '1');
+INSERT INTO `ks_menu` VALUES ('12', '14', '专项分类', 'menu-icon icon-cog', 'admin/special/index', '1', '102', '1476172610', '1', '1476177469', '1');
+INSERT INTO `ks_menu` VALUES ('13', '14', '题库信息', 'menu-icon icon-cog', 'admin/question/index', '1', '101', '1476175766', '1', '1476176304', '1');
+INSERT INTO `ks_menu` VALUES ('14', '0', '题库管理', 'menu-icon fa fa-graduation-cap', '', '1', '6', '1476176095', '1', '1476176095', '1');
+INSERT INTO `ks_menu` VALUES ('15', '0', '考试类型', 'menu-icon fa fa-list', 'admin/classification/index', '1', '100', '1492829715', '1', '1527996393', '1');
 
 -- ----------------------------
 -- Table structure for ks_question
@@ -449,11 +465,14 @@ CREATE TABLE `ks_question` (
   `do_number` int(11) NOT NULL DEFAULT '0' COMMENT '做了该题目人数',
   `answers` text NOT NULL COMMENT '问题信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1318 DEFAULT CHARSET=utf8 COMMENT='题库信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=1322 DEFAULT CHARSET=utf8 COMMENT='题库信息表';
 
 -- ----------------------------
 -- Records of ks_question
 -- ----------------------------
+INSERT INTO `ks_question` VALUES ('1318', '我的测试', '我的测试', '', '1', '1', '0', '1527996618', '1528030030', '1', '1', '3', '1', '7', '[\"A:正确\",\"B:错误\",\"C:还是正确\",\"D:你的错误\"]');
+INSERT INTO `ks_question` VALUES ('1319', '我的测试', '我的测试', '/uploads/5b1375c4a171c.jpg', '2', '1', '0', '1528002030', '1528018675', '1', '1', '3', '2', '3', '[\"A:正确\",\"B:错误\"]');
+INSERT INTO `ks_question` VALUES ('1320', '我的测试', '我的测试01', '/uploads/5b13b0be4c9d4.jpg', '4', '1', '0', '1528017090', '1528017090', '1', '1', '3', '0', '0', '[\"测试\"]');
 
 -- ----------------------------
 -- Table structure for ks_special
@@ -499,7 +518,7 @@ CREATE TABLE `ks_subject` (
   `config` text NOT NULL COMMENT '配置信息',
   `image` varchar(100) NOT NULL COMMENT '图片信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='科目信息表(主分类)';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='科目信息表(主分类)';
 
 -- ----------------------------
 -- Records of ks_subject
@@ -526,7 +545,6 @@ CREATE TABLE `ks_user` (
   `last_time` int(11) DEFAULT NULL COMMENT '上一次登录时间',
   `last_ip` char(12) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '上一次登录IP',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE,
   UNIQUE KEY `phone` (`phone`) USING BTREE,
   KEY `created_at` (`created_at`) USING BTREE
