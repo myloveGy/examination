@@ -48,7 +48,7 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
+            'error'   => [
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
@@ -139,12 +139,10 @@ class SiteController extends Controller
             return $this->error();
         }
 
-        if ($user = $model->register()) {
-            if (Yii::$app->getUser()->login($user)) {
-                return $this->login('registerSuccess');
-            }
+        if (!($user = $model->register()) || !Yii::$app->getUser()->login($user)) {
+            return $this->error(2, Helper::arrayToString($model->getErrors()));
         }
 
-        return $this->error(2, Helper::arrayToString($model->getErrors()));
+        return $this->login('registerSuccess');
     }
 }

@@ -51,53 +51,51 @@ class UserController extends Controller
     public function actionCollect()
     {
         // 查询科目
-        $subject = Subject::findOne(Yii::$app->request->get('subject', 1));
-        if ($subject) {
-            $collect = UserCollect::findOne([
-                'user_id'    => Yii::$app->user->id,
-                'subject_id' => $subject->id,
-            ]);
-
-            // 有收藏
-            if ($collect && $collect->qids) {
-                // 全部题目
-                $allTotal = Question::find()->where([
-                    'status'     => Question::STATUS_KEY,
-                    'subject_id' => $subject->id
-                ])->count(); // 全部题库
-
-                Yii::$app->view->params['breadcrumbs'] = [
-                    [
-                        'label' => $subject->name,
-                        'url'   => Url::toRoute(['/', 'subject' => $subject->id]),
-                    ],
-                    [
-                        'label' => '我的收藏',
-                        'url'   => Url::toRoute(['user/collect', 'subject' => $subject->id])
-                    ],
-                    '顺序练习',
-                ];
-
-                // 开始查询
-                $question = Question::findOne($collect->qids[0]); // 查询一条数据
-                if ($question) {
-                    return $this->render('/question/index', [
-                        'cars'       => CarType::findOne($subject->car_id),
-                        'subject'    => $subject,
-                        'allTotal'   => (int)$allTotal,
-                        'total'      => count($collect->qids),
-                        'hasCollect' => UserCollect::hasCollect($question->id, $subject->id),
-                        'allIds'     => Json::encode($collect->qids),
-                        'question'   => $question,
-                        'answer'     => Json::decode($question->answers),
-                        'style'      => 'sequence',
-                    ]);
-                }
-            }
+        if ($subject = Subject::findOne(Yii::$app->request->get('subject', 1))) {
+            return $this->redirect(['/', 'subject' => 1]);
         }
 
-        // 没有数据直接返回
-        return $this->redirect(['/', 'subject' => 1]);
+        // 查询收藏信息
+        if (!($collect = UserCollect::findOne([
+                'user_id'    => Yii::$app->user->id,
+                'subject_id' => $subject->id
+            ])) || empty($collect->qids)) {
+            return $this->redirect(['/', 'subject' => 1]);
+        }
+
+        // 全部题目
+        $allTotal = Question::find()->where([
+            'status'     => Question::STATUS_KEY,
+            'subject_id' => $subject->id
+        ])->count(); // 全部题库
+
+        if (!$question = Question::findOne($collect->qids[0])) {
+            return $this->redirect(['/', 'subject' => 1]);
+        }
+
+        Yii::$app->view->params['breadcrumbs'] = [
+            [
+                'label' => $subject->name,
+                'url'   => Url::toRoute(['/', 'subject' => $subject->id]),
+            ],
+            [
+                'label' => '我的收藏',
+                'url'   => Url::toRoute(['user/collect', 'subject' => $subject->id])
+            ],
+            '顺序练习',
+        ];
+
+        return $this->render('/question/index', [
+            'cars'       => CarType::findOne($subject->car_id),
+            'subject'    => $subject,
+            'allTotal'   => (int)$allTotal,
+            'total'      => count($collect->qids),
+            'hasCollect' => UserCollect::hasCollect($question->id, $subject->id),
+            'allIds'     => Json::encode($collect->qids),
+            'question'   => $question,
+            'answer'     => Json::decode($question->answers),
+            'style'      => 'sequence',
+        ]);
     }
 
     /**
@@ -140,18 +138,18 @@ class UserController extends Controller
                 return $this->error(224, '没有数据');
             }
 
-            $intKey = array_search($intQid, $array);
-            if ($intKey !== false) {
+            if (($intKey = array_search($intQid, $array)) !== false) {
                 unset($array[$intKey]);
             }
+
             sort($array);
         }
 
         $model->qids = Json::encode($array);
-        if ($model->save()) {
-            return $this->success($model);
+        if (!$model->save()) {
+            return $this->error(2, Helper::arrayToString($model->getErrors()));
         }
 
-        return $this->error(2, Helper::arrayToString($model->getErrors()));
+        return $this->success($model);
     }
 }
