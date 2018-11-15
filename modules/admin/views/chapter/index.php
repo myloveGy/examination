@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         title: "章节分类ID",
                         data: "id",
                         defaultOrder: "desc",
-                        edit: {"type": "hidden"},
+                        edit: {type: "hidden"},
                         search: {type: "text"}
                     },
                     {

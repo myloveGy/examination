@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     {
                         title: "名称",
                         data: "name",
+                        sortable: false,
                         edit: {required: true, rangeLength: "[2, 255]"},
                         search: {type: "text"}
                     },
@@ -59,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         data: "status",
                         title: "状态",
                         value: arrStatus,
+                        sortable: false,
                         edit: {type: "radio", default: 1, required: 1, number: 1},
                         search: {type: "select"},
                         createdCell: mt.statusString
