@@ -54,8 +54,8 @@ class SiteController extends Controller
             'captcha' => [
                 'class'           => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'maxLength'       => 6,           // 最大显示个数
-                'minLength'       => 6,           // 最少显示个数
+                'maxLength'       => 4,           // 最大显示个数
+                'minLength'       => 4,           // 最少显示个数
                 'padding'         => 5,           // 间距
                 'height'          => 38,          // 高度
                 'width'           => 130,         // 宽度
