@@ -77,6 +77,18 @@ $config = [
         'urlManager'   => [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
+            'rules'           => [
+                'classification/<id:\d+>'                                 => 'classification/index',
+                'classification/subject/<id:\d+>'                         => 'classification/subject',
+                'question/warning/<subject:\d+>'                          => 'question/warning',
+                'question/imitate/<subject:\d+>'                          => 'question/imitate',
+                'question/chapter/<subject:\d+>'                          => 'question/chapter',
+                'question/special/<subject:\d+>'                          => 'question/special',
+                'question/<subject:\d+>/<style:\w+>/<type:\w+>/<cid:\d+>' => 'question/index',
+                'question/index/<type:\w+>/<subject:\d+>/<cid:\d+>'       => 'question/index',
+                'question/<style:\w+>-<subject:\d+>'                      => 'question/index',
+                'user/collect/<subject:\d+>'                              => 'user/collect',
+            ],
         ],
 
         // 资源管理修改

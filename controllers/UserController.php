@@ -51,7 +51,7 @@ class UserController extends Controller
     public function actionCollect()
     {
         // 查询科目
-        if ($subject = Subject::findOne(Yii::$app->request->get('subject', 1))) {
+        if (!$subject = Subject::findOne(Yii::$app->request->get('subject', 1))) {
             return $this->redirect(['/', 'subject' => 1]);
         }
 
