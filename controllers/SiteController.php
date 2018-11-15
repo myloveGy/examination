@@ -82,6 +82,7 @@ class SiteController extends Controller
 
     /**
      * actionLogin() 用户登录
+     *
      * @return mixed|string
      */
     public function actionLogin()
@@ -92,11 +93,11 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post(), '') && $model->login()) {
-            return $this->login();
+        if (!$model->load(Yii::$app->request->post(), '') || !$model->login()) {
+            return $this->error(1, Helper::arrayToString($model->getErrors()));
         }
 
-        return $this->error(1, Helper::arrayToString($model->getErrors()));
+        return $this->login();
     }
 
     /**
@@ -106,12 +107,12 @@ class SiteController extends Controller
     public function actionLogout()
     {
         // 退出之前修改登录信息
-        $user = User::findOne(Yii::$app->user->id);
-        if ($user) {
+        if ($user = User::findOne(Yii::$app->user->id)) {
             $user->last_time = time();
             $user->last_ip   = Helper::getIpAddress();
             $user->save();
         }
+
         Yii::$app->user->logout();
         return $this->goHome();
     }

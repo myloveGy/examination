@@ -14,7 +14,11 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\HttpException;
 
-
+/**
+ * Class QuestionController 题库信息
+ *
+ * @package app\controllers
+ */
 class QuestionController extends Controller
 {
     use JsonTrait;
@@ -136,30 +140,29 @@ class QuestionController extends Controller
     public function actionSpecial()
     {
         // 查询科目信息
-        if ($subject = Subject::findOne(Yii::$app->request->get('subject', 1))) {
+        if (!$subject = Subject::findOne(Yii::$app->request->get('subject', 1))) {
             return $this->errorRedirect('专项练习问题不存在');
         }
 
         $all = $ids = $counts = [];
         if ($special = Special::find()->asArray()->all()) {
             foreach ($special as $value) {
+                /* @var $value array */
                 $intKid = $value['pid'] == 0 ? $value['id'] : $value['pid'];
-                if ($value['pid'] == 0) {
-                    if (isset($all[$intKid])) {
-                        $all[$intKid] = array_merge($all[$intKid], $value);
-                    } else {
-                        $all[$intKid] = array_merge($value, ['child' => []]);
-                    }
-                } else {
-                    $ids[] = (int)$value['id'];
-                    if (isset($all[$intKid])) {
-                        $all[$intKid]['child'][$value['sort'] . '-' . $value['id']] = $value;
-                    } else {
-                        $all[$intKid] = [
-                            'child' => [$value['sort'] . '-' . $value['id'] => $value],
-                        ];
-                    }
+                if (!isset($all[$intKid])) {
+                    $all[$intKid] = ['child' => []];
                 }
+
+                // 父级处理
+                if ($value['pid'] == 0) {
+                    $all[$intKid] = array_merge($all[$intKid], $value);
+                    continue;
+                }
+
+                // 字集处理
+                $index                         = $value['sort'] . '-' . $value['id'];
+                $ids[]                         = (int)$value['id'];
+                $all[$intKid]['child'][$index] = $value;
             }
 
             // 没有数据默认查询
@@ -258,8 +261,8 @@ class QuestionController extends Controller
 
     /**
      * actionImitate() 全真模拟考试
+     * 
      * @return string
-     * @throws HttpException
      */
     public function actionImitate()
     {

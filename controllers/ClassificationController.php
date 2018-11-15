@@ -11,6 +11,7 @@ class ClassificationController extends Controller
 {
     /**
      * actionIndex() 显示首页
+     *
      * @return string
      */
     public function actionIndex()
@@ -18,9 +19,8 @@ class ClassificationController extends Controller
         // 接收参数
         $intCarId = Yii::$app->request->get('id', 1) ?: 1;   // 车型ID
 
-        // 查询车型信息
+        // 查询车型信息、没有数据直接返回
         if (!$car = CarType::findOne($intCarId)) {
-            // 没有数据直接返回
             return $this->errorRedirect('分类信息不存在');
         }
 
@@ -30,12 +30,18 @@ class ClassificationController extends Controller
         return $this->render('index', compact('special', 'subject', 'car'));
     }
 
+    /**
+     * 章节信息
+     * 
+     * @param $id
+     *
+     * @return mixed|string
+     */
     public function actionSubject($id)
     {
         $id = $id ? intval($id) : 1;
-        // 查询平台信息
+        // 查询平台信息，没有数据直接返回
         if (!$subject = Subject::findOne($id)) {
-            // 没有数据直接返回
             return $this->errorRedirect('章节信息不存在');
         }
 
