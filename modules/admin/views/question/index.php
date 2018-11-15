@@ -492,6 +492,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 if (json.errCode === 0) {
                                     layer.msg("上传成功");
                                     $("#upload-modal").modal("hide");
+                                    myTable.search()
                                 } else {
                                     layer.msg(json.errMsg, {icon: 5})
                                 }
