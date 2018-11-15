@@ -12,7 +12,6 @@ use app\models\Special;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use yii\web\HttpException;
 
 /**
  * Class QuestionController 题库信息
@@ -85,6 +84,9 @@ class QuestionController extends Controller
         // 开始查询
         $total = Question::find()->where($where)->count();
         $ids   = Question::getAllIds($where);
+        if ($sStyle == 'random') {
+            shuffle($ids);
+        }
 
         // 查询问题答案
         $answer = Json::decode($question->answers);
@@ -261,7 +263,7 @@ class QuestionController extends Controller
 
     /**
      * actionImitate() 全真模拟考试
-     * 
+     *
      * @return string
      */
     public function actionImitate()
