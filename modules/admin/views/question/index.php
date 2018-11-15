@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
             title: "题库信息",
             fileSelector: ["#image-file", "#upload-xls"],
             buttons: {
-                "upload": {
+                upload: {
                     bShow: true,
                     text: "导入题目",
                     icon: "ace-icon fa fa-cloud-upload blue",
@@ -122,111 +122,111 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             // 主表格
             table: {
-                "aoColumns": [
+                aoColumns: [
                     {
-                        "title": "题目ID",
-                        "data": "id",
-                        "edit": {"type": "hidden"},
-                        "isHide": true,
-                        "defaultOrder": "desc",
-                        "createdCell": function (td, data, rowArr, row, col) {
+                        title: "题目ID",
+                        data: "id",
+                        edit: {type: "hidden"},
+                        isHide: true,
+                        defaultOrder: "desc",
+                        createdCell: function (td, data, rowArr, row, col) {
                             $(td).html(data + '<b class="arrow fa fa-angle-down pull-right"></b>');
                         }
                     },
                     {
-                        "title": "题目问题",
-                        "data": "question_title",
-                        "edit": {"type": "textarea", "required": true},
-                        "bSortable": false
+                        title: "题目问题",
+                        data: "question_title",
+                        edit: {type: "textarea", required: true},
+                        sortable: false
                     },
                     {
-                        "title": "题目说明",
-                        "data": "question_content",
-                        "edit": {"type": "textarea"},
-                        "bSortable": false,
-                        "isHide": true
+                        title: "题目说明",
+                        data: "question_content",
+                        edit: {type: "textarea"},
+                        sortable: false,
+                        isHide: true
                     },
                     {
-                        "title": "考试类型",
-                        "data": null,
-                        "value": aCars,
-                        "edit": {
-                            "type": "select",
-                            "name": "car_id",
-                            "default": 0,
-                            "id": "car-id",
-                            "required": true,
-                            "number": true
+                        title: "考试类型",
+                        data: null,
+                        value: aCars,
+                        edit: {
+                            type: "select",
+                            name: "car_id",
+                            default: 0,
+                            id: "car-id",
+                            required: true,
+                            number: true
                         },
-                        "bSortable": false,
-                        "isHide": true
+                        sortable: false,
+                        isHide: true
                     },
                     {
-                        "title": "所属科目",
-                        "data": "subject_id",
-                        "value": aSubject,
-                        "edit": {"type": "select", "default": 1, "id": "subject-id", "required": true, "number": true},
-                        "search": {"type": "select"},
-                        "bSortable": false,
-                        "createdCell": function (td, data) {
+                        title: "所属科目",
+                        data: "subject_id",
+                        value: aSubject,
+                        edit: {type: "select", default: 1, id: "subject-id", required: true, number: true},
+                        search: {type: "select"},
+                        sortable: false,
+                        createdCell: function (td, data) {
                             $(td).html(aSubject[data] ? aSubject[data] : data);
                         }
                     },
                     {
-                        "title": "所属章节",
-                        "data": "chapter_id",
-                        "value": aChapter,
-                        "search": {"type": "select"},
-                        "edit": {"type": "select", "id": "chapter-id", "number": true},
-                        "bSortable": false,
-                        "createdCell": function (td, data) {
+                        title: "所属章节",
+                        data: "chapter_id",
+                        value: aChapter,
+                        search: {type: "select"},
+                        edit: {type: "select", id: "chapter-id", number: true},
+                        sortable: false,
+                        createdCell: function (td, data) {
                             $(td).html(aChapter[data] ? aChapter[data] : data);
                         }
                     },
                     {
-                        "title": "问题答案",
-                        "data": "answers",
-                        "edit": {"type": "multiple", "number": 4},
-                        "bSortable": false,
-                        "isHide": true
+                        title: "问题答案",
+                        data: "answers",
+                        edit: {type: "multiple", number: 4},
+                        sortable: false,
+                        isHide: true
                     },
                     {
-                        "title": "答案类型",
-                        "data": "answer_type",
-                        "value": aType,
-                        "edit": {"type": "select", "id": "answer-type-select", "required": true, "number": true},
-                        "search": {"type": "select"},
-                        "bSortable": false,
-                        "createdCell": function (td, data) {
+                        title: "答案类型",
+                        data: "answer_type",
+                        value: aType,
+                        edit: {type: "select", id: "answer-type-select", required: true, number: true},
+                        search: {type: "select"},
+                        sortable: false,
+                        createdCell: function (td, data) {
                             $(td).html(mt.valuesString(aType, aTypeColor, data));
                         }
                     },
                     {
-                        "title": "正确答案",
-                        "data": "answer_id",
-                        "bSortable": false,
-                        "createdCell": function (td, data) {
+                        title: "正确答案",
+                        data: "answer_id",
+                        sortable: false,
+                        createdCell: function (td, data) {
                             $(td).html(data === "" ? '<span class="label label-sm label-warning">还没有设置答案</span>' : data)
                         },
-                        "value": {"-1": "请选择"},
-                        "edit": {"type": "select", "id": "input-answer-type", "multiple": "multiple", "required": true}
+                        value: {"-1": "请选择"},
+                        edit: {type: "select", id: "input-answer-type", multiple: "multiple", required: true}
                     },
                     {
-                        "title": "专项分类",
-                        "data": "special_id",
-                        "value": aSpecial,
-                        "search": {"type": "select"},
-                        "edit": {"type": "select", "required": true, "number": true},
-                        "bSortable": false,
-                        "createdCell": function (td, data) {
+                        title: "专项分类",
+                        data: "special_id",
+                        value: aSpecial,
+                        search: {type: "select"},
+                        edit: {type: "select", required: true, number: true},
+                        sortable: false,
+                        createdCell: function (td, data) {
                             $(td).html(aSpecial[data] ? aSpecial[data] : data);
                         }
                     },
                     {
-                        "title": "题目图片",
-                        "data": "question_img",
-                        "edit": {
-                            "type": "file",
+                        title: "题目图片",
+                        data: "question_img",
+                        edit: {
+                            type: "file",
                             options: {
                                 "id": "image-file",
                                 "name": "UploadForm[question_img]",
@@ -234,29 +234,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                 "input-name": "question_img"
                             }
                         },
-                        "bSortable": false,
-                        "isHide": true,
-                        "createdCell": function (td, data) {
+                        sortable: false,
+                        isHide: true,
+                        createdCell: function (td, data) {
                             var html = data ? "<img src=" + data + " style=\"width: 60px;margin-right: 10px;\" />" +
                                 "<a href=\"javascript:;\" class=\"btn btn-xs btn-info btn-image\" data-img=" + data + ">查看大图</a>" : "";
                             $(td).html(html);
                         }
                     },
                     {
-                        "title": "状态",
-                        "data": "status",
-                        "sName": "status",
-                        "value": aStatus,
-                        "edit": {"type": "radio", "default": 1, "required": true, "number": true},
-                        "bSortable": false,
-                        "search": {"type": "select"},
-                        "createdCell": function (td, data) {
+                        title: "状态",
+                        data: "status",
+                        value: aStatus,
+                        edit: {type: "radio", default: 1, required: true, number: true},
+                        sortable: false,
+                        search: {type: "select"},
+                        createdCell: function (td, data) {
                             $(td).html(showSpan(aStatus, aColor, data));
                         }
                     },
-                    {"title": "创建时间", "data": "created_at", "createdCell": mt.dateTimeString},
-                    {"title": "修改时间", "data": "updated_at", "createdCell": mt.dateTimeString},
-                    {"title": "错误人数", "data": "error_number"}
+                    {title: "创建时间", data: "created_at", createdCell: mt.dateTimeString},
+                    {title: "修改时间", data: "updated_at", createdCell: mt.dateTimeString},
+                    {title: "错误人数", data: "error_number"}
                 ]
             }
         });
@@ -264,12 +263,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         var $img = null, $select;
 
-        /**
-         * 显示的前置和后置操作
-         * myTable.beforeShow(object data, bool child, object clickObject) return true 前置
-         * myTable.afterShow(object data, bool child, object clickObject)  return true 后置
-         */
-        myTable.beforeShow = function (data, child, chickObject) {
+        myTable.beforeShow = function () {
             if (this.action != "delete") {
                 var html = '<option value=""> -- 请选择 -- </option>', sHtml = html, x;
                 for (x in aSubject) {
@@ -287,7 +281,7 @@ $this->params['breadcrumbs'][] = $this->title;
             return true;
         };
 
-        myTable.afterShow = function (data, child, clickObject) {
+        myTable.afterShow = function (data) {
             $img.ace_file_input("reset_input");
             // 不是编辑详情
             switch (this.action) {
@@ -383,11 +377,6 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         });
 
-        /**
-         * 编辑的前置和后置操作
-         * myTable.beforeSave(object data) return true 前置
-         * myTable.afterSave(object data)  return true 后置
-         */
         $(function () {
             myTable.init();
             $img = $("#image-file");

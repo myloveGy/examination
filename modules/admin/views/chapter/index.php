@@ -1,21 +1,22 @@
 <?php
 
 use jinxing\admin\widgets\MeTable;
+use \yii\helpers\Json;
 
 // 定义标题和面包屑信息
-$this->title = '章节信息';
+$this->title                   = '章节信息';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= MeTable::widget() ?>
 <?php $this->beginBlock('javascript') ?>
     <script type="text/javascript">
-        var arrSubject = <?=\yii\helpers\Json::encode($subject)?>;
+        var arrSubject = <?=Json::encode($subject)?>;
         var myTable = meTables({
             title: "章节信息",
             operations: {
                 width: "auto",
                 buttons: {
-                    "create": {
+                    create: {
                         "className": "btn-success",
                         "cClass": "create-question",
                         "icon": "fa-plus-circle",
@@ -25,38 +26,38 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },
             table: {
-                "aoColumns": [
+                aoColumns: [
                     {
-                        "title": "章节分类ID",
-                        "data": "id",
-                        "defaultOrder": "desc",
-                        "edit": {"type": "hidden"},
-                        "search": {"type": "text"}
+                        title: "章节分类ID",
+                        data: "id",
+                        defaultOrder: "desc",
+                        edit: {"type": "hidden"},
+                        search: {type: "text"}
                     },
                     {
-                        "title": "所属科目",
-                        "data": "subject_id",
-                        "value": arrSubject,
-                        "edit": {"type": "select", "required": true, "number": true},
-                        "search": {"type": "select"},
-                        "createdCell": function (td, data) {
+                        title: "所属科目",
+                        data: "subject_id",
+                        value: arrSubject,
+                        edit: {type: "select", required: true, number: true},
+                        search: {type: "select"},
+                        createdCell: function (td, data) {
                             $(td).html(arrSubject[data] ? arrSubject[data] : data);
                         }
                     },
                     {
-                        "title": "章节分类名称",
-                        "data": "name",
-                        "edit": {"type": "text", "required": true, "rangelength": "[2, 255]"},
-                        "search": {"type": "text"},
-                        "bSortable": false
+                        title: "章节分类名称",
+                        data: "name",
+                        edit: {required: true, rangeLength: "[2, 255]"},
+                        search: {type: "text"},
+                        sortable: false
                     },
                     {
-                        "title": "排序",
-                        "data": "sort",
-                        "edit": {"type": "text", "value": 100, "required": true, "number": true}
+                        title: "排序",
+                        data: "sort",
+                        edit: {value: 100, required: true, number: true}
                     },
-                    {"title": "添加时间", "data": "created_at", "createdCell": mt.dateTimeString},
-                    {"title": "修改时间", "data": "updated_at", "createdCell": mt.dateTimeString}
+                    {title: "添加时间", data: "created_at", createdCell: mt.dateTimeString},
+                    {title: "修改时间", data: "updated_at", createdCell: mt.dateTimeString}
                 ]
             }
         });

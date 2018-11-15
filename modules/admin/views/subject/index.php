@@ -1,6 +1,8 @@
 <?php
 
 use jinxing\admin\widgets\MeTable;
+use \yii\helpers\Json;
+use \yii\helpers\Url;
 
 // 定义标题和面包屑信息
 $this->title = '科目信息';
@@ -10,27 +12,27 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $this->beginBlock('javascript') ?>
     <script type="text/javascript">
         var arrConfig = {
-            "passingScore": "及格分数",
-            "time": "考试时间(分)",
-            "judgmentNumber": "判断题数",
-            "selectNumber": "单选题数",
-            "multipleNumber": "多选题数",
-            "shortNumber": "问答题数",
-            "judgmentScore": "判断题分数",
-            "selectScore": "单选题分数",
-            "multipleScore": "多选题分数",
-            "shortScore": "问答题目分数"
+            passingScore: "及格分数",
+            time: "考试时间(分)",
+            judgmentNumber: "判断题数",
+            selectNumber: "单选题数",
+            multipleNumber: "多选题数",
+            shortNumber: "问答题数",
+            judgmentScore: "判断题分数",
+            selectScore: "单选题分数",
+            multipleScore: "多选题分数",
+            shortScore: "问答题目分数"
         }, defaultArrConfig = {
-            "passingScore": 72,
-            "time": 60,
-            "judgmentNumber": 10,
-            "selectNumber": 40,
-            "multipleNumber": 30,
-            "shortNumber": 5,
-            "judgmentScore": 2,
-            "selectScore": 2,
-            "multipleScore": 3,
-            "shortScore": 5
+            passingScore: 72,
+            time: 60,
+            judgmentNumber: 10,
+            selectNumber: 40,
+            multipleNumber: 30,
+            shortNumber: 5,
+            judgmentScore: 2,
+            selectScore: 2,
+            multipleScore: 3,
+            shortScore: 5
         };
 
         mt.extend({
@@ -58,15 +60,15 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         }
 
-        var arrCarType = <?=\yii\helpers\Json::encode($carType)?>,
-            arrStatus = <?=\yii\helpers\Json::encode(Yii::$app->params['status'])?>;
+        var arrCarType = <?=Json::encode($carType)?>,
+            arrStatus = <?=Json::encode(Yii::$app->params['status'])?>;
         var myTable = meTables({
             title: "科目信息",
             fileSelector: ["#icon-image"],
             operations: {
                 width: "auto",
                 buttons: {
-                    "create": {
+                    create: {
                         "className": "btn-success",
                         "cClass": "create-question",
                         "icon": "fa-plus-circle",
@@ -76,78 +78,84 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },
             table: {
-                "aoColumns": [
+                aoColumns: [
                     {
-                        "title": "id",
-                        "data": "id",
-                        "edit": {"type": "hidden"},
-                        "search": {"type": "text"},
-                        "defaultOrder": "desc"
+                        title: "id",
+                        data: "id",
+                        edit: {type: "hidden"},
+                        search: {type: "text"},
+                        defaultOrder: "desc"
                     },
                     {
-                        "title": "所属类型",
-                        "data": "car_id",
-                        "value": arrCarType,
-                        "edit": {"type": "select", "required": true, "number": true},
-                        "search": {"type": "select"},
-                        "createdCell": function (td, data) {
+                        title: "所属类型",
+                        data: "car_id",
+                        value: arrCarType,
+                        edit: {type: "select", required: true, number: true},
+                        search: {type: "select"},
+                        createdCell: function (td, data) {
                             $(td).html(arrCarType[data] ? arrCarType[data] : data);
                         }
                     },
                     {
-                        "title": "科目名称",
-                        "data": "name",
-                        "edit": {"type": "text", "required": true, "rangelength": "[2, 255]"},
-                        "search": {"type": "text"}
+                        title: "科目名称",
+                        data: "name",
+                        edit: {required: true, rangeLength: "[2, 255]"},
+                        search: {type: "text"}
                     },
                     {
-                        "title": "科目说明",
-                        "data": "desc",
-                        "edit": {"type": "text", "required": true, "rangelength": "[2, 1000]"},
-                        "bSortable": false,
-                        "isHide": true
+                        title: "科目说明",
+                        data: "desc",
+                        edit: {required: true, rangeLength: "[2, 1000]"},
+                        sortable: false,
+                        isHide: true
                     },
                     {
-                        "title": "科目配置",
-                        "data": "config",
-                        "edit": {"type": "config", "required": true, "rangelength": "[2, 1000]"},
-                        "bSortable": false,
-                        "isHide": true
+                        title: "科目配置",
+                        data: "config",
+                        edit: {type: "config", required: true, rangeLength: "[2, 1000]"},
+                        sortable: false,
+                        isHide: true
                     },
                     {
-                        "title": "图标", "data": "image", "sName": "image", "bSortable": false,
-                        "edit": {
-                            "type": "file", "rangelength": "[2, 255]",
-                            "options": {
+                        title: "图标", 
+                        data: "image",
+                        sortable: false,
+                        edit: {
+                            type: "file",
+                            options: {
                                 "id": "icon-image",
                                 "name": "UploadForm[image]",
                                 "input-type": "ace_file",
                                 "input-name": "image"
                             }
                         },
-                        "isHide": true
+                        isHide: true
                     },
                     {
-                        "title": "排序",
-                        "data": "sort",
-                        "edit": {"type": "text", "value": 100, "required": true, "number": true}
+                        title: "排序",
+                        data: "sort",
+                        edit: {value: 100, required: true, number: true}
                     },
                     {
-                        "data": "status",
-                        "title": "状态",
-                        "value": arrStatus,
-                        "edit": {"type": "radio", "default": 1, "required": 1, "number": 1},
-                        "search": {"type": "select"},
-                        "createdCell": mt.statusString
+                        data: "status",
+                        title: "状态",
+                        value: arrStatus,
+                        edit: {type: "radio", default: 1, required: 1, number: 1},
+                        search: {type: "select"},
+                        createdCell: mt.statusString
                     },
-                    {"title": "创建时间", "data": "created_at", "createdCell": mt.dateTimeString}
+                    {
+                        title: "创建时间",
+                        data: "created_at",
+                        createdCell: mt.dateTimeString
+                    }
                 ]
             }
         });
 
         var $image = null;
         mt.fn.extend({
-            afterShow: function (data, child) {
+            afterShow: function (data) {
 
                 if (this.action !== "delete") {
                     $image.ace_file_input("reset_input");
@@ -196,7 +204,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             type: 2,
                             area: ["90%", "90%"],
                             maxmin: true,
-                            content: "<?=\yii\helpers\Url::toRoute(['question/create'])?>?subject_id=" + data["id"]
+                            content: "<?=Url::toRoute(['question/create'])?>?subject_id=" + data["id"]
                         });
 
                         return false;
