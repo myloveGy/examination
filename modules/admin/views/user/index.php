@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Json;
 use jinxing\admin\widgets\MeTable;
 
@@ -11,8 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= MeTable::widget() ?>
 <?php $this->beginBlock('javascript') ?>
     <script type="text/javascript">
-        var sUpload = '<?=Url::toRoute(['user/upload', 'sField' => 'face'])?>',
-            arrStatus = <?=Json::encode($status)?>,
+        var arrStatus = <?=Json::encode($status)?>,
             aStatusColor = <?=Json::encode($statusColor)?>,
             myTable = meTables({
                 title: "用户信息",
