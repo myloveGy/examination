@@ -10,10 +10,9 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Question;
 use jinxing\admin\helpers\Helper;
-use jinxing\admin\traits\JsonTrait;
-use Yii;
 
 /**
  * Class ApiController API 处理
@@ -22,8 +21,6 @@ use Yii;
  */
 class ApiController extends Controller
 {
-    use JsonTrait;
-
     /**
      * 添加问题
      *
@@ -31,17 +28,21 @@ class ApiController extends Controller
      */
     public function actionCreateQuestion()
     {
+        if (!YII_DEBUG) {
+            return $this->asJson(['code' => 400, 'msg' => 'server error']);
+        }
+
         $request = Yii::$app->request;
         Yii::$app->response->headers->set('Access-Control-Allow-Origin', '*');
         if (Question::findOne(['question_title' => $request->get('question_title')])) {
-            return $this->error(405, '题目已经存在');
+            return $this->asJson(['code' => 401, 'msg' => '题目已经存在']);
         }
 
         $model = new Question();
         if (!$model->load($request->get(), '') || !$model->save()) {
-            return $this->error(201, Helper::arrayToString($model->getErrors()));
+            return $this->asJson(['code' => 402, 'msg' => Helper::arrayToString($model->getErrors())]);
         }
 
-        return $this->success($model);
+        return $this->asJson(['code' => 200, 'msg' => 'success', 'data' => $model]);
     }
 }
