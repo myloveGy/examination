@@ -354,13 +354,6 @@ class QuestionController extends Controller
             return $this->errorRedirect('我的错题信息为空');
         }
 
-        $arrIds = Json::decode($objIds->value, true);
-        // 全部题目
-        $allTotal = Question::find()->where([
-            'status'     => Question::STATUS_KEY,
-            'subject_id' => $subject->id
-        ])->count(); // 全部题库
-
         $cars                                  = $subject->car;
         Yii::$app->view->params['breadcrumbs'] = [
             [
@@ -374,18 +367,25 @@ class QuestionController extends Controller
             '我的错题',
         ];
 
-        // 开始查询 // 查询一条数据
-        if (!$question = Question::findOne($arrIds[0])) {
+        $arrIds = Json::decode($objIds->value);
+        do {
+            $question = Question::findOne(array_shift($arrIds));
+        } while (!$question && $arrIds);
+
+        // 查询一条数据
+        if (empty($question)) {
             return $this->errorRedirect('我的错题信息为空');
         }
 
+        array_unshift($arrIds, $question->id);
         // 查询问题答案
         $answer = Json::decode($question->answers);
+        $total  = count($arrIds);
         return $this->render('index', [
             'cars'       => $cars,
             'subject'    => $subject,
-            'allTotal'   => (int)$allTotal,
-            'total'      => count($arrIds),
+            'allTotal'   => $total,
+            'total'      => $total,
             'hasCollect' => UserCollect::hasCollect($question->id, $subject->id),
             'allIds'     => Json::encode($arrIds),
             'question'   => $question,
