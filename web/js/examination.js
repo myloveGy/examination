@@ -4,7 +4,9 @@
  *
  * 1. 浏览器打开驾考宝典，科目一顺序考试(http://www.jiakaobaodian.com/mnks/exercise/0-car-kemu1-beijing.html)
  * 2. 浏览器开启开发者模式，将下面js 复制到 console 命令行里面 执行
- * 3. console 命名行 var ks = examination(); ks.init({url: "你本地或者服务地址/api/create-question"}).go()
+ * 3. console 命名行
+ *  var ks = examination();
+ *  ks.init({url: "你本地或者服务地址/api/create-question"}).go();
  * 4. 不需要执行了 ks.nextHandle = false;
  */
 (function () {
