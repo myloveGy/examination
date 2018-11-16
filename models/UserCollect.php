@@ -9,9 +9,9 @@ use yii\helpers\Json;
 /**
  * This is the model class for table "{{%user_collect}}".
  *
- * @property integer $user_id
- * @property integer $subject_id
- * @property array  $qids
+ * @property integer      $user_id
+ * @property integer      $subject_id
+ * @property string|array $qids
  */
 class UserCollect extends ActiveRecord
 {
@@ -41,31 +41,34 @@ class UserCollect extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => '用户ID',
-            'qids' => '收藏问题',
+            'user_id'    => '用户ID',
+            'qids'       => '收藏问题',
             'subject_id' => '科目ID',
         ];
     }
 
     /**
      * hasCollect() 通过问题ID确定用户有没有收藏该问题
-     * @param  int $id           问题ID
-     * @param  int $intSubjectId 科目ID
+     *
+     * @param  int  $id           问题ID
+     * @param  int  $intSubjectId 科目ID
      * @param  null $intUserId
+     *
      * @return bool
      */
     public static function hasCollect($id, $intSubjectId, $intUserId = null)
     {
-        $isReturn = false;
-        if ($intUserId || ! Yii::$app->user->isGuest) {
-            $collect = self::findOne([
-                'user_id' => $intUserId ? $intUserId : Yii::$app->user->id,
-                'subject_id' => $intSubjectId
-            ]);
-            if ($collect && in_array($id, $collect->qids)) $isReturn = true;
+        // 传递参数错误 或者 user_id 为空
+        if (empty($id) || (!$intUserId = $intUserId ?: Yii::$app->user->id)) {
+            return false;
         }
 
-        return $isReturn;
+        // 没有查询到用户收藏记录
+        if (!$collect = self::findOne(['user_id' => $intUserId, 'subject_id' => $intSubjectId])) {
+            return false;
+        }
+
+        return in_array($id, $collect->qids);
     }
 
     /**
@@ -73,10 +76,6 @@ class UserCollect extends ActiveRecord
      */
     public function afterFind()
     {
-        if (empty($this->qids)) {
-            $this->qids = [];
-        } else {
-            $this->qids = Json::decode($this->qids, true);
-        }
+        $this->qids = empty($this->qids) ? [] : Json::decode($this->qids);
     }
 }
