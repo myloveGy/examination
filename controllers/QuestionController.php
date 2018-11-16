@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Subject;
 use app\models\UserCollect;
 use jinxing\admin\traits\JsonTrait;
-use Yii;
 use app\models\Question;
 use app\models\Chapter;
 use app\models\Special;
@@ -348,13 +348,26 @@ class QuestionController extends Controller
             return $this->errorRedirect('我的错题信息为空');
         }
 
-        $cookie = Yii::$app->request->cookies;
-        $objIds = $cookie->get('no');
-        if (empty($objIds) || empty($objIds->value)) {
+        // cookie 中没有存在错题信息
+        $errorQuestionCookie = Yii::$app->request->cookies->get('no');
+        if (empty($errorQuestionCookie) || !($arrIds = Json::decode($errorQuestionCookie->value))) {
             return $this->errorRedirect('我的错题信息为空');
         }
 
-        $cars                                  = $subject->car;
+        // 因为cookie 里面保存的问题可能没有，所以从第一个取，直到取到
+        do {
+            $question = Question::findOne(array_shift($arrIds));
+        } while (!$question && $arrIds);
+
+        // 保存的 cookie 题目信息错误
+        if (empty($question)) {
+            return $this->errorRedirect('我的错题信息为空');
+        }
+
+        // 取出的第一个元素，要塞回去
+        array_unshift($arrIds, $question->id);
+        $cars = $subject->car;
+
         Yii::$app->view->params['breadcrumbs'] = [
             [
                 'label' => $cars->name,
@@ -367,17 +380,6 @@ class QuestionController extends Controller
             '我的错题',
         ];
 
-        $arrIds = Json::decode($objIds->value);
-        do {
-            $question = Question::findOne(array_shift($arrIds));
-        } while (!$question && $arrIds);
-
-        // 查询一条数据
-        if (empty($question)) {
-            return $this->errorRedirect('我的错题信息为空');
-        }
-
-        array_unshift($arrIds, $question->id);
         // 查询问题答案
         $answer = Json::decode($question->answers);
         $total  = count($arrIds);
