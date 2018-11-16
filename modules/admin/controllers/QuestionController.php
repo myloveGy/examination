@@ -233,8 +233,8 @@ class QuestionController extends Controller
             }
         }
 
-        $isTrue = !empty($array) ? $db->createCommand()->batchInsert('{{%question}}', $fields, $array)->execute() : true;
-        if (!$isTrue) {
+        // 存在数据，并且新增失败、报错误
+        if ($array && !$db->createCommand()->batchInsert('{{%question}}', $fields, $array)->execute()) {
             return $this->error(404, '上传题目处理失败');
         }
 
