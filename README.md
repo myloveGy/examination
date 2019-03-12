@@ -20,6 +20,10 @@ php composer install
 
 > 普通管理员： admin 密码： admin123
 
+### Dmoe
+
+[demo网址](https://examination.sh-jinger.com)
+
 ### 预览
 1. 首页
 ![首页](./docs/docs0.png)

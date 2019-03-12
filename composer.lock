@@ -120,7 +120,7 @@
             "version": "3.2.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "77d2a51d0520d2ee44173afdf4e40a9201f5964e"
             },
             "dist": {
@@ -319,16 +319,16 @@
         },
         {
             "name": "jinxing/yii2-admin",
-            "version": "1.0.11",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myloveGy/yii2-admin.git",
-                "reference": "a0cc1ecfecc71d46efcd95848980fa54307d9a8e"
+                "reference": "bfed93e3a91fcd2695c7bdd51558e7b94eb9ef6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myloveGy/yii2-admin/zipball/a0cc1ecfecc71d46efcd95848980fa54307d9a8e",
-                "reference": "a0cc1ecfecc71d46efcd95848980fa54307d9a8e",
+                "url": "https://api.github.com/repos/myloveGy/yii2-admin/zipball/bfed93e3a91fcd2695c7bdd51558e7b94eb9ef6a",
+                "reference": "bfed93e3a91fcd2695c7bdd51558e7b94eb9ef6a",
                 "shasum": ""
             },
             "require": {
@@ -360,7 +360,7 @@
                 "rbac",
                 "yii2"
             ],
-            "time": "2018-11-14T10:16:47+00:00"
+            "time": "2018-11-23T03:31:13+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
