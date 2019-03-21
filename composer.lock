@@ -238,6 +238,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/myloveGy/yii2-admin/zipball/bfed93e3a91fcd2695c7bdd51558e7b94eb9ef6a",
                 "reference": "bfed93e3a91fcd2695c7bdd51558e7b94eb9ef6a",
+<<<<<<< HEAD
                 "shasum": "",
                 "mirrors": [
                     {
@@ -245,6 +246,9 @@
                         "preferred": true
                     }
                 ]
+=======
+                "shasum": ""
+>>>>>>> 89dd6748ba50f220e74b1720d94fd5f20ad9c05b
             },
             "require": {
                 "phpoffice/phpexcel": "*",

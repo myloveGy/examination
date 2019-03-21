@@ -100,7 +100,7 @@ AppAsset::register($this);
                 <div class="jkbd-width wid-auto">
                     <ul class="cl">
                         <li>
-                            <a href="http://www.dd119.com" target="_blank" class="a-link">技术支持--湖南得大工程有限公司</a>
+                            <a href="/" target="_blank" class="a-link">考试系统</a>
                         </li>
                     </ul>
                 </div>
