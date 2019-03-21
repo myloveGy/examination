@@ -1,8 +1,8 @@
 <?php
 
 // 定义调试环
-define('YII_DEBUG', true);
-define('YII_ENV', 'dev');
+define('YII_DEBUG', false);
+define('YII_ENV', 'prod');
 
 // 引入核心文件
 require(__DIR__ . '/../vendor/autoload.php');
