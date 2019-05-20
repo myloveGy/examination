@@ -18,7 +18,8 @@ class ClassificationController extends Controller
     public function where()
     {
         return [
-            'name' => 'like',
+            ['id', '='],
+            ['name', 'like'],
         ];
     }
 }
