@@ -1,11 +1,5 @@
 <?php
-/**
- * file: UserController.php
- * desc: 用户信息 执行操作控制器
- * date: 2016-10-10 18:26:50
- */
 
-// 引入命名空间
 namespace app\modules\admin\controllers;
 
 use app\modules\admin\models\User;
