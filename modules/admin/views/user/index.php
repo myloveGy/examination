@@ -27,17 +27,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             title: "用户昵称",
                             data: "username",
                             edit: {required: true, rangeLength: "[2, 255]"},
+                            search: {type: "input"},
                             sortable: false
                         },
                         {
                             title: "邮箱",
                             data: "email",
                             edit: {required: true, rangeLength: "[2, 255]"},
+                            search: {type: "input"},
                             sortable: false
                         },
                         {
                             title: "手机号",
                             data: "phone",
+                            search: {type: "input"},
                             edit: {required: true, rangeLength: "[2, 255]"},
                             sortable: false
                         },
@@ -82,6 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             value: arrStatus,
                             edit: {type: "radio", default: 10, required: true, number: true},
                             sortable: false,
+                            search: {type: "select"},
                             createdCell: function (td, data) {
                                 $(td).html(mt.valuesString(arrStatus, aStatusColor, data));
                             }

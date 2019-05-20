@@ -28,7 +28,8 @@ class UserController extends Controller
     public function where()
     {
         return [
-            [['username', 'email'], 'like'],
+            [['id', 'status'], '='],
+            [['username', 'email', 'phone'], 'like'],
         ];
     }
 
