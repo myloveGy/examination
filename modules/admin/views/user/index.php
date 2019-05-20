@@ -21,26 +21,27 @@ $this->params['breadcrumbs'][] = $this->title;
                             title: "用户ID",
                             data: "id",
                             edit: {type: "hidden"},
+                            search: {type: "text"},
                             defaultOrder: "desc"
                         },
                         {
                             title: "用户昵称",
                             data: "username",
                             edit: {required: true, rangeLength: "[2, 255]"},
-                            search: {type: "input"},
+                            search: {type: "text"},
                             sortable: false
                         },
                         {
                             title: "邮箱",
                             data: "email",
                             edit: {required: true, rangeLength: "[2, 255]"},
-                            search: {type: "input"},
+                            search: {type: "text"},
                             sortable: false
                         },
                         {
                             title: "手机号",
                             data: "phone",
-                            search: {type: "input"},
+                            search: {type: "text"},
                             edit: {required: true, rangeLength: "[2, 255]"},
                             sortable: false
                         },
