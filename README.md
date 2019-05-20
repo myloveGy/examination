@@ -3,27 +3,28 @@
 
 ## 安装说明
 1. [git clone 项目](https://github.com/myloveGy/examination)
-```
-git clone git@github.com:myloveGy/examination.git
-```
+
+    ```
+    git clone git@github.com:myloveGy/examination.git
+    ```
 
 2. composer install 
-```
-php composer install
-```
 
-* composer 如果安装笔记慢的话，可能是 yii 镜像问题，建议镜像使用中国镜像
+    ```
+    php composer install
+    ```
 
-[中国镜像 https://pkg.phpcomposer.com/](https://pkg.phpcomposer.com/)
-
+    * composer 如果安装慢的话，可能是 yii 镜像问题，建议镜像使用中国镜像
+    
+    [中国镜像 https://pkg.phpcomposer.com/](https://pkg.phpcomposer.com/)
 
 3. 将SQL文件导入数据库(文件位于目录下的/docs/examination.sql)
 
 4. 配置虚拟目录(需要开启路由重写)，后台地址：域名/admin 
 
-> 超级管理员： super 密码： admin123
-
-> 普通管理员： admin 密码： admin123
+    > 超级管理员： super 密码： admin123
+    
+    > 普通管理员： admin 密码： admin123
 
 #### 项目数据库配置文件被我屏蔽掉了，需要在项目 config 中添加 db.php 文件
 

@@ -22,9 +22,8 @@ class ChapterController extends Controller
     public function where()
     {
         return [
-            'id'         => '=',
-            'name'       => 'like',
-            'subject_id' => '='
+            [['id', 'subject_id'], '='],
+            ['name', 'like'],
         ];
     }
 

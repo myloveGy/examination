@@ -25,10 +25,8 @@ class SubjectController extends Controller
     public function where()
     {
         return [
-            'id'     => '=',
-            'name'   => 'like',
-            'car_id' => '=',
-            'status' => '=',
+            [['id', 'car_id', 'status'], '='],
+            ['name', 'like'],
         ];
     }
 

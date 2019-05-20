@@ -32,11 +32,7 @@ class QuestionController extends Controller
     public function where()
     {
         return [
-            'status'      => '=',
-            'answer_type' => '=',
-            'subject_id'  => '=',
-            'chapter_id'  => '=',
-            'special_id'  => '=',
+            [['status', 'answer_type', 'subject_id', 'chapter_id', 'special_id'], '='],
         ];
     }
 
