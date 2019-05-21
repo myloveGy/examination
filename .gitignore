@@ -30,3 +30,4 @@ phpunit.phar
 
 tests/_output/*
 tests/_support/_generated
+./composer.lock
