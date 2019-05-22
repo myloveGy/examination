@@ -2,6 +2,14 @@
 --------
 
 ## 安装说明
+
+* 提示：请先确定安装了[Composer Asset插件:](https://github.com/fxpio/composer-asset-plugin)
+    
+    ```
+    php composer.phar global require "fxp/composer-asset-plugin:^1.2.0"
+    ```
+* 不想使用 composer 安装，可以下载：[最新包]() 下载后，需要从第三步开始
+
 1. [git clone 项目](https://github.com/myloveGy/examination)
 
     ```
