@@ -11,7 +11,8 @@
 * 不想使用 composer 安装，可以从如下地址下载打包文件(最新) 下载后，需要从第三步开始：
     
     * [百度网盘](https://pan.baidu.com/s/1QoAOWuZ0ezhpsO8BMi959A)
-    * [有道云笔记](https://note.youdao.com/ynoteshare1/index.html?id=64a4971336b8cc94d2239f4d6c1e4ecb&type=note)
+    * [有道云笔记](http://note.youdao.com/noteshare?id=3ea111e23966e4a41f128091111e2805)
+    * [CSDN](https://download.csdn.net/download/myliujx/11193971)
 
 1. [git clone 项目](https://github.com/myloveGy/examination)
 
