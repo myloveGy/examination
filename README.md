@@ -2,6 +2,19 @@
 --------
 
 ## 安装说明
+
+* 不想使用 composer 安装，可以从如下地址下载打包文件(最新) 下载后，需要从第3步开始：
+    
+    * [百度网盘](https://pan.baidu.com/s/1QoAOWuZ0ezhpsO8BMi959A)
+    * [有道云笔记](http://note.youdao.com/noteshare?id=3ea111e23966e4a41f128091111e2805)
+    * [CSDN](https://download.csdn.net/download/myliujx/11193971)
+    
+* 提示：请先确定安装了[Composer Asset插件:](https://github.com/fxpio/composer-asset-plugin)
+    
+    ```
+    php composer.phar global require "fxp/composer-asset-plugin:^1.2.0"
+    ```
+    
 1. [git clone 项目](https://github.com/myloveGy/examination)
 
     ```
