@@ -1,12 +1,4 @@
 <?php
-/**
- *
- * ApiController.php
- *
- * Author: jinxing.liu@verystar.cn
- * Create: 2018/11/15 15:34
- * Editor: created by PhpStorm
- */
 
 namespace app\controllers;
 
