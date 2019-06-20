@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
         });
 
         function initConfig(defaultVal) {
-            var $div = $(".div-config");
+            var $div = $(".div-right-config");
             for (var x in defaultVal) {
                 $div.find("input[name=config\\[" + x + "\\]]").val(defaultVal[x]);
             }
@@ -93,6 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         value: arrCarType,
                         edit: {type: "select", required: true, number: true},
                         search: {type: "select"},
+                        sortable: false,
                         createdCell: function (td, data) {
                             $(td).html(arrCarType[data] ? arrCarType[data] : data);
                         }
@@ -100,6 +101,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     {
                         title: "科目名称",
                         data: "name",
+                        sortable: false,
                         edit: {required: true, rangeLength: "[2, 255]"},
                         search: {type: "text"}
                     },
@@ -177,6 +179,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
 
+                    console.info("defaultVal", defaultVal);
                     initConfig(defaultVal);
                 }
 
@@ -195,24 +198,24 @@ $this->params['breadcrumbs'][] = $this->title;
             $image = $("#icon-image");
 
             // 添加题目
-            $(document).on('click', 'button.create-question', function () {
-                var i = $(this).attr("table-data");
-                if (i) {
-                    var data = myTable.table.data()[i];
-                    if (data) {
-                        layerLoading = layer.open({
-                            title: "添加题目",
-                            type: 2,
-                            area: ["90%", "90%"],
-                            maxmin: true,
-                            content: "<?=Url::toRoute(['question/create'])?>?subject_id=" + data["id"]
-                        });
+            $(document).on('click', 'button.create-question-show-table', function () {
+                var i = $(this).data("row");
+                var data = myTable.table.data()[i];
+                if (data) {
+                    layerLoading = layer.open({
+                        title: "添加题目",
+                        type: 2,
+                        area: ["90%", "90%"],
+                        maxmin: true,
+                        content: "<?=Url::toRoute(['question/create'])?>?subject_id=" + data["id"]
+                    });
 
-                        return false;
-                    }
+                    return false;
+                } else {
+                    layer.msg("请确认操作");
                 }
 
-                layer.msg("请确认操作");
+
             });
         });
     </script>

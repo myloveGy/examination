@@ -8,7 +8,6 @@
 namespace app\modules\admin\controllers;
 
 use app\models\CarType;
-use jinxing\admin\controllers\Controller;
 use yii\helpers\ArrayHelper;
 
 class SubjectController extends Controller

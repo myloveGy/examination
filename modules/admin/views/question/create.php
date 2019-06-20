@@ -13,53 +13,55 @@ $this->title = '题目信息添加';
 AdminAsset::meTablesRegister($this);
 ?>
 <form class="form-horizontal" id="create-form" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="status" value="1" />
+    <input type="hidden" name="status" value="1"/>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 题目问题 </label>
         <div class="col-sm-9">
-            <textarea name="question_title" required="required" rangelength="[1, 2000]" class="col-xs-12 col-sm-8"  cols="30" rows="6"></textarea>
+            <textarea name="question_title" required="required" rangelength="[1, 2000]" class="col-xs-12 col-sm-8"
+                      cols="30" rows="6"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 题目题解 </label>
         <div class="col-sm-9">
-            <textarea name="question_content" required="required" rangelength="[1, 2000]" class="col-xs-12 col-sm-8" cols="30" rows="6"></textarea>
+            <textarea name="question_content" required="required" rangelength="[1, 2000]" class="col-xs-12 col-sm-8"
+                      cols="30" rows="6"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 所属科目 </label>
         <div class="col-sm-9">
-            <?=Html::dropDownList('subject_id', $subject_id, $subject, [
-                'class' => 'col-xs-10 col-sm-5',
-                'id' => 'subject-id',
-                'number' => 'true',
+            <?= Html::dropDownList('subject_id', $subject_id, $subject, [
+                'class'    => 'col-xs-10 col-sm-5',
+                'id'       => 'subject-id',
+                'number'   => 'true',
                 'required' => 'true',
-                'min' => 1,
-            ])?>
+                'min'      => 1,
+            ]) ?>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 所属章节 </label>
         <div class="col-sm-9">
-            <?=Html::dropDownList('chapter_id', $chapter_id, $chapter, [
-                'class' => 'col-xs-10 col-sm-5',
-                'id' => 'chapter-id',
-                'number' => 'true',
+            <?= Html::dropDownList('chapter_id', $chapter_id, $chapter, [
+                'class'    => 'col-xs-10 col-sm-5',
+                'id'       => 'chapter-id',
+                'number'   => 'true',
                 'required' => 'true',
-                'min' => 1,
-            ])?>
+                'min'      => 1,
+            ]) ?>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 问题类型 </label>
         <div class="col-sm-9">
-            <?=Html::dropDownList('answer_type', 1, $types, [
-                'class' => 'col-xs-10 col-sm-5',
-                'id' => 'answer-type-select',
-                'number' => 'true',
+            <?= Html::dropDownList('answer_type', 1, $types, [
+                'class'    => 'col-xs-10 col-sm-5',
+                'id'       => 'answer-type-select',
+                'number'   => 'true',
                 'required' => 'true',
-                'min' => 1,
-            ])?>
+                'min'      => 1,
+            ]) ?>
         </div>
     </div>
     <div class="form-group">
@@ -77,7 +79,8 @@ AdminAsset::meTablesRegister($this);
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 正确答案 </label>
         <div class="col-sm-9">
-            <select type="select" id="input-answer-type" multiple="multiple" required="true" name="answer_id" class="col-xs-10 col-sm-5">
+            <select type="select" id="input-answer-type" multiple="multiple" required="true" name="answer_id"
+                    class="col-xs-10 col-sm-5">
                 <option value="-1">请选择</option>
             </select>
         </div>
@@ -85,7 +88,7 @@ AdminAsset::meTablesRegister($this);
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 专项分类 </label>
         <div class="col-sm-9">
-            <?=Html::dropDownList('special_id', 1, $special, ['class' => 'col-xs-10 col-sm-5'])?>
+            <?= Html::dropDownList('special_id', 1, $special, ['class' => 'col-xs-10 col-sm-5']) ?>
         </div>
     </div>
     <div class="form-group">
@@ -93,7 +96,8 @@ AdminAsset::meTablesRegister($this);
         <div class="col-sm-9">
             <div class="col-sm-5">
                 <input type="hidden" name="question_img">
-                <input type="file" id="upload-image" name="UploadForm[question_img]" input-type="ace_input" input-name="question_img" />
+                <input type="file" id="upload-image" name="UploadForm[question_img]" input-type="ace_input"
+                       input-name="question_img"/>
             </div>
         </div>
     </div>
@@ -121,6 +125,7 @@ AdminAsset::meTablesRegister($this);
 <script type="text/javascript">
     var intSubject = <?=$subject_id?>,
         intChapter = <?=$chapter_id?>;
+
     function createInput(name, defaultVal, num) {
         if (!defaultVal) defaultVal = "";
         return '<div class="col-sm-12">' +
@@ -160,7 +165,7 @@ AdminAsset::meTablesRegister($this);
 
     function renderAnswers() {
         var arr = [], x;
-        $(".multiple-input").each(function(){
+        $(".multiple-input").each(function () {
             x = $.trim($(this).val());
             if (x) arr.push(x);
         });
@@ -180,8 +185,8 @@ AdminAsset::meTablesRegister($this);
             url: "<?=Url::toRoute(['chapter'])?>",
             data: {sid: v},
             type: "POST",
-            dataType:"json"
-        }).done(function(json) {
+            dataType: "json"
+        }).done(function (json) {
             if (json.errCode === 0) {
                 for (var x in json.data) {
                     html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
@@ -194,7 +199,7 @@ AdminAsset::meTablesRegister($this);
         });
     }
 
-    $(function(){
+    $(function () {
 
         initAnswers("answers", ["", "", "", ""]);
 
@@ -207,31 +212,31 @@ AdminAsset::meTablesRegister($this);
         aceFileUpload($("#upload-image"), "<?=Url::toRoute(['question/upload', 'id' => 1])?>");
 
         // 问题类型选择
-        $("#answer-type-select").change(function(){
+        $("#answer-type-select").change(function () {
             updateAnswerName(parseInt($(this).val()));
         });
 
         // 添加答
-        $(document).on("click", ".m-input-create", function(evt){
+        $(document).on("click", ".m-input-create", function (evt) {
             evt.preventDefault();
             var $input = $(".div-inputs");
             $input.append(createInput("answers", "", $input.find("input").length));
         });
 
         // 删除答案
-        $(document).on("click", ".m-input-delete", function(evt){
+        $(document).on("click", ".m-input-delete", function (evt) {
             evt.preventDefault();
             $(".div-inputs").find("div.col-sm-12:last").remove();
             renderAnswers();
         });
 
         // 添加答案
-        $(document).on("blur", ".multiple-input", function(){
+        $(document).on("blur", ".multiple-input", function () {
             renderAnswers();
         });
 
         // 选择科目联动章节
-        $("#subject-id").change(function(){
+        $("#subject-id").change(function () {
             var v = parseInt($(this).val());
             if (v) {
                 getChapter(v);
@@ -239,20 +244,22 @@ AdminAsset::meTablesRegister($this);
         });
 
         // 表单提交
-        $("#create-form").submit(function(evt){
+        $("#create-form").submit(function (evt) {
             evt.preventDefault();
             var $fm = $(this);
             if ($fm.validate().form()) {
-                meTables.ajax({
+                MeTables.ajax({
                     url: "<?=Url::toRoute(['question/create'])?>",
                     type: "POST",
                     data: $fm.serialize(),
                     dataType: "json"
-                }).done(function(json){
+                }).done(function (json) {
                     if (json.errCode === 0) {
-                        layer.msg(json.errMsg, {icon: 6, time:1000, end: function(){
-                            parent.closeLayer();
-                        }})
+                        layer.msg(json.errMsg, {
+                            icon: 6, time: 1000, end: function () {
+                                parent.closeLayer();
+                            }
+                        })
                     } else {
                         layer.msg(json.errMsg, {icon: 5})
                     }
@@ -261,7 +268,7 @@ AdminAsset::meTablesRegister($this);
         });
 
         // 关闭
-        $("#close-layer").click(function(){
+        $("#close-layer").click(function () {
             parent.closeLayer();
         });
     });
