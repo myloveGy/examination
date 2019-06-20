@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $image.ace_file_input("reset_input");
 
                 // 修改复值
-                if (this.action == "update" && !empty(data.image)) {
+                if (this.action === "update" && !empty(data.image)) {
                     $image.ace_file_input("show_file_list", [data.image]);
                 }
             }
