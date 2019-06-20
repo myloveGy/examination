@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 title: "用户信息",
                 fileSelector: ["#ace-file"],
                 table: {
-                    aoColumns: [
+                    columns: [
                         {
                             title: "用户ID",
                             data: "id",
@@ -94,17 +94,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         {
                             title: "创建时间",
                             data: "created_at",
-                            createdCell: mt.dateTimeString
+                            createdCell: MeTables.dateTimeString
                         },
                         {
                             title: "修改时间",
                             data: "updated_at",
-                            createdCell: mt.dateTimeString
+                            createdCell: MeTables.dateTimeString
                         },
                         {
                             title: "上一次登录时间",
                             data: "last_time",
-                            createdCell: mt.dateTimeString
+                            createdCell: MeTables.dateTimeString
                         },
                         {
                             title: "上一次登录IP",
@@ -121,11 +121,11 @@ $this->params['breadcrumbs'][] = $this->title;
         myTable.beforeShow = function (data) {
             // 新增
             $img.ace_file_input("reset_input");
+
             // 修改复值
-            if (this.action == 'update' && !empty(data.face)) {
+            if (this.action === 'update' && !empty(data.face)) {
                 $img.ace_file_input("show_file_list", [data.face]);
             }
-            return true;
         };
 
         $(function () {

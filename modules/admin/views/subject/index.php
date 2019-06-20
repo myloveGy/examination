@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },
             table: {
-                aoColumns: [
+                columns: [
                     {
                         title: "id",
                         data: "id",
@@ -147,14 +147,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     {
                         title: "创建时间",
                         data: "created_at",
-                        createdCell: mt.dateTimeString
+                        createdCell: MeTables.dateTimeString
                     }
                 ]
             }
         });
 
         var $image = null;
-        mt.fn.extend({
+        $.extend(m, {
             afterShow: function (data) {
 
                 if (this.action !== "delete") {

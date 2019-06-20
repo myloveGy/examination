@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
             title: "考试类型",
             fileSelector: ["#icon-image"],
             table: {
-                aoColumns: [
+                columns: [
                     {
                         title: "ID",
                         data: "id",
@@ -68,14 +68,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     {
                         title: "创建时间",
                         data: "created_at",
-                        createdCell: mt.dateTimeString
+                        createdCell: MeTables.dateTimeString
                     }
                 ]
             }
         });
 
         var $image = null;
-        mt.fn.extend({
+        $.extend(m, {
             afterShow: function (data) {
                 $image.ace_file_input("reset_input");
 
@@ -83,8 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 if (this.action == "update" && !empty(data.image)) {
                     $image.ace_file_input("show_file_list", [data.image]);
                 }
-
-                return true;
             }
         });
 

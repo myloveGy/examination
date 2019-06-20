@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },
             table: {
-                aoColumns: [
+                columns: [
                     {
                         title: "章节分类ID",
                         data: "id",
@@ -56,8 +56,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         data: "sort",
                         edit: {value: 100, required: true, number: true}
                     },
-                    {title: "添加时间", data: "created_at", createdCell: mt.dateTimeString},
-                    {title: "修改时间", data: "updated_at", createdCell: mt.dateTimeString}
+                    {title: "添加时间", data: "created_at", createdCell: MeTables.dateTimeString},
+                    {title: "修改时间", data: "updated_at", createdCell: MeTables.dateTimeString}
                 ]
             }
         });

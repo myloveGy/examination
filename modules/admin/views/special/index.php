@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
             myTable = meTables({
                 title: "专项分类",
                 table: {
-                    aoColumns: [
+                    columns: [
                         {
                             title: "id",
                             data: "id",
@@ -48,12 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         {
                             title: "添加时间",
                             data: "created_at",
-                            createdCell: mt.dateTimeString
+                            createdCell: MeTables.dateTimeString
                         },
                         {
                             title: "修改时间",
                             data: "updated_at",
-                            createdCell: mt.dateTimeString
+                            createdCell: MeTables.dateTimeString
                         }
                     ]
                 }

@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             // 主表格
             table: {
-                aoColumns: [
+                columns: [
                     {
                         title: "题目ID",
                         data: "id",
@@ -253,8 +253,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             $(td).html(showSpan(aStatus, aColor, data));
                         }
                     },
-                    {title: "创建时间", data: "created_at", createdCell: mt.dateTimeString},
-                    {title: "修改时间", data: "updated_at", createdCell: mt.dateTimeString},
+                    {title: "创建时间", data: "created_at", createdCell: MeTables.dateTimeString},
+                    {title: "修改时间", data: "updated_at", createdCell: MeTables.dateTimeString},
                     {title: "错误人数", data: "error_number"}
                 ]
             }
@@ -371,7 +371,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $("#input-answer-type").prop("name", strType === 3 ? "answer_id[]" : "answer_id");
         }
 
-        mt.fn.extend({
+        $.extend(m, {
             upload: function () {
                 $("#upload-modal").modal({backdrop: "static"});   // 弹出信息
             }
