@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var m = MeTables({
             title: "考试类型",
             fileSelector: ["#icon-image"],
+            number: false,
             table: {
                 columns: [
                     {

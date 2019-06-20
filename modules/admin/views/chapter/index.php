@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var arrSubject = <?=Json::encode($subject)?>;
         var myTable = meTables({
             title: "章节信息",
+            number: false,
             operations: {
                 width: "auto",
                 buttons: {

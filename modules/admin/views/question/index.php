@@ -110,6 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var myTable = meTables({
             title: "题库信息",
             fileSelector: ["#image-file", "#upload-xls"],
+            number: false,
             buttons: {
                 upload: {
                     text: "导入题目",

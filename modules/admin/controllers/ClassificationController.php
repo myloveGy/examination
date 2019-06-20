@@ -22,4 +22,18 @@ class ClassificationController extends Controller
             ['name', 'like'],
         ];
     }
+
+    /**
+     * 数据导出格式化
+     *
+     * @return array
+     */
+    public function getExportHandleParams()
+    {
+        return [
+            'created_at' => function ($value) {
+                return date('Y-m-d H:i:s', $value);
+            },
+        ];
+    }
 }

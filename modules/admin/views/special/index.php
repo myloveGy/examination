@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var aParents = <?=Json::encode($parents)?>,
             myTable = meTables({
                 title: "专项分类",
+                number: false,
                 table: {
                     columns: [
                         {

@@ -37,4 +37,18 @@ class SpecialController extends Controller
         $arrParent = Special::find()->where(['pid' => 0])->orderBy('sort')->all();
         return $this->render('index', ['parents' => Helper::map($arrParent, 'id', 'name', ['顶级分类'])]);
     }
+
+    /**
+     * 导出数据格式化
+     *
+     * @return array|mixed
+     */
+    public function getExportHandleParams()
+    {
+        $array['created_at'] = $array['updated_at'] = function ($value) {
+            return date('Y-m-d H:i:s', $value);
+        };
+
+        return $array;
+    }
 }

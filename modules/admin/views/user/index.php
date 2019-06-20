@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
             myTable = meTables({
                 title: "用户信息",
                 fileSelector: ["#ace-file"],
+                number: false,
                 table: {
                     columns: [
                         {

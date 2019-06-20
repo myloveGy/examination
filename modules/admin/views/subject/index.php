@@ -65,6 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var myTable = meTables({
             title: "科目信息",
             fileSelector: ["#icon-image"],
+            number: false,
             operations: {
                 width: "auto",
                 buttons: {
