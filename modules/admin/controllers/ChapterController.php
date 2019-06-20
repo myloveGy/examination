@@ -1,15 +1,14 @@
 <?php
-/**
- * file: ChapterController.php
- * desc: 章节信息 执行操作控制器
- * date: 2016-10-11 15:47:39
- */
 
 namespace app\modules\admin\controllers;
 
 use app\models\Subject;
-use jinxing\admin\controllers\Controller;
 
+/**
+ * Class ChapterController 章节信息
+ *
+ * @package app\modules\admin\controllers
+ */
 class ChapterController extends Controller
 {
     public $modelClass = 'app\models\Chapter';

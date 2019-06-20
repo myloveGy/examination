@@ -3,10 +3,10 @@
 namespace app\modules\admin\controllers;
 
 use app\modules\admin\models\User;
-use jinxing\admin\controllers\Controller;
 
 /**
- * Class UserController
+ * Class UserController 用户信息
+ *
  * @package     backend\controllers
  * @description 用户信息
  */

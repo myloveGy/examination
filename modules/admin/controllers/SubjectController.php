@@ -1,15 +1,15 @@
 <?php
-/**
- * file: SubjectController.php
- * desc: 科目信息 执行操作控制器
- * date: 2016-10-11 15:42:46
- */
 
 namespace app\modules\admin\controllers;
 
 use app\models\CarType;
 use yii\helpers\ArrayHelper;
 
+/**
+ * Class SubjectController 科目信息
+ *
+ * @package app\modules\admin\controllers
+ */
 class SubjectController extends Controller
 {
     public $modelClass = 'app\models\Subject';

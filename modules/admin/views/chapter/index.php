@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         value: arrSubject,
                         edit: {type: "select", required: true, number: true},
                         search: {type: "select"},
+                        sortable: false,
                         createdCell: function (td, data) {
                             $(td).html(arrSubject[data] ? arrSubject[data] : data);
                         }
@@ -73,24 +74,22 @@ $this->params['breadcrumbs'][] = $this->title;
             myTable.init();
 
             // 添加题目
-            $(document).on('click', '.create-question', function () {
-                var i = $(this).attr("table-data");
-                if (i) {
-                    var data = myTable.table.data()[i];
-                    if (data) {
-                        layerLoading = layer.open({
-                            title: "添加题目",
-                            type: 2,
-                            area: ["90%", "90%"],
-                            maxmin: true,
-                            content: "<?=\yii\helpers\Url::toRoute(['question/create'])?>?chapter_id=" + data["id"]
-                        });
+            $(document).on('click', '.create-question-show-table', function () {
+                var i = $(this).data("row");
+                var data = myTable.table.data()[i];
+                if (data) {
+                    layerLoading = layer.open({
+                        title: "添加题目",
+                        type: 2,
+                        area: ["90%", "90%"],
+                        maxmin: true,
+                        content: "<?=\yii\helpers\Url::toRoute(['question/create'])?>?chapter_id=" + data["id"]
+                    });
 
-                        return false;
-                    }
+                    return false;
+                } else {
+                    layer.msg("请确认操作");
                 }
-
-                layer.msg("请确认操作");
             });
         });
     </script>

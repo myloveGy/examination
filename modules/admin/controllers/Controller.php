@@ -23,6 +23,10 @@ class Controller extends BaseController
             return date('Y-m-d H:i:s', $value);
         };
 
+        $array['status'] = function ($value) {
+            return $value == 1 ? '启用' : '停用';
+        };
+
         return $array;
     }
 }

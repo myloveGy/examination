@@ -7,7 +7,6 @@ use app\models\Chapter;
 use app\models\Question;
 use app\models\Special;
 use app\models\Subject;
-use jinxing\admin\controllers\Controller;
 use jinxing\admin\helpers\Helper;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -15,6 +14,7 @@ use yii;
 
 /**
  * Class QuestionController 题库信息
+ *
  * @package app\modules\admin\controllers
  */
 class QuestionController extends Controller
@@ -100,7 +100,7 @@ class QuestionController extends Controller
             'subject'    => $subject,
             'chapter'    => ArrayHelper::map($chapter, 'id', 'name'),
             'types'      => Question::getTypeDesc(),
-            'special'    => ArrayHelper::map($special, 'id', 'name')
+            'special'    => ArrayHelper::map($special, 'id', 'name'),
         ]);
     }
 

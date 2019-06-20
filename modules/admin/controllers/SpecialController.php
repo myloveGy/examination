@@ -1,15 +1,15 @@
 <?php
-/**
- * file: SpecialController.php
- * desc: 专项分类 执行操作控制器
- * date: 2016-10-11 15:56:50
- */
 
 namespace app\modules\admin\controllers;
 
 use app\models\Special;
 use jinxing\admin\helpers\Helper;
 
+/**
+ * Class SpecialController 专项分类
+ *
+ * @package app\modules\admin\controllers
+ */
 class SpecialController extends Controller
 {
     public $modelClass = 'app\models\Special';
