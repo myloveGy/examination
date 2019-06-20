@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             sortable: false,
                             search: {type: "select"},
                             createdCell: function (td, data) {
-                                $(td).html(mt.valuesString(arrStatus, aStatusColor, data));
+                                $(td).html(MeTables.valuesString(arrStatus, aStatusColor, data));
                             }
                         },
                         {

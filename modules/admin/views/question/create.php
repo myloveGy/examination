@@ -152,7 +152,7 @@ AdminAsset::meTablesRegister($this);
         if (typeof arrIds !== "object") arrIds = [arrIds];
 
         for (x in answer) {
-            html += "<option value=\"" + x + "\" " + (mt.inArray(parseInt(x), arrIds) ? "selected=\"selected\"" : "") + ">" + answer[x] + "</option>";
+            html += "<option value=\"" + x + "\" " + (MeTables.inArray(parseInt(x), arrIds) ? "selected=\"selected\"" : "") + ">" + answer[x] + "</option>";
         }
 
         $("#input-answer-type").html(html);
@@ -176,7 +176,7 @@ AdminAsset::meTablesRegister($this);
 
     function getChapter(v) {
         var html = '<option value="">请选择</option>';
-        mt.ajax({
+        MeTables.ajax({
             url: "<?=Url::toRoute(['chapter'])?>",
             data: {sid: v},
             type: "POST",

@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">导入题目信息</h4>
                 </div>
                 <div class="modal-body">
@@ -72,20 +72,18 @@ $this->params['breadcrumbs'][] = $this->title;
             return '<span class="label label-sm ' + (c[d] ? c[d] : d) + '">' + (s[d] ? s[d] : d) + '</span>'
         }
 
-        mt.extend({
-            multipleCreate: function (params) {
-                var n = params.number ? params.number : 4, html = "<div class=\"div-inputs\">";
-                for (x = 0; x < n; x++) {
-                    html += createInput(params.name, "", x);
-                }
-
-                html += "</div>" +
-                    "<div class=\"div-buttons clearfix\">" +
-                    "<button type=\"button\" class=\"btn btn-sm btn-info m-input-create\">添加答案</button> " +
-                    " <button type=\"button\" class=\"btn btn-warning btn-sm m-input-delete\">删除上一个答案</button></div>";
-                return html;
+        MeTables.multipleCreate = function (params) {
+            var n = params.number ? params.number : 4, html = "<div class=\"div-inputs\">";
+            for (x = 0; x < n; x++) {
+                html += createInput(params.name, "", x);
             }
-        });
+
+            html += "</div>" +
+                "<div class=\"div-buttons clearfix\">" +
+                "<button type=\"button\" class=\"btn btn-sm btn-info m-input-create\">添加答案</button> " +
+                " <button type=\"button\" class=\"btn btn-warning btn-sm m-input-delete\">删除上一个答案</button></div>";
+            return html;
+        }
 
         var aTypeColor = {"1": "label-success", "2": "label-info", "3": "label-pink", "4": "label-inverse"};
 
@@ -114,10 +112,10 @@ $this->params['breadcrumbs'][] = $this->title;
             fileSelector: ["#image-file", "#upload-xls"],
             buttons: {
                 upload: {
-                    bShow: true,
                     text: "导入题目",
                     icon: "ace-icon fa fa-cloud-upload blue",
-                    className: "btn btn-white btn-primary btn-bold"
+                    className: "btn btn-white btn-primary btn-bold",
+                    "data-func": "upload"
                 }
             },
             // 主表格
@@ -198,7 +196,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         search: {type: "select"},
                         sortable: false,
                         createdCell: function (td, data) {
-                            $(td).html(mt.valuesString(aType, aTypeColor, data));
+                            $(td).html(MeTables.valuesString(aType, aTypeColor, data));
                         }
                     },
                     {
@@ -349,7 +347,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if (typeof arrIds !== "object") arrIds = [arrIds];
 
             for (x in answer) {
-                html += "<option value=\"" + x + "\" " + (mt.inArray(parseInt(x), arrIds) ? "selected=\"selected\"" : "") + ">" + answer[x] + "</option>";
+                html += "<option value=\"" + x + "\" " + (MeTables.inArray(parseInt(x), arrIds) ? "selected=\"selected\"" : "") + ">" + answer[x] + "</option>";
             }
 
             $("#input-answer-type").html(html);
@@ -371,7 +369,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $("#input-answer-type").prop("name", strType === 3 ? "answer_id[]" : "answer_id");
         }
 
-        $.extend(m, {
+        $.extend(myTable, {
             upload: function () {
                 $("#upload-modal").modal({backdrop: "static"});   // 弹出信息
             }
@@ -431,7 +429,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         $("#subject-id").html(html);
                     } else {
-                        mt.ajax({
+                        MeTables.ajax({
                             url: "<?=Url::toRoute(['subject'])?>",
                             data: {cid: v},
                             type: "POST",
@@ -455,7 +453,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $("#subject-id").add("#upload-subject-id").change(function () {
                 var v = parseInt($(this).val()), html = '<option value="">请选择</option>';
                 if (v) {
-                    mt.ajax({
+                    MeTables.ajax({
                         url: "<?=Url::toRoute(['chapter'])?>",
                         data: {sid: v},
                         type: "POST",
@@ -483,7 +481,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($fm.find("select[name=subject_id]").val()) {
                         message = "请上传文件";
                         if ($fm.find("input[name=upload_file]").val()) {
-                            mt.ajax({
+                            MeTables.ajax({
                                 url: "<?=Url::toRoute(['question/upload-question'])?>",
                                 data: $fm.serialize(),
                                 type: "POST",

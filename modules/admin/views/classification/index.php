@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $this->beginBlock('javascript') ?>
     <script type="text/javascript">
         var arrStatus = <?=Json::encode(Yii::$app->params['status'])?>;
-        var m = mt({
+        var m = MeTables({
             title: "考试类型",
             fileSelector: ["#icon-image"],
             table: {
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         sortable: false,
                         edit: {type: "radio", default: 1, required: 1, number: 1},
                         search: {type: "select"},
-                        createdCell: mt.statusString
+                        createdCell: MeTables.statusString
                     },
                     {
                         title: "创建时间",

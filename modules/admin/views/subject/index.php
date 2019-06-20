@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             shortScore: 5
         };
 
-        mt.extend({
+        MeTables.extend({
             configCreate: function (params, defaultConfig) {
                 if (!defaultConfig) defaultConfig = defaultArrConfig;
                 var html = "<div class='col-sm-12'>";
@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         value: arrStatus,
                         edit: {type: "radio", default: 1, required: 1, number: 1},
                         search: {type: "select"},
-                        createdCell: mt.statusString
+                        createdCell: MeTables.statusString
                     },
                     {
                         title: "创建时间",
