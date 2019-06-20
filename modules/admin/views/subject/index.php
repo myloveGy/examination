@@ -5,7 +5,7 @@ use \yii\helpers\Json;
 use \yii\helpers\Url;
 
 // 定义标题和面包屑信息
-$this->title = '科目信息';
+$this->title                   = '科目信息';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= MeTable::widget() ?>
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             shortScore: 5
         };
 
-        MeTables.extend({
+        $.extend(MeTables, {
             configCreate: function (params, defaultConfig) {
                 if (!defaultConfig) defaultConfig = defaultArrConfig;
                 var html = "<div class='col-sm-12'>";
@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         isHide: true
                     },
                     {
-                        title: "图标", 
+                        title: "图标",
                         data: "image",
                         sortable: false,
                         edit: {
@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
         });
 
         var $image = null;
-        $.extend(m, {
+        $.extend(myTable, {
             afterShow: function (data) {
 
                 if (this.action !== "delete") {
