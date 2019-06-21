@@ -4,6 +4,8 @@ namespace app\models;
 
 use yii\db\Query;
 use yii\helpers\Json;
+use yii\db\ActiveRecord;
+use app\models\traits\TimeTrait;
 
 /**
  * This is the model class for table "{{%question}}".
@@ -24,8 +26,10 @@ use yii\helpers\Json;
  * @property integer $error_number
  * @property integer $do_number
  */
-class Question extends TimeModel
+class Question extends ActiveRecord
 {
+    use TimeTrait;
+
     // 状态
     const STATUS_NO  = 0; // 停用
     const STATUS_KEY = 1; // 启用

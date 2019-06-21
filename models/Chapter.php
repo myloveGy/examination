@@ -2,18 +2,24 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
+use app\models\traits\TimeTrait;
+
+
 /**
  * This is the model class for table "{{%chapter}}".
  *
  * @property integer $id
- * @property string $name
+ * @property string  $name
  * @property integer $sort
  * @property integer $subject_id
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Chapter extends TimeModel
+class Chapter extends ActiveRecord
 {
+    use TimeTrait;
+
     /**
      * @inheritdoc
      */
@@ -40,9 +46,9 @@ class Chapter extends TimeModel
     public function attributeLabels()
     {
         return [
-            'id' => '章节分类ID',
-            'name' => '章节分类名称',
-            'sort' => '排序',
+            'id'         => '章节分类ID',
+            'name'       => '章节分类名称',
+            'sort'       => '排序',
             'subject_id' => '所属科目',
             'created_at' => '添加时间',
             'updated_at' => '修改时间',

@@ -2,10 +2,8 @@
 
 namespace app\models;
 
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\BaseActiveRecord;
-use yii\db\Expression;
+use app\models\traits\CreatedAtTrait;
 
 /**
  * This is the model class for table "ks_cat_type".
@@ -18,24 +16,7 @@ use yii\db\Expression;
  */
 class CarType extends ActiveRecord
 {
-    /**
-     * 定义行为，处理新增时间的写入
-     *
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            // 处理新增时间
-            'created_at' => [
-                'class'      => TimestampBehavior::className(),
-                'value'      => new Expression('UNIX_TIMESTAMP()'),
-                'attributes' => [
-                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                ],
-            ],
-        ];
-    }
+    use CreatedAtTrait;
 
     /**
      * @inheritdoc

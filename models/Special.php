@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
+use app\models\traits\TimeTrait;
+
 /**
  * This is the model class for table "{{%special}}".
  *
@@ -12,8 +15,10 @@ namespace app\models;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Special extends TimeModel
+class Special extends ActiveRecord
 {
+    use TimeTrait;
+
     /**
      * @inheritdoc
      */
