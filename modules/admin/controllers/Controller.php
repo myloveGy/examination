@@ -13,16 +13,18 @@ use jinxing\admin\controllers\Controller as BaseController;
 class Controller extends BaseController
 {
     /**
+     * 使用上传文件处理表单类
+     */
+    public $uploadFromClass = 'app\models\forms\UploadForm';
+
+    /**
      * 导出数据格式化处理
      *
      * @return array
      */
     public function getExportHandleParams()
     {
-        $array['created_at'] = $array['updated_at'] = function ($value) {
-            return date('Y-m-d H:i:s', $value);
-        };
-
+        $array           = parent::getExportHandleParams();
         $array['status'] = function ($value) {
             return $value == 1 ? '启用' : '停用';
         };

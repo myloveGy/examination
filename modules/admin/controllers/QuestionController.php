@@ -19,9 +19,10 @@ use yii;
  */
 class QuestionController extends Controller
 {
+    /**
+     * 使用的model
+     */
     public $modelClass = 'app\models\Question';
-
-    public $uploadFromClass = 'app\models\UploadForm';
 
     /**
      * where() 查询处理

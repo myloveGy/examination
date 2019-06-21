@@ -6,8 +6,8 @@ use jinxing\admin\helpers\Helper;
 use jinxing\admin\traits\JsonTrait;
 use Yii;
 use yii\filters\AccessControl;
-use app\models\LoginForm;
-use app\models\RegisterForm;
+use app\models\forms\LoginForm;
+use app\models\forms\RegisterForm;
 use app\models\User;
 
 /**
@@ -38,7 +38,7 @@ class SiteController extends Controller
                         'roles'   => ['@'],
                     ],
                 ],
-            ]
+            ],
         ];
     }
 

@@ -12,6 +12,9 @@ use app\modules\admin\models\User;
  */
 class UserController extends Controller
 {
+    /**
+     * @var string 定义使用的 model
+     */
     public $modelClass = 'app\modules\admin\models\User';
 
     /**

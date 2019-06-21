@@ -11,13 +11,13 @@ use yii\helpers\Json;
  *
  * @property integer $id
  * @property integer $car_id
- * @property string $name
- * @property string $desc
- * @property string $config
- * @property string $images
+ * @property string  $name
+ * @property string  $desc
+ * @property string  $config
+ * @property string  $images
  * @property integer $created_at
  * @property CarType $car
- * @property array $chapters
+ * @property array   $chapters
  *
  */
 class Subject extends ActiveRecord
@@ -49,13 +49,13 @@ class Subject extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => '科目分类信息',
-            'car_id' => '车型ID',
-            'desc' => '说明',
-            'status' => '状态',
-            'image' => '图片信息',
-            'config' => '配置信息',
+            'id'         => 'ID',
+            'name'       => '科目分类信息',
+            'car_id'     => '车型ID',
+            'desc'       => '说明',
+            'status'     => '状态',
+            'image'      => '图片信息',
+            'config'     => '配置信息',
             'created_at' => '创建时间',
         ];
     }
@@ -96,17 +96,17 @@ class Subject extends ActiveRecord
     public static function getSubject($where = [])
     {
         $arrReturn = [
-            'subject' => [],
+            'subject'     => [],
             'car_subject' => [],
         ];
-        $where = array_merge(['status' => 1], $where);
+        $where     = array_merge(['status' => 1], $where);
         // 查询所有车型
         $cars = CarType::find()->indexBy('id')->all();
         // 查询所有的科目
         $subject = self::find()->where($where)->asArray()->all();
         if ($subject) {
             foreach ($subject as $value) {
-                $strName = isset($cars[$value['car_id']]) ? $cars[$value['car_id']]->name.'--'.$value['name'] : $value['name'];
+                $strName                            = isset($cars[$value['car_id']]) ? $cars[$value['car_id']]->name . '--' . $value['name'] : $value['name'];
                 $arrReturn['subject'][$value['id']] = $strName;
                 if (empty($arrReturn['car_subject'][$value['car_id']])) {
                     $arrReturn['car_subject'][$value['car_id']] = [];

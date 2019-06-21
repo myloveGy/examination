@@ -12,6 +12,9 @@ use jinxing\admin\helpers\Helper;
  */
 class SpecialController extends Controller
 {
+    /**
+     * @var string 定义使用的 model
+     */
     public $modelClass = 'app\models\Special';
 
     /**

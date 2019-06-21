@@ -11,6 +11,9 @@ use app\models\Subject;
  */
 class ChapterController extends Controller
 {
+    /**
+     * 使用的 model
+     */
     public $modelClass = 'app\models\Chapter';
 
     /**

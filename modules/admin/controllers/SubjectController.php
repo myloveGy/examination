@@ -12,9 +12,10 @@ use yii\helpers\ArrayHelper;
  */
 class SubjectController extends Controller
 {
+    /**
+     * @var string 使用的 model
+     */
     public $modelClass = 'app\models\Subject';
-
-    public $uploadFromClass = 'app\models\UploadForm';
 
     /**
      * where() 查询处理

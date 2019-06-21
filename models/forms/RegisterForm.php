@@ -1,6 +1,8 @@
 <?php
-namespace app\models;
 
+namespace app\models\forms;
+
+use app\models\User;
 use jinxing\admin\helpers\Helper;
 
 class RegisterForm extends User

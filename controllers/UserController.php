@@ -27,7 +27,9 @@ class UserController extends Controller
     use JsonTrait;
 
     /**
-     * @inheritdoc
+     * 定义行为
+     *
+     * @return array
      */
     public function behaviors()
     {
@@ -37,16 +39,17 @@ class UserController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@']
-                    ]
-                ]
-            ]
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
         ];
     }
 
     /**
      * actionCollect 用户收藏的问题
-     * @return string|\yii\web\Response
+     *
+     * @return string
      */
     public function actionCollect()
     {
@@ -58,7 +61,7 @@ class UserController extends Controller
         // 查询收藏信息
         if (!($collect = UserCollect::findOne([
                 'user_id'    => Yii::$app->user->id,
-                'subject_id' => $subject->id
+                'subject_id' => $subject->id,
             ])) || empty($collect->qids)) {
             return $this->redirect(['/', 'subject' => 1]);
         }
@@ -66,7 +69,7 @@ class UserController extends Controller
         // 全部题目
         $allTotal = Question::find()->where([
             'status'     => Question::STATUS_KEY,
-            'subject_id' => $subject->id
+            'subject_id' => $subject->id,
         ])->count(); // 全部题库
 
         if (!$question = Question::findOne($collect->qids[0])) {
@@ -80,7 +83,7 @@ class UserController extends Controller
             ],
             [
                 'label' => '我的收藏',
-                'url'   => Url::toRoute(['user/collect', 'subject' => $subject->id])
+                'url'   => Url::toRoute(['user/collect', 'subject' => $subject->id]),
             ],
             '顺序练习',
         ];
@@ -115,7 +118,7 @@ class UserController extends Controller
         // 查询对象
         if (!$model = UserCollect::findOne([
             'user_id'    => Yii::$app->user->id,
-            'subject_id' => $intSubject
+            'subject_id' => $intSubject,
         ])) {
             $model             = new UserCollect();
             $model->user_id    = Yii::$app->user->id;

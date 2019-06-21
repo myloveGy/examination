@@ -1,6 +1,8 @@
 <?php
-namespace app\models;
 
+namespace app\models\forms;
+
+use app\models\User;
 use Yii;
 use yii\base\Model;
 
@@ -38,7 +40,7 @@ class LoginForm extends Model
      * This method serves as the inline validation for password.
      *
      * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * @param array  $params    the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params)
     {
