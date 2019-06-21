@@ -118,14 +118,14 @@ $(window).ready(function(){
             }).always(function(){
                 layer.close(oLoading);
             }).done(function(json){
-                if (json.errCode == 0) {
-                    layer.msg(json.errMsg, {icon:6});
+                if (json.code == 0) {
+                    layer.msg(json.msg, {icon:6});
                     userLogin(json.data);
                 } else {
                     if ($('.user-form').hasClass('register-form')) {
                         $('#captchaimg').trigger('click');
                     }
-                    layer.msg(json.errMsg, {icon:5});
+                    layer.msg(json.msg, {icon:5});
                 }
             }).fail(function(error){
                 console.info(error);
