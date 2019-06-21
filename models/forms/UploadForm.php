@@ -3,6 +3,7 @@
 namespace app\models\forms;
 
 use \yii\base\Model;
+use yii\web\UploadedFile;
 
 /**
  * Class UploadForm 上传文件处理类
@@ -11,18 +12,30 @@ use \yii\base\Model;
  */
 class UploadForm extends Model
 {
-    // 定义字段
-    public $avatar;       // 管理员个人页面上传头像
-    public $face;         // 管理员信息页面上传头像
-    public $question_img; // 问题图片上传
-    public $image;        // 车型配置图标
-    public $upload_file;        // 车型配置图标
+    /**
+     * @var UploadedFile 用户信息上传头像
+     */
+    public $face;
+
+    /**
+     * @var UploadedFile 问题图片上传
+     */
+    public $question_img;
+
+    /**
+     * @var UploadedFile 车型配置图标
+     */
+    public $image;
+
+    /**
+     * @var UploadedFile 题目上传
+     */
+    public $upload_file;
 
     // 设置应用场景
     public function scenarios()
     {
         return [
-            'avatar'       => ['avatar'],
             'face'         => ['face'],
             'question_img' => ['question_img'],
             'image'        => ['image'],
@@ -34,11 +47,16 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['avatar'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'avatar'],
             [['face'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'face'],
             [['question_img'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'question_img'],
             [['image'], 'image', 'extensions' => ['png', 'jpg', 'gif', 'jpeg'], 'on' => 'image'],
-            [['upload_file'], 'file', 'extensions' => ['xls', 'xlsx'], 'checkExtensionByMimeType' => false, 'on' => 'upload_file'],
+            [
+                ['upload_file'],
+                'file',
+                'extensions'               => ['xls', 'xlsx'],
+                'checkExtensionByMimeType' => false,
+                'on'                       => 'upload_file',
+            ],
         ];
     }
 }
