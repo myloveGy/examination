@@ -3,8 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use app\models\traits\TimeTrait;
-
+use jinxing\admin\models\traits\TimestampTrait;
 
 /**
  * This is the model class for table "{{%chapter}}".
@@ -18,7 +17,7 @@ use app\models\traits\TimeTrait;
  */
 class Chapter extends ActiveRecord
 {
-    use TimeTrait;
+    use TimestampTrait;
 
     /**
      * @inheritdoc

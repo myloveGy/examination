@@ -2,12 +2,11 @@
 
 namespace app\models;
 
-use app\models\traits\TimeTrait;
 use Yii;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\base\NotSupportedException;
+use jinxing\admin\models\traits\TimestampTrait;
 
 /**
  * User model
@@ -28,7 +27,7 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    use TimeTrait;
+    use TimestampTrait;
 
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE  = 10;

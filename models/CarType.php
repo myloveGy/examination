@@ -3,7 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use app\models\traits\CreatedAtTrait;
+use jinxing\admin\models\traits\CreatedAtTrait;
 
 /**
  * This is the model class for table "ks_cat_type".

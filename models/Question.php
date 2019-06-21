@@ -5,7 +5,7 @@ namespace app\models;
 use yii\db\Query;
 use yii\helpers\Json;
 use yii\db\ActiveRecord;
-use app\models\traits\TimeTrait;
+use jinxing\admin\models\traits\TimestampTrait;
 
 /**
  * This is the model class for table "{{%question}}".
@@ -28,7 +28,7 @@ use app\models\traits\TimeTrait;
  */
 class Question extends ActiveRecord
 {
-    use TimeTrait;
+    use TimestampTrait;
 
     // 状态
     const STATUS_NO  = 0; // 停用

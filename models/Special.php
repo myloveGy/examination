@@ -3,21 +3,21 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use app\models\traits\TimeTrait;
+use jinxing\admin\models\traits\TimestampTrait;
 
 /**
  * This is the model class for table "{{%special}}".
  *
  * @property integer $id
  * @property integer $pid
- * @property string $name
+ * @property string  $name
  * @property integer $sort
  * @property integer $created_at
  * @property integer $updated_at
  */
 class Special extends ActiveRecord
 {
-    use TimeTrait;
+    use TimestampTrait;
 
     /**
      * @inheritdoc
@@ -45,10 +45,10 @@ class Special extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'pid' => '父类ID',
-            'name' => '专项分类名称',
-            'sort' => '排序',
+            'id'         => 'ID',
+            'pid'        => '父类ID',
+            'name'       => '专项分类名称',
+            'sort'       => '排序',
             'created_at' => '添加时间',
             'updated_at' => '修改时间',
         ];
