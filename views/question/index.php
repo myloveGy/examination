@@ -340,7 +340,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
             }).always(function(){
                 layer.close(objBase.loading);
             }).done(function(json){
-                if (json.errCode == 0) {
+                if (json.code == 0) {
 
                     // 处理显示问题
                     if (json.data.question) {
@@ -453,7 +453,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                     dataType: 'json'
                 }).done(function(json) {
                     // 选择正确自动下一题目、响应正常、回答正确
-                    if (json.errCode == 0 && $('#isAutoNext').is(':checked') && objBase.complete[key]["complete"] == 'yes') {
+                    if (json.code == 0 && $('#isAutoNext').is(':checked') && objBase.complete[key]["complete"] == 'yes') {
                         getQuestion('next');
                     }
                 });
@@ -481,7 +481,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                 }).always(function(){
                     isCollect = true;
                 }).done(function(json){
-                    if (json.errCode == 0) {
+                    if (json.code == 0) {
                         layer.msg(hasCollect ? '你取消了收藏' : '收藏成功', {icon:6});
                         hasCollect ? self.removeClass('on') : self.addClass('on');
                     } else {

@@ -269,7 +269,7 @@ $array = range('A', 'J');
                 }).always(function(){
                     layer.close(meBase.loading);
                 }).done(function(json){
-                    if (json.errCode == 0) {
+                    if (json.code == 0) {
                         // 处理显示问题
                         if (json.data.question) {
                             meBase.initQuestion(json.data.question, json.data.answers);
