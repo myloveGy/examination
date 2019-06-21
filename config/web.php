@@ -16,10 +16,10 @@ $config = [
                     'class'          => 'jinxing\admin\Module',
                     'user'           => 'admin',
                     'leftTopButtons' => [],
-                    'userLinks'      => []
-                ]
+                    'userLinks'      => [],
+                ],
             ],
-            'layout'  => '@jinxing/admin/views/layouts/main'
+            'layout'  => '@jinxing/admin/views/layouts/main',
         ],
     ],
     'components' => [
@@ -96,13 +96,24 @@ $config = [
             'bundles' => [
                 // 去掉自己的bootstrap 资源
                 'yii\bootstrap\BootstrapAsset' => [
-                    'css' => []
+                    'css' => [],
                 ],
 
                 // 去掉自己加载的Jquery
                 'yii\web\JqueryAsset'          => [
                     'sourcePath' => null,
                     'js'         => [],
+                ],
+            ],
+        ],
+
+        // 配置语言
+        'i18n'         => [
+            'translations' => [
+                'admin' => [
+                    'class'          => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en',
+                    'basePath'       => '@jinxing/admin/messages',
                 ],
             ],
         ],
