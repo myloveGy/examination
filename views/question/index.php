@@ -350,7 +350,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                         objBase.renderQuestion();
                     }
                 } else {
-                    layer.msg(json.errMsg, {icon: 2});
+                    layer.msg(json.msg, {icon: 2});
                 }
             }).fail(function(error) {
                 layer.msg('服务器繁忙, 请稍候再试...');
@@ -485,7 +485,7 @@ $this->registerCssFile('@web/css/question.css', ['depends' => ['app\assets\AppAs
                         layer.msg(hasCollect ? '你取消了收藏' : '收藏成功', {icon:6});
                         hasCollect ? self.removeClass('on') : self.addClass('on');
                     } else {
-                        layer.msg(json.errMsg, {icon:5})
+                        layer.msg(json.msg, {icon:5})
                     }
                 });
             } else {

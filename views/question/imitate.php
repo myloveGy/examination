@@ -278,7 +278,7 @@ $array = range('A', 'J');
                             if (func) func(json.data);
                         }
                     } else {
-                        layer.msg(json.errMsg, {icon: 2});
+                        layer.msg(json.msg, {icon: 2});
                     }
                 }).fail(function() {
                     layer.msg('服务器繁忙, 请稍候再试...');
