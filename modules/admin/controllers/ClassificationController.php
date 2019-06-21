@@ -2,8 +2,11 @@
 
 namespace app\modules\admin\controllers;
 
-use jinxing\admin\controllers\Controller;
-
+/**
+ * Class ClassificationController 考试类型
+ *
+ * @package app\modules\admin\controllers
+ */
 class ClassificationController extends Controller
 {
     /**
