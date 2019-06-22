@@ -4,7 +4,7 @@ use jinxing\admin\widgets\MeTable;
 use \yii\helpers\Json;
 
 // 定义标题和面包屑信息
-$this->title = '考试类型';
+$this->title                   = '考试类型';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?= MeTable::widget() ?>
@@ -50,6 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 "input-type": "ace_file",
                                 "input-name": "image"
                             }
+                        },
+                        render: function (img) {
+                            return "<img src='" + img + "' style='width: 40px; height: 40px'/>";
                         }
                     },
                     {
