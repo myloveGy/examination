@@ -436,14 +436,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             type: "POST",
                             dataType: "json"
                         }).done(function (json) {
-                            if (json.errCode === 0) {
+                            if (json.code === 0) {
                                 for (var x in json.data) {
                                     html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
                                 }
 
                                 $("#subject-id").html(html);
                             } else {
-                                layer.msg(json.errMsg);
+                                layer.msg(json.msg);
                             }
                         });
                     }
@@ -460,14 +460,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         type: "POST",
                         dataType: "json"
                     }).done(function (json) {
-                        if (json.errCode === 0) {
+                        if (json.code === 0) {
                             for (var x in json.data) {
                                 html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
                             }
 
                             $("#chapter-id").add("#upload-chapter-id").html(html);
                         } else {
-                            layer.msg(json.errMsg);
+                            layer.msg(json.msg);
                         }
                     });
                 }
@@ -488,12 +488,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 type: "POST",
                                 dataType: "json"
                             }).done(function (json) {
-                                if (json.errCode === 0) {
+                                if (json.code === 0) {
                                     layer.msg("上传成功");
                                     $("#upload-modal").modal("hide");
                                     myTable.search()
                                 } else {
-                                    layer.msg(json.errMsg, {icon: 5})
+                                    layer.msg(json.msg, {icon: 5})
                                 }
                             });
 

@@ -187,14 +187,14 @@ AdminAsset::meTablesRegister($this);
             type: "POST",
             dataType: "json"
         }).done(function (json) {
-            if (json.errCode === 0) {
+            if (json.code === 0) {
                 for (var x in json.data) {
                     html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
                 }
 
                 $("#chapter-id").add("#upload-chapter-id").html(html);
             } else {
-                layer.msg(json.errMsg);
+                layer.msg(json.msg);
             }
         });
     }
@@ -254,14 +254,14 @@ AdminAsset::meTablesRegister($this);
                     data: $fm.serialize(),
                     dataType: "json"
                 }).done(function (json) {
-                    if (json.errCode === 0) {
-                        layer.msg(json.errMsg, {
+                    if (json.code === 0) {
+                        layer.msg(json.msg, {
                             icon: 6, time: 1000, end: function () {
                                 parent.closeLayer();
                             }
                         })
                     } else {
-                        layer.msg(json.errMsg, {icon: 5})
+                        layer.msg(json.msg, {icon: 5})
                     }
                 });
             }

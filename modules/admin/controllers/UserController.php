@@ -41,4 +41,29 @@ class UserController extends Controller
             'statusColor' => User::getStatusColor(),
         ]);
     }
+
+    /**
+     * 处理导出数据格式化
+     *
+     * @return array
+     */
+    public function getExportHandleParams()
+    {
+        $params           = parent::getExportHandleParams();
+        $params['status'] = function ($value) {
+            return $value == 10 ? '启用' : '停用';
+        };
+
+        // 最后登陆时间
+        $params['last_time'] = function ($value) {
+            return $value ? date('Y-m-d H:i:s', $value) : '';
+        };
+
+        // 手机号
+        $params['phone'] = function ($value) {
+            return "\t" . $value;
+        };
+
+        return $params;
+    }
 }
