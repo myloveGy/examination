@@ -21,7 +21,7 @@ $this->registerCssFile('@web/css/index.css', ['depends' => ['app\assets\AppAsset
         <div class="col-md-4">
             <a class="fl lianxi2-a li0 car-item"  href="<?=Url::toRoute(['classification/index', 'id' => $value->id])?>">
                 <div class="text-center car-image">
-                    <img src="<?=$value->image?>" class="img-circle" alt="<?=$value->name?>" />
+                    <img src="<?=$value->image?>" class="img-responsive" alt="<?=$value->name?>" />
                 </div>
                 <div class="car-a">
                     <h4><?=$value->name;?></h4>

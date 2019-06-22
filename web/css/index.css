@@ -21,6 +21,7 @@ div.header h2 {
 .erjiyemian .bt4 {
     margin-top: 33px;
 }
+
 .bt4 {
     margin-top: 40px;
 }
@@ -32,9 +33,9 @@ div.head_nav {
 }
 
 div .head_nav h2 {
-     color: #333;
-     font-size: 20px;
-     font-weight: bold;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .jkbd-con-item .content-wapper {
@@ -44,10 +45,12 @@ div .head_nav h2 {
 .float-l, .fl {
     float: left;
 }
+
 a {
     color: inherit;
     text-decoration: none;
 }
+
 .page-course {
     padding-top: 40px;
     padding-bottom: 100px;
@@ -87,7 +90,7 @@ a {
     width: 300px
 }
 
-.page-course .p-right:after,.page-course .p-right:before {
+.page-course .p-right:after, .page-course .p-right:before {
     clear: both;
     display: table;
     overflow: hidden;
@@ -99,7 +102,7 @@ a {
     clear: both
 }
 
-.page-course .p-right:after,.page-course .p-right:before {
+.page-course .p-right:after, .page-course .p-right:before {
     display: table;
     content: "";
     line-height: 0
@@ -115,123 +118,127 @@ a {
 
 .block-mnks .content-wapper a {
     height: 150px;
-    width:100%;
-    margin-top:15px;
+    width: 100%;
+    margin-top: 15px;
     background: #f7f7f7;
     text-decoration: none;
 }
 
- .block-mnks .content-wapper a.lianxi-a {
+.block-mnks .content-wapper a.lianxi-a {
     margin-top: 0
 }
 
- .block-mnks .content-wapper a.li0 {
+.block-mnks .content-wapper a.li0 {
     margin-left: 0
 }
 
- .block-mnks .content-wapper a.lianxi0 .bar {
+.block-mnks .content-wapper a.lianxi0 .bar {
     background: #40bcff
 }
 
- .block-mnks .content-wapper a.lianxi0 .bar span {
+.block-mnks .content-wapper a.lianxi0 .bar span {
     background: #1ca4ed
 }
 
- .block-mnks .content-wapper a.lianxi3 .bar {
+.block-mnks .content-wapper a.lianxi3 .bar {
     background: #fec24a
 }
 
- .block-mnks .content-wapper a.lianxi3 .bar span {
+.block-mnks .content-wapper a.lianxi3 .bar span {
     background: #e6af43
 }
 
- .block-mnks .content-wapper a.lianxi8 .bar {
+.block-mnks .content-wapper a.lianxi8 .bar {
     background: #ff5b4c
 }
 
- .block-mnks .content-wapper a.lianxi8 .bar span {
+.block-mnks .content-wapper a.lianxi8 .bar span {
     background: #e65245
 }
 
- .block-mnks .content-wapper a.lianxi6 .bar {
+.block-mnks .content-wapper a.lianxi6 .bar {
     background: #47cc95
 }
 
- .block-mnks .content-wapper a.lianxi6 .bar span {
+.block-mnks .content-wapper a.lianxi6 .bar span {
     background: #3eb382
 }
 
- .block-mnks .content-wapper a span {
+.block-mnks .content-wapper a span {
     display: block;
     text-align: center
 }
 
- .block-mnks .content-wapper a .name {
+.block-mnks .content-wapper a .name {
     padding-top: 88px
 }
 
- .block-mnks .content-wapper a .bar {
+.block-mnks .content-wapper a .bar {
     margin: 25px auto 0;
     width: 40px;
     height: 10px
 }
 
- .block-mnks .content-wapper a .bar span {
+.block-mnks .content-wapper a .bar span {
     width: 0;
     height: 100%
 }
 
- .block-mnks .content-wapper a .count {
+.block-mnks .content-wapper a .count {
     margin-top: 15px
 }
 
- .block-mnks .content-wapper a.lianxi0 {
+.block-mnks .content-wapper a.lianxi0 {
     background: #f7f7f7 url(../images/shunxu.png) center 42px no-repeat
 }
 
- .block-mnks .content-wapper a.lianxi3 {
+.block-mnks .content-wapper a.lianxi3 {
     background: #f7f7f7 url(../images/suiji.png) center 42px no-repeat
 }
 
- .block-mnks .content-wapper a.lianxi5 {
+.block-mnks .content-wapper a.lianxi5 {
     background: #f7f7f7 url(../images/favor.png) center 50px no-repeat
 }
 
- .block-mnks .content-wapper a.lianxi8 {
+.block-mnks .content-wapper a.lianxi8 {
     background: #f7f7f7 url(../images/nanti.png) center 42px no-repeat
 }
 
- .block-mnks .content-wapper a.lianxichapter {
+.block-mnks .content-wapper a.lianxichapter {
     background: #f7f7f7 url(../images/chapter.png) center 42px no-repeat
 }
 
- .block-mnks .content-wapper a.lianxistrengthen {
+.block-mnks .content-wapper a.lianxistrengthen {
     background: #f7f7f7 url(../images/strengthen.png) center 42px no-repeat
 }
 
- .block-mnks .content-wapper a.lianxi4 {
+.block-mnks .content-wapper a.lianxi4 {
     background: #f7f7f7 url(../images/error.png) center 42px no-repeat
 }
 
- .block-mnks .content-wapper a.lianxiexam {
+.block-mnks .content-wapper a.lianxiexam {
     background: #f7f7f7 url(../images/exam.png) center 42px no-repeat
 }
 
- .block-mnks .content-wapper a:hover {
+.block-mnks .content-wapper a:hover {
     background-color: #eee
 }
 
 .block-mnks .content-wapper a.car-item {
     height: auto;
     background: #fff;
-    border: 1px solid  #e6e6e6;
+    border: 1px solid #e6e6e6;
     border-radius: 2px;
     padding: 10px;
 }
 
 .car-image {
-    height: 135px;
+    height: 155px;
     overflow: hidden;
+}
+
+.car-image > img {
+    margin: 0 auto;
 }
 
 .car-a {

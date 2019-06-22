@@ -14,11 +14,12 @@ $config = [
             'modules' => [
                 'admin' => [
                     'class'          => 'jinxing\admin\Module',
-                    'user'           => 'admin',
+                    'user'           => 'user',
                     'leftTopButtons' => [],
                     'userLinks'      => [],
                 ],
             ],
+            'user'    => 'user',
             'layout'  => '@jinxing/admin/views/layouts/main',
         ],
     ],
