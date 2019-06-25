@@ -139,12 +139,14 @@ AppAsset::register($this);
         <p class="tips normal"> 注册/登录后可保存做题进度 </p>
     </div>
     <div class="content-container">
-        <form class="register-form form-horizontal user-form" id="register-form"
+        <form autocomplete="off"
+              class="register-form form-horizontal user-form"
+              id="register-form"
               action="<?= Url::toRoute(['site/register']) ?>">
             <input type="hidden" value="<?= Yii::$app->getRequest()->getCsrfToken() ?>" name="_csrf"/>
             <div class="form-group">
                 <input name="username" class="i-username form-control" required="true" rangelength="[2, 100]"
-                       placeholder="请输入昵称" type="text">
+                       placeholder="请输入昵称" type="text" autocomplete="off">
             </div>
             <div class="form-group">
                 <input name="phone" class="i-username form-control" required="true" maxlength="11" minlength="11"
@@ -152,7 +154,7 @@ AppAsset::register($this);
             </div>
             <div class="form-group">
                 <input name="password" id="m-password" class="i-password form-control" required="true"
-                       rangelength="[6, 50]" placeholder="请设置密码" type="password">
+                       rangelength="[6, 50]" placeholder="请设置密码" type="password" autocomplete="new-password">
             </div>
             <div class="form-group">
                 <input name="rePassword" class="i-password form-control" required="true" rangelength="[6, 50]"
@@ -171,9 +173,9 @@ AppAsset::register($this);
                             'id'    => 'captchaimg',
                             'title' => '换一个',
                             'alt'   => '换一个',
-                            'style' => 'cursor:pointer;margin-left:25px;'
+                            'style' => 'cursor:pointer;margin-left:25px;',
                         ],
-                        'template'      => '{image}'
+                        'template'      => '{image}',
                     ]) ?>
                 </div>
             </div>
