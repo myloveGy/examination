@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 title: "用户信息",
                 fileSelector: ["#ace-file"],
                 number: false,
-                search: {render: true},
                 table: {
                     columns: [
                         {
