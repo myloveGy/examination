@@ -5,12 +5,11 @@
  * Time: 下午11:16
  */
 
-use jinxing\admin\AdminAsset;
-use \yii\helpers\Url;
-use \yii\helpers\Html;
-
+use yii\helpers\Url;
+use yii\helpers\Html;
+use jinxing\admin\web\TableAsset;
+TableAsset::register($this);
 $this->title = '题目信息添加';
-AdminAsset::meTablesRegister($this);
 ?>
 <form class="form-horizontal" id="create-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="status" value="1"/>
@@ -181,21 +180,12 @@ AdminAsset::meTablesRegister($this);
 
     function getChapter(v) {
         var html = '<option value="">请选择</option>';
-        MeTables.ajax({
-            url: "<?=Url::toRoute(['chapter'])?>",
-            data: {sid: v},
-            type: "POST",
-            dataType: "json"
-        }).done(function (json) {
-            if (json.code === 0) {
-                for (var x in json.data) {
-                    html += '<option value="' + json.data[x]["id"] + '"> ' + json.data[x]["name"] + ' </option>';
-                }
-
-                $("#chapter-id").add("#upload-chapter-id").html(html);
-            } else {
-                layer.msg(json.msg);
+        ajax("<?=Url::toRoute(['chapter'])?>", {sid: v}, function (data) {
+            for (var x in data) {
+                html += '<option value="' + data[x]["id"] + '"> ' + data[x]["name"] + ' </option>';
             }
+
+            $("#chapter-id").add("#upload-chapter-id").html(html);
         });
     }
 
@@ -248,21 +238,12 @@ AdminAsset::meTablesRegister($this);
             evt.preventDefault();
             var $fm = $(this);
             if ($fm.validate().form()) {
-                MeTables.ajax({
-                    url: "<?=Url::toRoute(['question/create'])?>",
-                    type: "POST",
-                    data: $fm.serialize(),
-                    dataType: "json"
-                }).done(function (json) {
-                    if (json.code === 0) {
-                        layer.msg(json.msg, {
-                            icon: 6, time: 1000, end: function () {
-                                parent.closeLayer();
-                            }
-                        })
-                    } else {
-                        layer.msg(json.msg, {icon: 5})
-                    }
+                ajax("<?=Url::toRoute(['question/create'])?>", $fm.serialize(), function () {
+                    layer.msg('添加成功', {
+                        icon: 6, time: 1000, end: function () {
+                            parent.closeLayer();
+                        }
+                    })
                 });
             }
         });

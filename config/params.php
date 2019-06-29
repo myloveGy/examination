@@ -5,6 +5,8 @@ return [
     'adminEmail'                    => 'admin@example.com',
     'user.passwordResetTokenExpire' => 3600,
 
+    'status' => ['停用', '启用'],
+
     'projectOpenOther' => true,
     'projectName'      => '考试系统',
     'projectTitle'     => '考试系统',
