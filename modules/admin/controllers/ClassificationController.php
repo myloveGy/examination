@@ -22,7 +22,7 @@ class ClassificationController extends Controller
     public function where()
     {
         return [
-            ['id', '='],
+            [['id', 'status'], '='],
             ['name', 'like'],
         ];
     }
