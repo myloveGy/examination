@@ -5,6 +5,8 @@ return [
     'adminEmail'                    => 'admin@example.com',
     'user.passwordResetTokenExpire' => 3600,
 
+    'admin_rule_prefix' => 'admin/admin',
+
     'status' => ['停用', '启用'],
 
     'projectOpenOther' => true,

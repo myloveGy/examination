@@ -12,6 +12,12 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+
+        // 权限管理
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+
         'log' => [
             'targets' => [
                 [
