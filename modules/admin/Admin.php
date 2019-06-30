@@ -2,8 +2,9 @@
 
 namespace app\modules\admin;
 
-use jinxing\admin\Module;
 use Yii;
+use jinxing\admin\Module;
+
 
 /**
  * admin module definition class
@@ -14,7 +15,6 @@ class Admin extends Module
      * {@inheritdoc}
      */
     public $controllerNamespace = 'app\modules\admin\controllers';
-
 
     /**
      * {@inheritdoc}

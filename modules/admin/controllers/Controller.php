@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\modules\admin\controllers;
 
 use jinxing\admin\controllers\Controller as BaseController;

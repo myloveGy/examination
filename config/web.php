@@ -11,6 +11,7 @@ $config = [
     'modules'    => [
         'admin' => [
             'class'   => 'app\modules\admin\Admin',
+            'user'    => 'admin',
             'modules' => [
                 'admin' => [
                     'class'          => 'jinxing\admin\Module',
@@ -19,8 +20,6 @@ $config = [
                     'userLinks'      => [],
                 ],
             ],
-            'user'    => 'admin',
-            'layout'  => '@jinxing/admin/views/layouts/main',
         ],
     ],
     'components' => [
