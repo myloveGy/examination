@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         {
                             title: "密码",
                             data: "password",
-                            edit: {type: "password", rangeLength: "[2, 20]"},
+                            edit: {type: "password", rangeLength: "[2, 20]", autocomplete: "new-password"},
                             sortable: false,
                             defaultContent: "",
                             bViews: false,
@@ -79,7 +79,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     "input-type": "ace_file",
                                     "input-name": "face"
                                 }
-                            }
+                            },
+                            sortable: false
                         },
                         {
                             title: "状态",
