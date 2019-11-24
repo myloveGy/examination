@@ -50,7 +50,7 @@ $config = [
             'identityClass'   => 'jinxing\admin\models\Admin',
             'enableAutoLogin' => true,
             'loginUrl'        => ['/admin/admin/default/login'],
-            'returnUrl'       => ['/admin'],
+            'returnUrl'       => ['/admin/admin'],
             'idParam'         => '_adminId',
             'identityCookie'  => ['name' => '_admin', 'httpOnly' => true],
         ],
