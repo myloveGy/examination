@@ -12,6 +12,6 @@ class DefaultController extends Controller
 {
     public function actionIndex()
     {
-        return $this->redirect('/admin/admin');
+        return $this->redirect('/' . $this->module->id . '/admin');
     }
 }
